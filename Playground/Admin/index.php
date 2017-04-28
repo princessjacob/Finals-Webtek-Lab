@@ -17,15 +17,40 @@
 			if ($conn->connect_error) {
     			die("Connection failed: " . $conn->connect_error);
 			} 
-			echo "Connected successfully";
 		?>
 
-        <h1> Welcome to Pet Mo, Vet Ko! </h1>
+		<header>
 		<form action="actions\authentication.php" method="get">
   			Email: <input type="text" name="name"><br>
   			Password: <input type="password" name="pass"><br>
   			<input class="login-button" type="submit" value="Login">
 		</form>
 			<input class="signup-button" type="submit" value="Create Account" onclick="window.location='/pages/signup';">
+		</header>
+
+		<h1> Welcome to Pet Mo, Vet Ko! </h1>
+		<h2> Care for your pets now! </h2>
+		<div> With professionals always in the work, you never have to worry about the  </div>
+
+		<form action="actions/createaccount.php" method="get">
+  			First Name: <input type="text" name="firstName"><br>
+  			Last Name: <input type="text" name="lastName"><br>
+  			Email: <input type="text" name="email"><br>
+  			Password: <input type="password" name="pass"><br>
+  			Configure Password: <input type="password" name="confpass"><br>
+  			House Address: <input type="text" name="address"><br>
+  			<!--
+  			Barangay:
+  			<select name="barangay">
+  				<option value="" selected> Choose Barangay </option>
+  				<option value="Aurora Hill"> Aurora Hill </option>
+  				<option value="Camp 7"> Camp 7 </option>
+  				<option value="Quezon Hill"> Quezon Hill </option>
+  			</select><br>
+  			-->
+  			<input class="create-account" type="submit" value="Create Account">
+		</form>
+
+
     </body>
 </html>
