@@ -1,0 +1,42 @@
+<---NOTE: Di naman kelangan na ito yung sundin :) suggestion lang po kaya wag magalit.--->
+
+SCHEMA
+
+CUSTOMER (custID, LastName, FirstName, Email, Password, StreetAdd, City, Province, Country, ContactNo)
+
+REQUEST (req_id, reqStatus, reqDets, trans_id, cust_id, sp_id)
+	FK 	trans_id REFERENCES TRANSACTION Nulls Not Allowed
+			Delete Restrict, Update Cascade
+		cust_id REFERENCES CUSTOMER Nulls Not Allowed
+			Delete Restrict, Update Cascade
+		sp_id REFERENCES SERVICE_PROVIDER Nulls Not Allowed
+			Delete Restrict, Update Cascade
+
+REVIEW_RATING (rr_id, revDets, rating, sp_id, cust_id)
+	FK 	sp_id REFERENCES SERVICE_PROVIDER Nulls Not Allowed
+			Delete Restrict, Update Cascade
+		cust_id REFERENCES CUSTOMER Nulls Not Allowed
+			Delete Restrict, Update Cascade
+
+SERVICES (serv_id, servName, servDesc, price, cust_id, trans_id, sp_id)
+
+SERVICE_PROVIDER (sp_id, spName, spAdd, spNum, spEmail, spStatus, spService, trans_id, serv_id, req_id)
+	FK	serv_id REFERENCES SERVICES Nulls Not Allowed
+			Delete Restrict, Update Cascade
+
+SSP (serv_id, sp_id)
+	FK	serv_id REFERENCES SERVICES Nulls Not Allowed
+			Delete Restrict, Update Cascade
+		sp_id REFERENCES SERVICE_PROVIDER Nulls Not Allowed
+			Delete Restrict, Update Cascade
+
+TRANSACTION (trans_id, orNum, transStatus, transDate, timeStart, timeIn, payment, payStatus, cust_id, serv_id, sp_id, req_id)
+	FK	cust_id REFERENCES CUSTOMER Nulls Not Allowed
+			Delete Restrict, Update Cascade
+		serv_id REFERENCES SERVICES Nulls Not Allowed
+			Delete Restrict, Update Cascade
+		sp_id REFERENCES SERVICE_PROVIDER Nulls Not Allowed
+			Delete Restrict, Update Cascade
+		req_id REFERENCES REQUEST Nulls Not Allowed
+			Delete Restrict, Update Cascade
+
