@@ -1,42 +1,85 @@
-<---NOTE: Di naman kelangan na ito yung sundin :) suggestion lang po kaya wag magalit.--->
+<---NOTE: Di naman kelangan na ito yung sundin :) suggestion lang po kaya wag magalit. Sorry kung nangingialam
+	sa ibang module pero kami rin kasi yung gagawa ng mga sign up page kaya kelangan din ng coordination
+	sa mga modules. --->
 
 SCHEMA
 
-CUSTOMER (custID, LastName, FirstName, Email, Password, StreetAdd, City, Province, Country, ContactNo)
+CUSTOMER (cust_id, LastName, FirstName, Email, Password, StreetAdd, Barangay, CityProvince, Region, Country, ContactNo, Photo)
 
-REQUEST (req_id, reqStatus, reqDets, trans_id, cust_id, sp_id)
-	FK 	trans_id REFERENCES TRANSACTION Nulls Not Allowed
-			Delete Restrict, Update Cascade
-		cust_id REFERENCES CUSTOMER Nulls Not Allowed
+	<!-- A customer doesnt have to get a service immediately after creating an account. Pwede naman 
+		kasing ininstall niya yun incase of emergency diba? tapos parang kapag kasi nangangailangan 
+		siya ng mga echos na FK na yan, parang sinasabi niyo na di magkakaroon ng customer pag 
+		walang ganun. So kunwari, tapos na ng customer yung service na inorder niya, di naman siya 
+		required na kumuha ulit ng service after that service. kasi pag FK meaning na kelangan niyang 
+		magkaroon ulit ng transaction kasi REQUIRED daw. pero in reality, customers can avail a service 
+		whenever they want. so yun.. paki consider nalang.
+
+		yung sa first name last name, pwedeng i concat yan para maging name. the purpose of that is 
+		para hindi hindi malito yung SP sa first name or last name ng customer. Parang si Delson Wooden 
+		at Teo Delson sa klase natin. Pwede rin yan gamitin as first name basis? pero kung mas prefer 
+		niyo isang pangalan nalang, okay lang naman. kunwari nagloloko din yung customer tas pangalan 
+		niya is "dragonslayer69". okay lang.. basta consider niyo nalang.
+
+		yung sa mga address, para mas madali mafilter yung locations. kunwari yung same street address 
+		is yung priority na ipapakita search results. basta for priority purposes.
+
+		yung sa photo, bahala na yung customer pero di naman necessary na lagyan ng photo. parang sa 
+		slack lang, di necessary na lagyan ng photo pero kung gusto mo pagandahin yung profile or gusto 
+		mo magmukhang maganda, edi lagyan ng photo. -->
+
+
+
+REQUEST (req_id, reqStatus, reqDets, reqDate, cust_id, sp_id)
+	FK 	cust_id REFERENCES CUSTOMER Nulls Not Allowed
 			Delete Restrict, Update Cascade
 		sp_id REFERENCES SERVICE_PROVIDER Nulls Not Allowed
 			Delete Restrict, Update Cascade
 
-REVIEW_RATING (rr_id, revDets, rating, sp_id, cust_id)
+	<!-- Yung reqdate is para sa transactions part. diba pwedeng magcancel yung customer given na less
+		than 24 hours siya nagrequest. dun sa reqDate, after iaccept ng SP, dun na magsisimula yung
+		timer ng customer. -->
+
+REVIEW_RATING (rr_id, revDets, rating, reviewer, sp_id, cust_id)
 	FK 	sp_id REFERENCES SERVICE_PROVIDER Nulls Not Allowed
 			Delete Restrict, Update Cascade
 		cust_id REFERENCES CUSTOMER Nulls Not Allowed
 			Delete Restrict, Update Cascade
 
-SERVICES (serv_id, servName, servDesc, price, cust_id, trans_id, sp_id)
+	<!-- Yung reviewer is kung sino nagrereview. kunwari yung customer nagrereview sa SP. O kaya yung SP
+		nagrereview sa customer. -->
 
-SERVICE_PROVIDER (sp_id, spName, spAdd, spNum, spEmail, spStatus, spService, trans_id, serv_id, req_id)
+SERVICES (servID, servName, photo)
+
+
+SERVICE_PROVIDER (sp_id, SPName, SPAdd, SPNum, SPEmail, SPPass, SPStatus, PetType, LastLogged, Photo serv_id)
 	FK	serv_id REFERENCES SERVICES Nulls Not Allowed
 			Delete Restrict, Update Cascade
 
-SSP (serv_id, sp_id)
+	<!-- Yung pet type is yung spinespecialize nung SP. kunwari allergic pala siya sa cat or dog. Syempre,
+		kelangan din naman yun malagay sa database tas pag search naman ng customers eh makikita rin
+		nila yung mga nagspespecialize sa cats or dogs. Pwede rin naman both. Yung LastLogged is para
+		makita kung kelan last na naging active yung SP -->
+
+
+SSP (serv_id, sp_id, Price, Rate)
 	FK	serv_id REFERENCES SERVICES Nulls Not Allowed
 			Delete Restrict, Update Cascade
 		sp_id REFERENCES SERVICE_PROVIDER Nulls Not Allowed
 			Delete Restrict, Update Cascade
 
-TRANSACTION (trans_id, orNum, transStatus, transDate, timeStart, timeIn, payment, payStatus, cust_id, serv_id, sp_id, req_id)
-	FK	cust_id REFERENCES CUSTOMER Nulls Not Allowed
+	<!-- Di ko alam kung yung SSP eh tables tungkol sa SP at yung mga services na prinoprovide nila. Pero
+		parang mas may sense na jan ilagay yung price/rate ng bawat service. Yung price parang yan yung fixed
+		price na iproprovide ng SP. Kunwari diba kapag training eh pwedeng basic training na "sit". So parang
+		mas mababa yung price nun kesa sa training na "role over". Tapos nakadepende narin sa SP yung price
+		na iseset nila since sila naman yung magproprovide ng service. Yung rate naman is hourly or per
+		session. Hourly kunwari yung "pet sitting" na hourly mo binabayaran. Yung per session naman is kunwari
+		"pet haircut" na per session mo binabayaran. -->
+
+
+TRANSACTION (trans_id, transStatus, transDate, timeStart, timeIn, payment, payStatus, req_id)
+	FK	req_id REFERENCES REQUEST Nulls Not Allowed
 			Delete Restrict, Update Cascade
-		serv_id REFERENCES SERVICES Nulls Not Allowed
-			Delete Restrict, Update Cascade
-		sp_id REFERENCES SERVICE_PROVIDER Nulls Not Allowed
-			Delete Restrict, Update Cascade
-		req_id REFERENCES REQUEST Nulls Not Allowed
-			Delete Restrict, Update Cascade
+
+	<!-- Yung OR number is pwede narin yung Trans_id since parehas lang naman silang id. Inalis ko narin yung
+		ibang FK dahil lahat naman sila nakaconnect na sa req_ID. -->
 
