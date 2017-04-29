@@ -1,3 +1,7 @@
+<?php
+  session_start();
+?>
+
 <!DOCTYPE HTML>
 <html>
     <head>
@@ -16,22 +20,41 @@
 			// Check connection
 			if ($conn->connect_error) {
     			die("Connection failed: " . $conn->connect_error);
-			} 
+			}
 		?>
 
 		<header>
-		  <form action="actions\authentication.php" method="get">
+		  <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
   		  <input type="text" name="email-signin" value="Email"
           onblur="if (this.value=='') {this.value='Email';}" 
           onfocus="if (this.value == 'Email') {this.value='';}">
         <input type="text" name="pass-signin" value="Password"
           onblur="if (this.value=='') {this.value='Password';}" 
           onfocus="if (this.value == 'Password') {this.value='';}">
-  			 <input class="login-button" type="submit" value="Login">
+  			 <input class="login-button" type="submit" name="loginbutton" value="Login">
 		  </form>
 		</header>
 
-    <!--Delete hr after putting css-->
+    <!-- LOGIN ACTION -->
+
+    <?php
+      if(isset($_POST["loginbutton"])) {
+        $emailsignin = $_POST["email-signin"];
+        $passsignin = $_POST["pass-signin"];
+
+        $result = mysqli_query($conn, "SELECT * FROM customers WHERE Email = '$emailsignin' AND Password = '$passsignin'");
+        if(mysqli_num_rows($result) > 0) {
+          $_SESSION['loggedin'] = true;
+          $_SESSION['user'] = $emailsignin;
+          mysqli_free_result($result);
+          header("Location: pages/admindashboard.php");
+        } else {
+          echo "Incorrect/Unregistered email or password!";
+          mysqli_free_result($result);
+        }
+      }
+    ?>
+
     <hr>
 
 		<h1> Welcome to Pet Mo, Vet Ko! </h1>
@@ -40,7 +63,7 @@
 
     <hr>
 
-	  <form action="<?php $PHP_SELF; ?>" method="POST">
+	  <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
       <h3> Name </h3>
  			<input type="text" name="firstName" value="First Name"
         onblur="if (this.value=='') {this.value='First Name';}" 
@@ -48,12 +71,12 @@
 			<input type="text" name="lastName" value="Last Name"
         onblur="if (this.value=='') {this.value='Last Name';}" 
         onfocus="if (this.value == 'Last Name') {this.value='';}"><br>
+      Email: <input type="text" name="email"><br>
+      Password: <input type="password" name="pass"><br>
       <h3> Contact </h3>
       Contact Number: <input type="text" name="contactno"><br>
-			Email: <input type="text" name="email"><br>
- 			Password: <input type="password" name="pass"><br>
-      Home Address: <input type="text" name="homeadd"><br>
- 			Street Address: <input type="text" name="streetadd"><br>
+      Street Address: <input type="text" name="streetadd"><br>
+ 			Barangay: <input type="text" name="barangay"><br>
       City/Province: <input type="text" name="cityprovince"><br>
       Region: <input type="text" name="region"><br>
       Country: <input type="text" name="country"><br>
@@ -65,33 +88,40 @@
     
     <?php
       if(isset($_POST["customerregister"])) {
+
         $firstName = $_POST["firstName"];
         $lastName = $_POST["lastName"];
         $email = $_POST["email"];
-        $homeadd = $_POST["homeadd"];
         $pass = $_POST["pass"];
         $streetadd = $_POST["streetadd"];
-        $cityprovince = $_POST["cityprovince"];
+        $barangay = $_POST["barangay"];
         $region = $_POST["region"];
+        $cityprovince = $_POST["cityprovince"];
         $country = $_POST["country"];
         $contactno = $_POST["contactno"];
 
-        $result = mysqli_query($conn, "SELECT * FROM customers WHERE Email = '$email'");
+        if (empty($firstName) || empty($lastName) || empty($email) || empty($pass) || empty($streetadd) || empty($barangay) || empty($cityprovince) ||  empty($region) || empty($country) || empty($contactno)) {
 
+          echo "Please fill up all the parts of the form";
 
-
-        if(mysqli_num_rows($result) > 0) {
-          print "Account already exists!";
-          mysqli_free_result($result);
+        } else if (!preg_match("/^[_\.0-9a-zA-Z-]+@([0-9a-zA-Z][0-9a-zA-Z-]+\.)+[a-zA-Z]{2,6}$/i", $email)) {
+          echo "The email you have entered is invalid, please try again.";
         } else {
-          $sql = "INSERT INTO Customers (LastName, FirstName, Email, Password, HomeAdd, StreetAdd, CityProvince, Region, Country, ContactNo) VALUES ('$lastName', '$firstName', '$email', '$pass', '$homeadd', '$streetadd', '$cityprovince', '$region', '$country', '$contactno')";
+          $result = mysqli_query($conn, "SELECT * FROM customers WHERE Email = '$email'");
 
-          if ($conn->query($sql) === TRUE) {
+          if(mysqli_num_rows($result) > 0) {
+            print "Account already exists!";
             mysqli_free_result($result);
-            header("pages/admindashboard.php");
-
           } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            $sql = "INSERT INTO Customers (LastName, FirstName, Email, Password, StreetAdd, Barangay, CityProvince, Region, Country, ContactNo) VALUES ('$lastName', '$firstName', '$email', '$pass', '$homeadd', '$streetadd', '$cityprovince', '$region', '$country', '$contactno')";
+
+            if ($conn->query($sql) === TRUE) {
+              mysqli_free_result($result);
+              header("Location: pages/accountcreated.php");
+
+            } else {
+              echo "Error: " . $sql . "<br>" . $conn->error;
+            }
           }
         }
       }   
