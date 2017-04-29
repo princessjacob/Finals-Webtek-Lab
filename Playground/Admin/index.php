@@ -28,7 +28,7 @@
   		  <input type="text" name="email-signin" value="Email"
           onblur="if (this.value=='') {this.value='Email';}" 
           onfocus="if (this.value == 'Email') {this.value='';}">
-        <input type="text" name="pass-signin" value="Password"
+        <input type="password" name="pass-signin" value="Password"
           onblur="if (this.value=='') {this.value='Password';}" 
           onfocus="if (this.value == 'Password') {this.value='';}">
   			 <input class="login-button" type="submit" name="loginbutton" value="Login">
@@ -43,17 +43,29 @@
         $passsignin = $_POST["pass-signin"];
 
         $result = mysqli_query($conn, "SELECT * FROM customers WHERE Email = '$emailsignin' AND Password = '$passsignin'");
+
+        $resultSP = mysqli_query($conn, "SELECT * FROM service_providers WHERE Email = '$emailsignin' AND Password = $passsignin ");
+
         if(mysqli_num_rows($result) > 0) {
           $_SESSION['loggedin'] = true;
           $_SESSION['user'] = $emailsignin;
-          mysqli_free_result($result);
-          header("Location: pages/admindashboard.php");
+          header("Location: pages/customers.php");
+        } else if (mysqli_num_rows($resultSP) > 0) {
+          $_SESSION['loggedin'] = true;
+          $_SESSION['user'] = $emailsignin;
+          header("Location: pages/serviceproviders.php");
+        } else if ($emailsignin == "admin" && $passsignin == "finalswebteklab") {
+          $_SESSION['loggedin'] = true;
+          $_SESSION['user'] = "admin";
+          header("Location: bootstrap/pages/dashboard.html");
         } else {
           echo "Incorrect/Unregistered email or password!";
           mysqli_free_result($result);
         }
       }
     ?>
+
+    <!-- END OF LOGIN ACTION -->
 
     <hr>
 
@@ -84,7 +96,7 @@
     </form>
 
 
-    <!-- PHP SCRIPT for FORM -->
+    <!-- SIGN UP ACTION -->
     
     <?php
       if(isset($_POST["customerregister"])) {
@@ -116,7 +128,8 @@
             $sql = "INSERT INTO Customers (LastName, FirstName, Email, Password, StreetAdd, Barangay, CityProvince, Region, Country, ContactNo) VALUES ('$lastName', '$firstName', '$email', '$pass', '$homeadd', '$streetadd', '$cityprovince', '$region', '$country', '$contactno')";
 
             if ($conn->query($sql) === TRUE) {
-              mysqli_free_result($result);
+              $_SESSION['loggedin'] = true;
+              $_SESSION['user'] = $email;
               header("Location: pages/accountcreated.php");
 
             } else {
@@ -126,6 +139,8 @@
         }
       }   
     ?>
+
+    <!-- End of SIGN UP ACTION -->
 
     <br>
 
