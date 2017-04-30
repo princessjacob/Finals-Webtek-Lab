@@ -433,4 +433,33 @@ table.dataTable thead .sorting:after {
   }
     
 }
+#boxImage{
+    height:85%;
+    width: 80%;
+    border-style: solid;
+    padding: 10%;
+    margin-left: 10%;
+     
+}
+#profile{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+#info{
+    list-style: none;
 
+}
+
+#about{
+    margin-left:5%;
+}
+
+#aboutMe{
+    margin-left: 5%;
+}
+btn btn-primary btn-xs{
+    text-align:center;
+    align-content: center;
+}
