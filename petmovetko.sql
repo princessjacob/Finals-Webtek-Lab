@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 30, 2017 at 08:09 AM
+-- Generation Time: May 01, 2017 at 11:39 AM
 -- Server version: 5.7.14
 -- PHP Version: 7.0.10
 
@@ -23,42 +23,12 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `customers`
+-- Table structure for table `service`
 --
 
-CREATE TABLE `customers` (
-  `custID` int(11) NOT NULL,
-  `LastName` varchar(45) NOT NULL,
-  `FirstName` varchar(45) NOT NULL,
-  `Email` varchar(45) NOT NULL,
-  `Password` varchar(100) NOT NULL,
-  `StreetAdd` varchar(100) NOT NULL,
-  `CityProvince` varchar(20) NOT NULL,
-  `Region` varchar(20) NOT NULL,
-  `Country` varchar(20) NOT NULL,
-  `ContactNo` varchar(20) NOT NULL,
-  `Photo` mediumblob,
-  `Barangay` varchar(20) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `service_provider`
---
-
-CREATE TABLE `service_provider` (
-  `SPID` int(11) NOT NULL,
-  `SPName` varchar(45) NOT NULL,
-  `SPEmail` varchar(45) NOT NULL,
-  `SPPass` varchar(45) NOT NULL,
-  `SPBarangay` varchar(20) NOT NULL,
-  `SPCityProvince` varchar(20) NOT NULL,
-  `SPRegion` varchar(20) NOT NULL,
-  `SPCountry` varchar(20) NOT NULL,
-  `SPStatus` varchar(10) NOT NULL,
-  `PetType` varchar(10) NOT NULL,
-  `LastLogged` timestamp NOT NULL
+CREATE TABLE `service` (
+  `servID` int(11) NOT NULL,
+  `ServName` varchar(45) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -66,31 +36,20 @@ CREATE TABLE `service_provider` (
 --
 
 --
--- Indexes for table `customers`
+-- Indexes for table `service`
 --
-ALTER TABLE `customers`
-  ADD PRIMARY KEY (`custID`);
-
---
--- Indexes for table `service_provider`
---
-ALTER TABLE `service_provider`
-  ADD PRIMARY KEY (`SPID`);
+ALTER TABLE `service`
+  ADD PRIMARY KEY (`servID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `customers`
+-- AUTO_INCREMENT for table `service`
 --
-ALTER TABLE `customers`
-  MODIFY `custID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1401;
---
--- AUTO_INCREMENT for table `service_provider`
---
-ALTER TABLE `service_provider`
-  MODIFY `SPID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `service`
+  MODIFY `servID` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
