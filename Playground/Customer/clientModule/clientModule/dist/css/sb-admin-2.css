@@ -434,13 +434,14 @@ table.dataTable thead .sorting:after {
     
 }
 #boxImage{
-    height:85%;
-    width: 80%;
+    height:100%;
+    width: 100%;
     border-style: solid;
     padding: 10%;
     margin-left: 10%;
      
 }
+
 #profile{
     display: block;
     margin-left: auto;
@@ -459,7 +460,8 @@ table.dataTable thead .sorting:after {
 #aboutMe{
     margin-left: 5%;
 }
-btn btn-primary btn-xs{
-    text-align:center;
-    align-content: center;
+#edit{
+    position: absolute;
+    right: 3%;
+    top:50%;
 }

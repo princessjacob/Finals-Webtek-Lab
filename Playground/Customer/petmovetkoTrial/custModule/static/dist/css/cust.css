@@ -455,16 +455,23 @@ table.dataTable thead .sorting:after {
 #about{
     margin-left:5%;
 }
-
+#aboutText{
+    margin-left:0;
+    width: 80%;
+  
+}
 #aboutMe{
     margin-left: 5%;
+   
 }
-
-btn btn-primary btn-xs{
-    text-align:center;
-    align-content: center;
+#edit{
+    position: absolute;
+    right: 3%;
+    top:50%;
 }
-
+textarea{
+    resize: none;
+}
 img {
     margin-left: auto;
     margin-right: auto;
