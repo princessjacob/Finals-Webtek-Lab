@@ -96,13 +96,13 @@ session_start();
 <div class="col-md-9">
 </div>
 <span class="buttons">
-<div class="col-xs-4 col-md-1" style="text-align: center;">
+<div class="col-xs-2 col-md-1" style="text-align: center;">
 <button type="button" class="btn btn-success btn-circle btn-lg" data-placement="top" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i></button>
 </div>
-<div class="col-xs-4 col-md-1" style="text-align: center;">
+<div class="col-xs-2 col-md-1" style="text-align: center;">
 <button type="button" class="btn btn-warning btn-circle btn-lg" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i></button>
 </div>
-<div class="col-xs-4 col-md-1" style="text-align: center;">
+<div class="col-xs-2 col-md-1" style="text-align: center;">
 <button type="button" class="btn btn-danger btn-circle btn-lg" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash-o"></i></button>
 </div>
 </span>
@@ -121,7 +121,7 @@ session_start();
 </tr>
 </thead>
     <?php
-        $service="SELECT servID, servName, servDesc, servPrice, servIcon FROM service";
+        $service="SELECT servID, ServName, servDesc, servPrice, servImage FROM service";
         if ($result=mysqli_query($petmovetkodb, $service)) {
             while ($row=mysqli_fetch_row($result)) {
                 echo "<tr>";
@@ -129,7 +129,7 @@ session_start();
                 echo "<th> $row[1] </th>";
                 echo "<th> $row[2] </th>";
                 echo "<th> $row[3] </th>";
-                echo "<th> $row[4] </th>";
+                echo "<th> <a href=''> view icon </a> </th>";
                 echo "</tr>";
             }
         }
@@ -159,11 +159,11 @@ session_start();
 <div class="modal-body">
 <div class="form-group">
     <label> Add Image </label>
-    <input type="file" name="servIcon" autofocus required>
+    <input type="file" name="servImage" autofocus required>
 </div>
 <div class="form-group">
     <label> Name </label>
-    <input maxlength="45" class="form-control" name="servName" autofocus required>
+    <input maxlength="45" class="form-control" name="ServName" autofocus required>
 </div>
 <div class="form-group">
     <label> Description </label>
@@ -184,17 +184,19 @@ session_start();
 </form>
 <?php
     if(isset($_POST["addService"])) {
-        $servName = $_POST["servName"];
+        $ServName = $_POST["ServName"];
         $servDesc = $_POST["servDesc"];
         $servPrice = $_POST["servPrice"];
-        $servIcon = $_POST["servIcon"];
+        $servImage = $_FILES["servImage"];
 
-        $result = mysqli_query($petmovetkodb, "SELECT * FROM service WHERE servName = '$servName'");
+        $imagetmp = addslashes(file_get_contents($_FILES['servImage']));
+
+        $result = mysqli_query($petmovetkodb, "SELECT * FROM service WHERE ServName = '$ServName'");
 
         if(mysqli_num_rows($result) > 0) {
             launchWindow("Service already exists!");
         } else {
-            $sql="INSERT INTO service(servName, servDesc, servPrice, servIcon) VALUES ('$servName', '$servDesc', '$servPrice', '$servIcon')";
+            $sql="INSERT INTO service(ServName, servDesc, servPrice, servImage) VALUES ('$ServName', '$servDesc', '$servPrice', '$servImage')";
             if ($petmovetkodb->query($sql) === TRUE) {
                 echo "<meta http-equiv='refresh' content='0'>";
             } else {
