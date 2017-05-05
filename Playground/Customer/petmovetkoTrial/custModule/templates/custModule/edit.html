@@ -5,18 +5,26 @@
                     <h3 class="page-header">EDIT PROFILE</h3>
                 </div>
 
-                <div class="col-lg-6 col-md-6">
+                <div class="col-lg-3 col-md-6">
 
-                    <div id="boxImage">   
-                        <form>
-                            <div class="form-group">
-                                <label for="image">PROFILE IMAGE</label>
-                                <input type="file" id="image">
-                            </div>
-                        </form>
+                    <div id="boxImage">
+                        
+                        <div class="row">
+                            <img id="profile" src="/img/*" alt="user image"/>
+                        </div>
+                        
+                       
+                     
                     </div>
+                    <div class="row">
+                        <div id="change">
+                            <input type="file" class="form-control">
+                        </div>
+                    </div> 
+
+
                 </div>
-                <div class="col-lg-6 col-md-6">
+                <div class="col-lg-3 col-md-6">
                     <form>
                         <div class="form-group">
                             <label for="lastname">Lastname: </label>
@@ -34,7 +42,7 @@
                         </div>    
                         <div class="form-group">
                             <label for="contact">Contact #: </label>
-                            <input type="text" class="form-control" id="contact">
+                            <input type="number" class="form-control" id="contact">
                         </div>
                          <div class="form-group">
                             <label for="email">Email: </label>
@@ -44,13 +52,22 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12">
-                    <div id="aboutText">
+                <div id="aboutText">
+                    
                     <div class="form-group">
                         <label for="about"><h3>Things about Me</h3></label>
-                        <textarea class="form-control" row="1" id="about"></textarea>
+                        <textarea class="form-control" row="5" id="about"></textarea>
                     </div>
                 </div>
+            </div>
+             <div class="row">
+                <div id="button">
+                    
+                    <div class="form-group">
+                        <input type="button" class="btn btn-primary" value="Save Changes">
+                        <span></span>
+                        <input type="reset" class="btn btn-default" value="Cancel">
+                    </div>
                 </div>
             </div>
 

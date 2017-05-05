@@ -479,3 +479,11 @@ profPic {
     padding-bottom: 5px;
 }
 
+#button{
+    position: absolute;
+    right:10%;
+}
+ 
+#change{
+    width: 40;
+}
