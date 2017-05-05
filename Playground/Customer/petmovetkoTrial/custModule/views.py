@@ -18,3 +18,8 @@ def transaction(request):
 def profile(request):
     return render(request, 'custModule/profile.html')
 
+def edit(request):
+    return render(request, 'custModule/edit.html')
+
+def newrequest(request):
+    return render(request, 'custModule/newrequest.html')
