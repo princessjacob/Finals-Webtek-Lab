@@ -469,10 +469,12 @@ table.dataTable thead .sorting:after {
     right: 3%;
     top:50%;
 }
+
 textarea{
     resize: none;
 }
-profPic {
+
+img {
     margin-left: auto;
     margin-right: auto;
     display: block;
@@ -487,3 +489,4 @@ profPic {
 #change{
     width: 40;
 }
+
