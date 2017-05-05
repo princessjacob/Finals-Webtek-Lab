@@ -23,3 +23,9 @@ def edit(request):
 
 def newrequest(request):
     return render(request, 'custModule/newrequest.html')
+
+def newreview(request):
+    return render(request, 'custModule/newreview.html')
+
+def listreview(request):
+    return render(request, 'custModule/listreview.html')
