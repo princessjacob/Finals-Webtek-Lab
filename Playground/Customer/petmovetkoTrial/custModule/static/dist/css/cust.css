@@ -472,11 +472,10 @@ table.dataTable thead .sorting:after {
 textarea{
     resize: none;
 }
-img {
+profPic {
     margin-left: auto;
     margin-right: auto;
     display: block;
     padding-bottom: 5px;
 }
-
 
