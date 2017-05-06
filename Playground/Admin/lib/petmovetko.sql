@@ -1,6 +1,6 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: petmovetko
+-- Host: localhost    Database: petmovetko
 -- ------------------------------------------------------
 -- Server version	5.7.14
 
@@ -24,14 +24,15 @@ DROP TABLE IF EXISTS `customer`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer` (
   `custID` int(11) NOT NULL AUTO_INCREMENT,
-  `custName` varchar(45) NOT NULL,
+  `custLastName` varchar(45) NOT NULL,
+  `custFirstName` varchar(45) NOT NULL,
+  `custEmail` varchar(45) NOT NULL,
+  `custPassword` varchar(16) NOT NULL,
   `custAdd` varchar(45) NOT NULL,
   `custNum` int(11) NOT NULL,
-  `custEmail` varchar(45) NOT NULL,
+  `custPhoto` mediumblob NOT NULL,
   PRIMARY KEY (`custID`),
-  KEY `rr_ID_idx` (`custID`),
-  CONSTRAINT `customer.reqID` FOREIGN KEY (`custID`) REFERENCES `request` (`reqID`) ON UPDATE CASCADE,
-  CONSTRAINT `customer.servID` FOREIGN KEY (`custID`) REFERENCES `services` (`servID`) ON UPDATE CASCADE
+  KEY `rr_ID_idx` (`custID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -103,15 +104,21 @@ DROP TABLE IF EXISTS `service_provider`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `service_provider` (
   `spID` int(11) NOT NULL AUTO_INCREMENT,
-  `spName` varchar(45) NOT NULL,
+  `spUsername` varchar(45) NOT NULL,
+  `spLastName` varchar(45) NOT NULL,
+  `spFirstName` varchar(45) NOT NULL,
+  `spEmail` varchar(45) NOT NULL,
+  `spPassword` varchar(16) NOT NULL,
   `spAdd` varchar(45) NOT NULL,
   `spNum` int(11) NOT NULL,
-  `spEmail` varchar(45) NOT NULL,
+  `spPet` varchar(20) NOT NULL,
+  `spZip` int(5) NOT NULL,
+  `spLastLogged` date NOT NULL,
   `spStatus` varchar(45) NOT NULL,
-  PRIMARY KEY (`spID`),
-  CONSTRAINT `servprov.reqID` FOREIGN KEY (`spID`) REFERENCES `request` (`reqID`) ON UPDATE CASCADE,
-  CONSTRAINT `servprov.servID` FOREIGN KEY (`spID`) REFERENCES `services` (`servID`) ON UPDATE CASCADE,
-  CONSTRAINT `servprov.transID` FOREIGN KEY (`spID`) REFERENCES `transaction` (`trans_ID`) ON UPDATE CASCADE
+  `spServices` varchar(45) NOT NULL,
+  `spDay` varchar(10) NOT NULL,
+  `spTime` datetime NOT NULL,
+  PRIMARY KEY (`spID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -134,13 +141,10 @@ DROP TABLE IF EXISTS `services`;
 CREATE TABLE `services` (
   `servID` int(11) NOT NULL AUTO_INCREMENT,
   `servName` varchar(45) NOT NULL,
-  `servDesc` varchar(45) NOT NULL,
   `servPrice` int(11) NOT NULL,
+  `servImage` mediumblob NOT NULL,
   PRIMARY KEY (`servID`),
-  UNIQUE KEY `servID_UNIQUE` (`servID`),
-  CONSTRAINT `service.custID` FOREIGN KEY (`servID`) REFERENCES `customer` (`custID`) ON UPDATE CASCADE,
-  CONSTRAINT `service.spID` FOREIGN KEY (`servID`) REFERENCES `service_provider` (`spID`) ON UPDATE CASCADE,
-  CONSTRAINT `service.transID` FOREIGN KEY (`servID`) REFERENCES `transaction` (`trans_ID`) ON UPDATE CASCADE
+  UNIQUE KEY `servID_UNIQUE` (`servID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -213,6 +217,10 @@ UNLOCK TABLES;
 --
 -- Dumping events for database 'petmovetko'
 --
+
+--
+-- Dumping routines for database 'petmovetko'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -223,4 +231,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-04 23:06:37
+-- Dump completed on 2017-05-06 23:43:28

@@ -85,7 +85,7 @@
         $title = $_POST["title"];
         $email = $_POST["email"];
         $pass = $_POST["pass"];
-	$pass = md5($pass);s
+	      $pass = md5($pass);
         $barangay = $_POST["barangay"];
         $region = $_POST["region"];
         $cityprovince = $_POST["cityprovince"];

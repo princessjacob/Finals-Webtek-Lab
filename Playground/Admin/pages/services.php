@@ -1,5 +1,11 @@
 <?php
 session_start();
+if ($_SESSION['loggedin'] == false ) {
+    header('Location: login.php');
+} else if (!$_SESSION['username']) {
+    echo "<script> alert('Restricted Access! You are not allowed to visit this site.'); </script>";
+    header('Location: ../index.php');
+}
 ?>
 
 <!DOCTYPE html>
@@ -35,14 +41,18 @@ session_start();
     <![endif]-->
 
     <style>
-      @media(max-width: 767px) {
+    @media(max-width: 767px) {
         #hider {
-          display: none;
+            display: none;
         }
         .buttons {
             margin-bottom: 10px;
         }
-      }
+    }
+    .selected {
+        background-color: blue;
+        color: white;
+    }
     </style>
 
 </head>
@@ -56,9 +66,7 @@ session_start();
         die("Connection failed: " . $petmovetkodb->connect_error);
     }
 ?>
-
     <div id="wrapper">
-
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0" >
             <div class="navbar-header">
                 <a class="navbar-brand" href="dashboard.html">Pet Mo, Vet Ko!</a>
@@ -84,7 +92,6 @@ session_start();
             </div>
             <!-- /.navbar-static-side -->
         </nav>
-
         <!-- Page Content -->
 <div id="page-wrapper">
 <div class="container-fluid">
@@ -100,36 +107,36 @@ session_start();
 <button type="button" class="btn btn-success btn-circle btn-lg" data-placement="top" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i></button>
 </div>
 <div class="col-xs-2 col-md-1" style="text-align: center;">
-<button type="button" class="btn btn-warning btn-circle btn-lg" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i></button>
+<button type="button" class="btn btn-warning btn-circle btn-lg" data-toggle="modal" data-target="#editService"><i class="fa fa-pencil"></i></button>
 </div>
 <div class="col-xs-2 col-md-1" style="text-align: center;">
-<button type="button" class="btn btn-danger btn-circle btn-lg" data-toggle="modal" data-target="#myModal"><i class="fa fa-trash-o"></i></button>
+<button type="button" class="btn btn-danger btn-circle btn-lg" data-toggle="modal" data-target="#deleteService"><i class="fa fa-trash-o"></i></button>
 </div>
 </span>
 </div>
 </div>
 <div class="row">
 <div class="table-responsive">
-<table class="table table-hover" style="margin-top: 20px;">
+<table id="tableID" onClick="myFun(event)" class="table table-hover" style="margin-top: 20px;">
 <thead>
 <tr>
-<th>ID</th>
+<th class="text-center" style="width:10%;">Select</th>
+<th class="text-center" style="width:15%;">ID</th>
 <th>Name</th>
-<th>Description</th>
-<th>Price</th>
-<th>Icon</th>
+<th class="text-center" style="width:10%;">Price</th>
+<th class="text-center" style="width:15%;">Icon</th>
 </tr>
 </thead>
     <?php
-        $service="SELECT servID, ServName, servDesc, servPrice, servImage FROM service";
+        $service="SELECT servID, servName, servPrice, servImage FROM services";
         if ($result=mysqli_query($petmovetkodb, $service)) {
             while ($row=mysqli_fetch_row($result)) {
                 echo "<tr>";
-                echo "<th> $row[0] </th>";
-                echo "<th> $row[1] </th>";
-                echo "<th> $row[2] </th>";
-                echo "<th> $row[3] </th>";
-                echo "<th> <a href=''> view icon </a> </th>";
+                echo "<td class='text-center'> <input type='radio' value='$row[0]' name='radiobutton'> </td>";
+                echo "<td class='text-center'> $row[0] </td>";
+                echo "<td> $row[1] </td>";
+                echo "<td class='text-center'> $row[2].00 </td>";
+                echo "<td class='text-center'> <a href='images/$row[0]-image.jpg'> view icon </a> </td>";
                 echo "</tr>";
             }
         }
@@ -145,9 +152,32 @@ session_start();
 <!-- /#page-wrapper -->
 </div>
 <!-- /#wrapper -->
+<?php
+    if(isset($_POST["addService"])) {
+        $servName = $_POST["servName"];
+        $servPrice = $_POST["servPrice"];
+        $servImage = $_FILES["servImage"];
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        $imagetmp = addslashes(file_get_contents($servImage));
+
+        $result = mysqli_query($petmovetkodb, "SELECT * FROM services WHERE servName = '$servName'");
+
+        if(mysqli_num_rows($result) > 0) {
+            echo "service already exists!";
+        } else {
+            $sql="INSERT INTO services(servName, servPrice, servImage) VALUES ('$servName', '$servPrice', '$servImage')";
+            if ($petmovetkodb->query($sql) === TRUE) {
+                $image = file_get_contents($servImage);
+                file_put_contents('../images/$servImage', $image);
+                echo "<meta http-equiv='refresh' content='0'>";
+            } else {
+                echo "Error: " . $sql . "<br>" . $petmovetkodb->error;
+            }
+        }
+    }
+?>
+<!-- Modal Add -->
+<div class="modal fade" name="editModal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 <div class="modal-dialog">
 <div class="modal-content">
 <div class="modal-header">
@@ -163,11 +193,7 @@ session_start();
 </div>
 <div class="form-group">
     <label> Name </label>
-    <input maxlength="45" class="form-control" name="ServName" autofocus required>
-</div>
-<div class="form-group">
-    <label> Description </label>
-    <textarea maxlength="250" name="servDesc" class="form-control" rows="4"></textarea>
+    <input maxlength="45" class="form-control" name="servName" autofocus required>
 </div>
 <div class="form-group input-group">
     <span class="input-group-addon" style="background: white; font-weight: bold; color: black; border: none;">Price </span>
@@ -182,29 +208,73 @@ session_start();
 </div>
 </fieldset>
 </form>
+</div>
+<!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
 <?php
-    if(isset($_POST["addService"])) {
-        $ServName = $_POST["ServName"];
-        $servDesc = $_POST["servDesc"];
-        $servPrice = $_POST["servPrice"];
-        $servImage = $_FILES["servImage"];
-
-        $imagetmp = addslashes(file_get_contents($_FILES['servImage']));
-
-        $result = mysqli_query($petmovetkodb, "SELECT * FROM service WHERE ServName = '$ServName'");
-
-        if(mysqli_num_rows($result) > 0) {
-            launchWindow("Service already exists!");
-        } else {
-            $sql="INSERT INTO service(ServName, servDesc, servPrice, servImage) VALUES ('$ServName', '$servDesc', '$servPrice', '$servImage')";
-            if ($petmovetkodb->query($sql) === TRUE) {
-                echo "<meta http-equiv='refresh' content='0'>";
-            } else {
-                echo "Error: " . $sql . "<br>" . $petmovetkodb->error;
+    if (isset($_POST["editModal"])) {
+        if(isset($_POST["radiobutton"])) {
+            $servID = $_POST["radiobutton"];
+            $result = mysqli_query($petmovetkodb, "SELECT * FROM services WHERE servID = '$servID'");
+            if(mysqli_num_rows($result) > 0) {
+                $servName = $_POST["servName"];
+                $servPrice = $_POST["servPrice"];
+                $servImage = $_FILES["servImage"];
             }
+        } else {
+        echo "<script> alert('Invalid!'); </script>"; 
         }
     }
+
+    if(isset($_POST["editService"])) {
+        $sql="UPDATE services SET servName='$servName', servPrice='$servPrice', servImage='servImage' WHERE servID='$servID'";
+        if ($petmovetkodb->query($sql) === TRUE) {
+            echo "<meta http-equiv='refresh' content='0'>";
+        } else {
+            echo "Error: " . $sql . "<br>" . $petmovetkodb->error;
+        }
+
+        
+    }
 ?>
+
+
+<!-- Modal Edit -->
+<div class="modal fade" id="editService" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<h4 class="modal-title" id="editModalLabel">Edit Service</h4>
+</div>
+<form role="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" style="margin-top: 15px;">
+<fieldset>
+<div class="modal-body">
+<div class="form-group">
+    <label> Change Image </label>
+    <input type="file" name="servImage" autofocus required>
+</div>
+<div class="form-group">
+    <label> Name </label>
+    <input maxlength="45" class="form-control" name="servName" value="<?php $servName; ?>" autofocus required>
+</div>
+<div class="form-group input-group">
+    <span class="input-group-addon" style="background: white; font-weight: bold; color: black; border: none;">Price </span>
+    <span class="input-group-addon">Php</span>
+    <input maxlength="20" type="number" class="form-control" name="servPrice" value="<?php $servPrice; ?>">
+    <span class="input-group-addon">.00</span>
+</div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+<input class="btn btn-success" type="submit" name="editService" value="Save">
+</div>
+</fieldset>
+</form>
 </div>
 <!-- /.modal-content -->
 </div>
