@@ -1,12 +1,19 @@
 {% extends "custModule/header.html" %}
 {% block content %}
+{% load staticfiles %}
     
     <div class="row">
         <div class="col-lg-12">
             <h2 class="page-header">Appointment</h2>
             <h3>Current Appointments</h3>
             <div class="panel panel-info">
-                <div class="panel-heading">Date and Time</div>
+                <div class="panel-heading container-fluid">
+                    <div class="col-xs-9"><p>DATE AND TIME SET</p></div>
+                    <div class="col-xs-3"><button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-pencil"></span> EDIT SCHED</button>
+                    {% include "custModule/includes/modal.html" %}
+                    <a href="#" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-remove"></span> CANCEL</a>
+                    </div>
+                </div>
                 <div class="panel-body">
                     <p>STARTING IN: </p>
                     <p>SP NAME:</p>
@@ -16,5 +23,4 @@
             </div>
         </div>
     </div>
-<!-- {% include "custModule/includes/searchScript.html" %} -->
 {% endblock %}
