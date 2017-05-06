@@ -7,26 +7,36 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">CHANGE SCHEDULE</h4>
+          <h4 class="modal-title">SCHEDULE</h4>
         </div>
         <div class="modal-body">
-          <div class="row">
-            <div class='col-sm-6'>
-                <div class="form-group">
-                    <div class='input-group date' id='datetimepicker1'>
-                        <input type='text' class="form-control" />
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                    </div>
+          <div class="form-group row">
+              <label for="date-input" class="col-xs-12 col-form-label">Date</label>
+              <div class="col-xs-4">
+                <input class="form-control" type="date" id="date-input">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="sched" class="col-xs-12 col-form-label">Select schedule availability:</label>
+                <div class="col-xs-4">
+                  <select class="form-control" id="sched">
+                    <option value="" selected hidden>Select Day</option>
+                    <option>DAY</option>
+                    <option>DAY</option>
+                    <option>DAY</option>
+                    <option>DAY</option>
+                  </select>
+                </div>
+                <div class="col-xs-4">
+                  <select class="form-control" id="sched">
+                    <option value="" selected hidden>Select Time Availability</option>
+                    <option>TIME</option>
+                    <option>TIME</option>
+                    <option>TIME</option>
+                    <option>TIME</option>
+                  </select>
                 </div>
             </div>
-            <script type="text/javascript">
-                $(function () {
-                    $('#datetimepicker1').datetimepicker();
-                });
-            </script>
-        </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
