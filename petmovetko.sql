@@ -32,9 +32,7 @@ CREATE TABLE `customer` (
   `custNum` int(11) NOT NULL,
   `custPhoto` mediumblob NOT NULL,
   PRIMARY KEY (`custID`),
-  KEY `rr_ID_idx` (`custID`),
-  CONSTRAINT `customer.reqID` FOREIGN KEY (`custID`) REFERENCES `request` (`reqID`) ON UPDATE CASCADE,
-  CONSTRAINT `customer.servID` FOREIGN KEY (`custID`) REFERENCES `services` (`servID`) ON UPDATE CASCADE
+  KEY `rr_ID_idx` (`custID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -120,10 +118,7 @@ CREATE TABLE `service_provider` (
   `spServices` varchar(45) NOT NULL,
   `spDay` varchar(10) NOT NULL,
   `spTime` datetime NOT NULL,
-  PRIMARY KEY (`spID`),
-  CONSTRAINT `servprov.reqID` FOREIGN KEY (`spID`) REFERENCES `request` (`reqID`) ON UPDATE CASCADE,
-  CONSTRAINT `servprov.servID` FOREIGN KEY (`spID`) REFERENCES `services` (`servID`) ON UPDATE CASCADE,
-  CONSTRAINT `servprov.transID` FOREIGN KEY (`spID`) REFERENCES `transaction` (`trans_ID`) ON UPDATE CASCADE
+  PRIMARY KEY (`spID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -149,10 +144,7 @@ CREATE TABLE `services` (
   `servPrice` int(11) NOT NULL,
   `servImage` mediumblob NOT NULL,
   PRIMARY KEY (`servID`),
-  UNIQUE KEY `servID_UNIQUE` (`servID`),
-  CONSTRAINT `service.custID` FOREIGN KEY (`servID`) REFERENCES `customer` (`custID`) ON UPDATE CASCADE,
-  CONSTRAINT `service.spID` FOREIGN KEY (`servID`) REFERENCES `service_provider` (`spID`) ON UPDATE CASCADE,
-  CONSTRAINT `service.transID` FOREIGN KEY (`servID`) REFERENCES `transaction` (`trans_ID`) ON UPDATE CASCADE
+  UNIQUE KEY `servID_UNIQUE` (`servID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -239,4 +231,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-06 23:36:12
+-- Dump completed on 2017-05-06 23:43:28
