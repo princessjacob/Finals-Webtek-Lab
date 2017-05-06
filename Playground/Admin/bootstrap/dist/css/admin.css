@@ -28,3 +28,57 @@
 .login-panel1 {
   margin-top: 5%;
 }
+
+.backhome{
+    padding-top: 10px;
+    padding-left: 10px;
+    font-size: 20px;
+}
+
+.form-group1 .checkbox-inline{
+    padding-left: 2px;
+}
+
+.checkbox-inline {
+    padding-left: 50px;
+}
+
+.servoff{
+    padding-left:15px
+}
+
+.pet{
+    padding-left: 15px;
+}
+
+.form-control-inline {
+    display:inline-block;
+    width:45%;
+    float:left;
+}
+
+.form-group2{
+    width:53.5%;
+    display:inline-block;
+    float:left;
+    margin-left: 5px;
+    margin-bottom: 15px;
+}
+
+.form-group3{
+    margin-top:10px;
+}
+
+.form-control-inline2 {
+    display:inline-block;
+    width:25%;
+    float:left;
+}
+
+.form-control-inline3 {
+    display:inline-block;
+    width:73.5%;
+    float:left;
+    margin-left: 5px;
+    margin-bottom: 15px;
+}
