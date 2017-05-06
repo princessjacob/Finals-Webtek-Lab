@@ -1,8 +1,10 @@
--- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `petmovetko` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `petmovetko`;
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: petmovetko
 -- ------------------------------------------------------
--- Server version	5.7.14
+-- Server version	5.7.11
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -29,11 +31,11 @@ CREATE TABLE `customer` (
   `custEmail` varchar(45) NOT NULL,
   `custPassword` varchar(16) NOT NULL,
   `custAdd` varchar(45) NOT NULL,
-  `custNum` int(11) NOT NULL,
-  `custPhoto` mediumblob NOT NULL,
+  `custNum` varchar(45) NOT NULL,
+  `custPhoto` mediumblob,
   PRIMARY KEY (`custID`),
   KEY `rr_ID_idx` (`custID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +44,58 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
+INSERT INTO `customer` VALUES (1,'Caniba','Benj','bc@gmail.com','1234','Aurora Hill, Baguio City','09123456789',NULL),(2,'Bully','Big','bb@gmail.com','1234','Loakan, Baguio City','09121212121',NULL),(3,'Famorra','Halli','hallifamorra@gmail.com','1234','Ambiong, Baguio City','09987654321',NULL);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `petlist`
+--
+
+DROP TABLE IF EXISTS `petlist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `petlist` (
+  `petID` int(11) NOT NULL,
+  `type` varchar(45) NOT NULL,
+  `breed` varchar(45) NOT NULL,
+  PRIMARY KEY (`petID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `petlist`
+--
+
+LOCK TABLES `petlist` WRITE;
+/*!40000 ALTER TABLE `petlist` DISABLE KEYS */;
+INSERT INTO `petlist` VALUES (1,'dog','Shih Tzu'),(2,'dog','Bulldog'),(3,'dog','Labrador');
+/*!40000 ALTER TABLE `petlist` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `petowner`
+--
+
+DROP TABLE IF EXISTS `petowner`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `petowner` (
+  `owner` int(11) NOT NULL,
+  `pet` int(11) NOT NULL,
+  PRIMARY KEY (`owner`,`pet`),
+  KEY `pet_fk_idx` (`pet`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `petowner`
+--
+
+LOCK TABLES `petowner` WRITE;
+/*!40000 ALTER TABLE `petowner` DISABLE KEYS */;
+INSERT INTO `petowner` VALUES (1,1),(2,1),(2,3),(3,2);
+/*!40000 ALTER TABLE `petowner` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -213,14 +266,6 @@ LOCK TABLES `transaction` WRITE;
 /*!40000 ALTER TABLE `transaction` DISABLE KEYS */;
 /*!40000 ALTER TABLE `transaction` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping events for database 'petmovetko'
---
-
---
--- Dumping routines for database 'petmovetko'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -231,4 +276,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-06 23:43:28
+-- Dump completed on 2017-05-07  0:39:19
