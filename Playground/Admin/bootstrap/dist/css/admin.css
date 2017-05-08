@@ -82,3 +82,23 @@
     margin-left: 5px;
     margin-bottom: 15px;
 }
+
+.input-group-btn{
+    width: 10px;
+    top:25%;
+}
+
+.bansp{
+    font-size:250%;
+    text-align: right;
+    float: left;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin-right: 15px;
+}
+
+.banspbutton{
+    background-color: transparent;
+    border-style: none;
+    border-color: none;
+}

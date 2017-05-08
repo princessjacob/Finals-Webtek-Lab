@@ -21,6 +21,7 @@
 
     <!-- Custom CSS -->
 <link href="bootstrap/dist/css/sb-admin-2.css" rel="stylesheet">
+<link href="bootstrap/dist/css/admin.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
 <link href="bootstrap/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -60,10 +61,16 @@
 		h3 {font-size: 15px!important;}
 		p {font-size: 10px!important;}
 	}
+
+	.footer .imagef{
+		height:50%;
+		width:auto;
+	}
 </style>
 
 </head>
-	<body>
+	<body style="overflow-x: hidden";>
+
 		<nav class="navbar navbar-default navbar-fixed-top hidden-xs hidden-sm">
 			<div class="container">
 				<div class="navbar-header">
@@ -75,7 +82,7 @@
 				<li><a href="#services"> Services </a> </li>
 				<li><a href="#reviews"> Reviews </a> </li>
 			</ul>
-			<a href="pages/signup.php" class="btn btn-primary navbar-btn navbar-right"> Create Account </a>
+			<a href="pages/register.php" class="btn btn-primary navbar-btn navbar-right"> Create Account </a>
 			<a href="pages/login.php" class="btn btn-default navbar-btn navbar-right" style="margin-right: 10px;"> Login </a>
 		</nav>
 		<div id="home" class="container-fluid" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(images/sample1.jpg); background-size: cover; height: 80vh;">
@@ -83,7 +90,7 @@
 				<div class="col-md-2"> <img class="img-responsive hidden-md hidden-lg" src="logo.png" style="width: 100%;"> </div>
 				<div id="hometext" class="col-md-4" style="margin-top: 30vh;">
 					<h2 style="color: white; font-size: 3em; padding: 20px; font-family: 'Slabo 27px', serif;"> Let professionals care for your pets while you're away!</h2>
-					<button class="btn btn-outline btn-primary" style="color: white; border-color: white; border-radius: 50px; padding: 15px 50px; font-family: 'Comfortaa', cursive; font-size:0.6em; letter-spacing: 3px;"> AVAIL SERVICE NOW! </button> 
+					<a href="pages/login.php"><button class="btn btn-outline btn-primary" style="color: white; border-color: white; border-radius: 50px; padding: 15px 50px; font-family: 'Comfortaa', cursive; font-size:0.6em; letter-spacing: 3px;"> AVAIL SERVICE NOW!</button></a>
 				</div>
 			</div>
 			<div class="row hidden-md hidden-lg" style="position: absolute; bottom: 0; text-align: center;">
@@ -197,26 +204,18 @@
 				<div class="hidden-xs hidden-sm col-md-3 col-lg-3">
 				</div>
 			</div>
-			<div class="row" style="margin-top: 50px;">
-				<div class="col-md-3">
-				</div>
-				<a href="services.html" style="font-family: 'Comfortaa', cursive;">
-				<div class="col-md-6" style="border: 1px dashed #000; padding: 10px 0; padding-top: 25px;">
-					<p class="text-center"> VIEW OTHER SERVICES <br> <i class="fa fa-angle-double-down" style="font-size: 30px;"> </i> </span>
-				</div>
-				</a>
-			</div>
+			
 		</div>
 		<div class="container-fluid" id="reviews" style="padding: 30px;">
 			<div class="row">
-				<h2 style="color: white; font-family: 'Aladin', cursive; font-size: 4em;"> Reviews </h2> 
+				<h1 class="text-center" style="font-size:60px; font-family: 'Pacifico', cursive;"> Reviews </h2> 
 			</div>
 			<div class="row">
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="col-md-12">
 							<img class="img-responsive img-thumbnail" src="images/random1.jpg" width="200px"/>
-							<h4> Magical! </h4>
+							<h4 class="magical"> Magical! </h4>
 							<p > Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
 						</div>
 					</div>
@@ -287,7 +286,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success" data-dismiss="modal">Login</button>
+                        <a href="pages/login.php"<button type="button" class="btn btn-success">Login</button></a>
+
                     </div>
                 </div>
                                     <!-- /.modal-content -->
@@ -295,6 +295,26 @@
                                 <!-- /.modal-dialog -->
         </div>
                             <!-- /.modal -->
+
+        <div class = "footer>
+        	<div class="row">
+        		<div class="col-md-6">
+        			<a href="terms.html" style="padding-left: 200px;">Terms & Conditions</a>
+        			<a href="policy.html"  style="padding-left: 50px;" >Privacy Policy</a><br><br><br>
+        			<img src="images/fb.png" width="30%" height="auto" style="padding-left: 100px; padding-right: 20px;">
+        			<img src="images/instagram.png" width=15%" height="auto" style="padding-right: 25px;">
+        			<img src="images/twitter.png" width=15%" height="auto" style="padding-right: 5px;">
+        			<img src="images/googleplus.png" width=13%" height="auto" style="padding-right: 5px;">
+        			<img src="images/pinterest.png" width=13%" height="auto" style="padding-right: 5px;">
+					<p class="text-right" style="padding-top: 150px; padding-right:150px";>Copyright © 2017 Pet Mo, Vet Ko!, Inc. All rights reserved</p>
+				</div>
+					
+				<div class="col-md-6">
+					<img class="img-responsive" src="images/logo.png" >
+				</div>
+			</div>
+        </div>
+
         <script src="bootstrap/vendor/jquery/jquery.min.js"></script>
 
     	<!-- Bootstrap Core JavaScript -->
