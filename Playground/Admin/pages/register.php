@@ -82,7 +82,7 @@
       if(isset($_POST["spregister"])) {
         $firstName = $_POST["firstName"];
         $lastName = $_POST["lastName"];
-        $title = $_POST["title"];
+        $username = $_POST["username"];
         $email = $_POST["email"];
         $pass = $_POST["pass"];
 	      $pass = md5($pass);
@@ -91,9 +91,7 @@
         $cityprovince = $_POST["cityprovince"];
         $country = $_POST["country"];
         $contactno = $_POST["contactno"];
-        if (empty($firstName) || empty($lastName) || empty($email) || empty($pass) || empty($streetadd) || empty($barangay) || empty($cityprovince) ||  empty($region) || empty($country) || empty($contactno)) {
-          echo "Please fill up all the parts of the form";
-        } else if (!preg_match("/^[_\.0-9a-zA-Z-]+@([0-9a-zA-Z][0-9a-zA-Z-]+\.)+[a-zA-Z]{2,6}$/i", $email)) {
+        if (!preg_match("/^[_\.0-9a-zA-Z-]+@([0-9a-zA-Z][0-9a-zA-Z-]+\.)+[a-zA-Z]{2,6}$/i", $email)) {
           echo "The email you have entered is invalid, please try again.";
         } else {
           $result = mysqli_query($conn, "SELECT * FROM customers WHERE Email = '$email'");
