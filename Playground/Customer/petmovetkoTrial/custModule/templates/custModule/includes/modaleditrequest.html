@@ -1,4 +1,5 @@
 {% block content %}
+    {% load staticfiles %}
 <!-- Modal -->
   <div class="modal fade" id="myModaleditrequest" role="dialog">
     <div class="modal-dialog vertical-center">
@@ -10,8 +11,109 @@
           <h4 class="modal-title text-center">Edit Request</h4>
         </div>
           <div class="modal-body">
-                <p>SP NAME:</p>
-                <p>SERVICE PROVIDED:</p>
+                 <div class="panel panel-info">
+                <div class="panel-heading">WHAT KIND OF PET DO YOU HAVE?</div>
+                <div class="panel-body">
+                    <div class="row">
+                    <div class="col-xs-6 text-center">
+                       <img src="{% static 'img/dog.jpg' %}" class="img-respsonsive" width="150px" height="150px">
+                        <button type="button" class="btn btn-info">DOG</button>
+                    </div>
+                    <div class="col-xs-6 text-center">
+                       <img src="{% static 'img/cat.jpg' %}" class="img-respsonsive" width="150px" height="150px">
+                       <button type="button" class="btn btn-info">CAT</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="breed">Pet Breed: </label>
+                            <input type="text" class="form-control" id="breed">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">PLEASE CHOOSE A SERVICE.</div>
+                <div class="panel-body">
+                    <div class="row">
+                    <div class="col-xs-3 text-center">
+                       <img src="{% static 'img/service1.jpg' %}" class="img-responsive" width="100px" height="100px">
+                        <button type="button" class="btn btn-info">GROOMING</button>
+                    </div>
+                    <div class="col-xs-3 text-center">
+                       <img src="{% static 'img/service3.png' %}" class="img-responsive" width="100px" height="100px">
+                       <button type="button" class="btn btn-info">WALKING</button>
+                    </div>
+                    <div class="col-xs-3 text-center">
+                       <img src="{% static 'img/service1.png' %}" class="img-responsive" width="100px" height="100px">
+                       <button type="button" class="btn btn-info">TRAINING</button>
+                    </div>
+                    <div class="col-xs-3 text-center">
+                       <img src="{% static 'img/service2.png' %}" class="img-respsonsive" width="100px" height="100px">
+                       <button type="button" class="btn btn-info">VETERINARIAN</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">HELP US FIND SPs NEAR YOU:</div>
+                <div class="panel-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="zipcode">Enter Address Zipcode: </label>
+                            <input type="text" class="form-control" id="zipcode">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">SPs NEAR YOU</div>
+                <div class="panel-body">
+                    <div class="row">
+                    <div class="col-xs-3 text-center">
+                       <img src="http://placehold.it/100x100" class="img-responsive" width="100px" height="100px">
+                        <button type="button" class="btn btn-info">VIEW PROFILE</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">PICK DATE AND SP AVAILABILITY</div>
+                    <div class="panel-body">
+                        <div class="form-group row">
+                          <label for="date-input" class="col-xs-12 col-form-label">Date</label>
+                          <div class="col-xs-4">
+                            <input class="form-control" type="date" id="date-input">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="sched" class="col-xs-12 col-form-label">Select schedule availability:</label>
+                            <div class="col-xs-4">
+                              <select class="form-control" id="sched">
+                                <option value="" selected hidden>Select Day</option>
+                                <option>DAY</option>
+                                <option>DAY</option>
+                                <option>DAY</option>
+                                <option>DAY</option>
+                              </select>
+                            </div>
+                            <div class="col-xs-4">
+                              <select class="form-control" id="sched">
+                                <option value="" selected hidden>Select Time Availability</option>
+                                <option>TIME</option>
+                                <option>TIME</option>
+                                <option>TIME</option>
+                                <option>TIME</option>
+                              </select>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            
           
           </div>
         <div class="modal-footer text-center">
