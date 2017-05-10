@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `petmovetko` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `petmovetko`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: petmovetko
@@ -31,7 +29,9 @@ CREATE TABLE `customer` (
   `custEmail` varchar(45) NOT NULL,
   `custPassword` varchar(16) NOT NULL,
   `custAdd` varchar(45) NOT NULL,
+  `custZip` varchar(45) NOT NULL,
   `custNum` varchar(45) NOT NULL,
+  `custAbout` varchar(1000) NOT NULL,
   `custPhoto` mediumblob,
   PRIMARY KEY (`custID`),
   KEY `rr_ID_idx` (`custID`)
@@ -44,8 +44,33 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (1,'Caniba','Benj','bc@gmail.com','1234','Aurora Hill, Baguio City','09123456789',NULL),(2,'Bully','Big','bb@gmail.com','1234','Loakan, Baguio City','09121212121',NULL),(3,'Famorra','Halli','hallifamorra@gmail.com','1234','Ambiong, Baguio City','09987654321',NULL);
+INSERT INTO `customer` VALUES (1,'Caniba','Benj','bc@gmail.com','1234','Aurora Hill, Baguio City','','09123456789','',NULL),(2,'Bully','Big','bb@gmail.com','1234','Loakan, Baguio City','','09121212121','',NULL),(3,'Famorra','Halli','hallifamorra@gmail.com','1234','Ambiong, Baguio City','','09987654321','',NULL);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_migrations`
+--
+
+DROP TABLE IF EXISTS `django_migrations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `django_migrations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `app` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `applied` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_migrations`
+--
+
+LOCK TABLES `django_migrations` WRITE;
+/*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -57,10 +82,10 @@ DROP TABLE IF EXISTS `petlist`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `petlist` (
   `petID` int(11) NOT NULL,
-  `type` varchar(45) NOT NULL,
+  `type` enum('dog','cat') DEFAULT NULL,
   `breed` varchar(45) NOT NULL,
   PRIMARY KEY (`petID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -108,8 +133,13 @@ DROP TABLE IF EXISTS `request`;
 CREATE TABLE `request` (
   `reqID` int(11) NOT NULL AUTO_INCREMENT,
   `reqStatus` varchar(45) NOT NULL,
-  `reqDets` varchar(45) NOT NULL,
-  PRIMARY KEY (`reqID`)
+  `custId` int(11) NOT NULL,
+  `sp_id` int(11) NOT NULL,
+  PRIMARY KEY (`reqID`),
+  KEY `c_fk_idx` (`custId`),
+  KEY `sp_fk_idx` (`sp_id`),
+  CONSTRAINT `c_fk` FOREIGN KEY (`custId`) REFERENCES `customer` (`custID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `sp_fk` FOREIGN KEY (`sp_id`) REFERENCES `service_provider` (`spID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -163,16 +193,16 @@ CREATE TABLE `service_provider` (
   `spEmail` varchar(45) NOT NULL,
   `spPassword` varchar(16) NOT NULL,
   `spAdd` varchar(45) NOT NULL,
-  `spNum` int(11) NOT NULL,
-  `spPet` varchar(20) NOT NULL,
+  `spNum` varchar(45) NOT NULL,
+  `spPet` enum('dog','cat','both') NOT NULL,
   `spZip` int(5) NOT NULL,
-  `spLastLogged` date NOT NULL,
-  `spStatus` varchar(45) NOT NULL,
+  `spLastLogged` date DEFAULT NULL,
+  `spStatus` enum('active','not active') NOT NULL,
   `spServices` varchar(45) NOT NULL,
   `spDay` varchar(10) NOT NULL,
-  `spTime` datetime NOT NULL,
+  `spTime` time NOT NULL,
   PRIMARY KEY (`spID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -181,6 +211,7 @@ CREATE TABLE `service_provider` (
 
 LOCK TABLES `service_provider` WRITE;
 /*!40000 ALTER TABLE `service_provider` DISABLE KEYS */;
+INSERT INTO `service_provider` VALUES (1,'sp101','Kilma','Dona','dk@gmail.com','1234','A. Bonifacio St., Baguio City','09090912345','dog',2600,NULL,'active','grooming','mwf','10:00:00');
 /*!40000 ALTER TABLE `service_provider` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -276,4 +307,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-07  0:39:19
+-- Dump completed on 2017-05-10 17:17:54
