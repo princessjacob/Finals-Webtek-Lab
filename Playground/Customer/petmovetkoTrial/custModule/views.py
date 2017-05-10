@@ -35,22 +35,24 @@ def edit(request):
         )
 
 def newrequest(request):
-    data = Petlist.objects.all().distinct('type')
+    petType = Petlist.objects.values('type').distinct()
+    petBreed = Petlist.objects.values('breed').distinct()
     sp_data = ServiceProvider.objects.all()
     serv = Services.objects.all()
     
     return render(request,
                   'custModule/newrequest.html',
-                  context={'data': data, 'sp_data': sp_data, 'serv': serv},
+                  context={'petType': petType, 'petBreed' : petBreed, 'sp_data': sp_data, 'serv': serv},
                  )
 def editrequest(request):
-    data = Petlist.objects.all().distinct('type')
+    petType = Petlist.objects.values('type').distinct()
+    petBreed = Petlist.objects.values('breed').distinct()
     sp_data = ServiceProvider.objects.all()
     serv = Services.objects.all()
     
     return render(request,
                   'custModule/editrequest.html',
-                  context={'data': data, 'sp_data': sp_data, 'serv': serv},
+                  context={'petType': petType, 'petBreed' : petBreed, 'sp_data': sp_data, 'serv': serv},
                  )
 
 def newreview(request):
@@ -58,10 +60,6 @@ def newreview(request):
 
 def listreview(request):
     return render(request, 'custModule/listreview.html')
-
-def viewsp(request):
-    return render(request, 'custModule/ViewSP.html')
-
 
 ### Views from Database
 
