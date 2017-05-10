@@ -85,10 +85,21 @@ class Customer(models.Model):
     custadd = models.CharField(db_column='custAdd', max_length=45)  # Field name made lowercase.
     custnum = models.CharField(db_column='custNum', max_length=45)  # Field name made lowercase.
     custphoto = models.TextField(db_column='custPhoto', blank=True, null=True)  # Field name made lowercase.
+    custabout = models.CharField(db_column='custAbout', max_length=1000, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'customer'
+        
+    def __iter__(self):
+        return [ self.custid,
+                 self.custpassword,
+                 self.custlastname, 
+                 self.custfirstname, 
+                 self.custemail, 
+                 self.custadd,
+                 self.custabout,
+                 self.custnum ]
 
 
 class DjangoAdminLog(models.Model):
@@ -143,6 +154,11 @@ class Petlist(models.Model):
     class Meta:
         managed = False
         db_table = 'petlist'
+        
+    def __iter__(self): 
+        return [
+            self.breed
+        ]
 
 
 class Petowner(models.Model):
@@ -180,21 +196,36 @@ class ServiceProvider(models.Model):
     spusername = models.CharField(db_column='spUsername', max_length=45)  # Field name made lowercase.
     splastname = models.CharField(db_column='spLastName', max_length=45)  # Field name made lowercase.
     spfirstname = models.CharField(db_column='spFirstName', max_length=45)  # Field name made lowercase.
-    spemail = models.CharField(db_column='spEmail', max_length=45)  # Field name made lowercase.
+    spemail = models.CharField(db_column='spEmail', max_length=50)  # Field name made lowercase.
     sppassword = models.CharField(db_column='spPassword', max_length=16)  # Field name made lowercase.
-    spadd = models.CharField(db_column='spAdd', max_length=45)  # Field name made lowercase.
+    spadd = models.CharField(db_column='spAdd', max_length=500)  # Field name made lowercase.
     spnum = models.IntegerField(db_column='spNum')  # Field name made lowercase.
     sppet = models.CharField(db_column='spPet', max_length=20)  # Field name made lowercase.
     spzip = models.IntegerField(db_column='spZip')  # Field name made lowercase.
     splastlogged = models.DateField(db_column='spLastLogged')  # Field name made lowercase.
     spstatus = models.CharField(db_column='spStatus', max_length=45)  # Field name made lowercase.
-    spservices = models.CharField(db_column='spServices', max_length=45)  # Field name made lowercase.
+    spservices = models.CharField(db_column='spServices', max_length=500)  # Field name made lowercase.
     spday = models.CharField(db_column='spDay', max_length=10)  # Field name made lowercase.
     sptime = models.DateTimeField(db_column='spTime')  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'service_provider'
+    
+    def __iter__(self):
+        return [ self.splastname,
+                 self.spfirstname,
+                 self.spemail,
+                 self.sppasword,
+                 self.spadd,
+                 self.spnum,
+                 self.sppet,
+                 self.spzip,
+                 self.splastlogged,
+                 self.spstatus,
+                 self.spservices,
+                 self.spday,
+                 self.sptime ]
 
 
 class Services(models.Model):
