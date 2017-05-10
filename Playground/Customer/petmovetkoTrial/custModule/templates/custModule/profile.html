@@ -21,11 +21,13 @@
                                      </div>
                             <div class="col-lg-9 col-md-6">
                                         <ul id="info">
-                                            <li>Lastname:</li>
-                                            <li>Firstname:</li>
-                                            <li>Address:</li>
-                                            <li>Contact #:</li>
-                                            <li>Email:</li>
+                                            {% for customer in data %}
+                                                <li>Lastname: {{ customer.custlastname }}</li>
+                                                <li>Firstname: {{ customer.custfirstname }}</li>
+                                                <li>Address: {{ customer.custadd }}</li>
+                                                <li>Contact #: {{ customer.custnum }}</li>
+                                                <li>Email: {{ customer.custemail }}</li>
+                                            {% endfor %}
                                         </ul>
                                     </div>
                         </div>
@@ -35,7 +37,9 @@
                           <label for="about"><h4>Things about Me</h4></label>
                         </div>
                          <div class="panel-body ">
-                            <p id="aboutMe">This is all about me. kshdfksalfhlsdhlfkhdfkhiweyriouweyrfgdshjkfhdgfsdgfkasfdkhgsdhfgskdfghkdsgfk</p>
+                             {% for customer in data %}
+                            <p id="aboutMe">{{ customer.custabout }}</p>
+                             {% endfor %}
                               </div>
                     </div>
                 </div>

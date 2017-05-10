@@ -25,9 +25,16 @@
             <div class="panel panel-info">
                 <div class="panel-body">
                     <form>
-                        <div class="form-group">
-                            <label for="breed">Pet Breed: </label>
-                            <input type="text" class="form-control" id="breed">
+                        <div class="form-group row">
+                          <label for="sched" class="col-xs-12 col-form-label">Please identify your pet's breed:</label>
+                            <div class="col-xs-4">
+                              <select class="form-control" id="sched">
+                                <option value="" selected hidden>Breed</option>
+                                {% for petlist in data %}
+                                    <option>{{ petlist.breed }}</option>
+                                {% endfor %}
+                              </select>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -72,7 +79,7 @@
                     <div class="row">
                     <div class="col-xs-3 text-center">
                        <img src="http://placehold.it/100x100" class="img-responsive" width="100px" height="100px">
-                        <button type="button" class="btn btn-info">VIEW PROFILE</button>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#viewprof">VIEW PROFILE</button>{% include "custModule/includes/modalSp.html" %}
                     </div>
                     </div>
                 </div>
@@ -91,19 +98,17 @@
                             <div class="col-xs-4">
                               <select class="form-control" id="sched">
                                 <option value="" selected hidden>Select Day</option>
-                                <option>DAY</option>
-                                <option>DAY</option>
-                                <option>DAY</option>
-                                <option>DAY</option>
+                                {% for sp in sp_data %}
+                                  <option>{{ sp.spday }}</option>
+                                {% endfor %}
                               </select>
                             </div>
                             <div class="col-xs-4">
                               <select class="form-control" id="sched">
                                 <option value="" selected hidden>Select Time Availability</option>
-                                <option>TIME</option>
-                                <option>TIME</option>
-                                <option>TIME</option>
-                                <option>TIME</option>
+                                {% for sp in sp_data %}
+                                  <option>{{ sp.sptime }}</option>
+                                {% endfor %}
                               </select>
                             </div>
                         </div>
