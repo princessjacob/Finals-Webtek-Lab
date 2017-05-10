@@ -35,11 +35,22 @@ def edit(request):
         )
 
 def newrequest(request):
-    data = Petlist.objects.all()
+    data = Petlist.objects.all().distinct('type')
     sp_data = ServiceProvider.objects.all()
+    serv = Services.objects.all()
+    
     return render(request,
                   'custModule/newrequest.html',
-                 context={'data': data, 'sp_data': sp_data},
+                  context={'data': data, 'sp_data': sp_data, 'serv': serv},
+                 )
+def editrequest(request):
+    data = Petlist.objects.all().distinct('type')
+    sp_data = ServiceProvider.objects.all()
+    serv = Services.objects.all()
+    
+    return render(request,
+                  'custModule/editrequest.html',
+                  context={'data': data, 'sp_data': sp_data, 'serv': serv},
                  )
 
 def newreview(request):
