@@ -59,5 +59,9 @@ def newreview(request):
 def listreview(request):
     return render(request, 'custModule/listreview.html')
 
+def viewsp(request):
+    return render(request, 'custModule/ViewSP.html')
+
+
 ### Views from Database
 

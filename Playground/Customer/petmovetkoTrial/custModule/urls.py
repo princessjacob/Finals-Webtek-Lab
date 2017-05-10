@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^edit/$', views.edit, name="edit"),
     url(r'^newreview/$', views.newreview, name="newreview"),
     url(r'^listreview/$', views.listreview, name="listreview"),
+    url(r'^viewsp/$', views.viewsp, name="viewsp"),
 ]
