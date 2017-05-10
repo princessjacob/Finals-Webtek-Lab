@@ -2,7 +2,7 @@
 session_start();
 if ($_SESSION['loggedin'] == false ) {
     header('Location: login.php');
-} else if (!$_SESSION['username']) {
+} else if (!$_SESSION['username'] == "admin") {
     echo "<script> alert('Restricted Access! You are not allowed to visit this site.'); </script>";
     header('Location: ../index.php');
 }
@@ -117,7 +117,7 @@ if ($_SESSION['loggedin'] == false ) {
 </div>
 <div class="row">
 <div class="table-responsive">
-<table id="tableID" onClick="myFun(event)" class="table table-hover" style="margin-top: 20px;">
+<table id="tableID" class="table table-hover" style="margin-top: 20px;">
 <thead>
 <tr>
 <th class="text-center" style="width:10%;">Select</th>

@@ -42,6 +42,7 @@ if ($petmovetkodb->connect_error) {
             <div class="login-panel1 panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Register</h3>
+                    <a href="login.php"> I already have an account </a>
                 </div>  
                 <!-- /.panel-heading -->
                 <div class="newpan">
@@ -69,7 +70,7 @@ if ($petmovetkodb->connect_error) {
                                             echo "The email you have entered is invalid, please try again.";
                                         } else {
                                             $result = mysqli_query($petmovetkodb, "SELECT * FROM customer WHERE custEmail = '$email'");
-                                            if(mysqli_num_rows($result) == true) {
+                                            if(mysqli_num_rows($result) > 0) {
                                                 echo "<div class='err'>Account already exists!</div>";
                                                 mysqli_free_result($result);
                                             } else {
@@ -140,10 +141,10 @@ if ($petmovetkodb->connect_error) {
                                             print "<div class='err'> Account already exists! </div>";
                                             mysqli_free_result($result);
                                         } else {
-                                            $sql = "INSERT INTO service_provider (spLastName, spFirstName, spEmail, spPassword, spAdd, spNum, spPet, spZip, spServices, spUsername) 
-                                            VALUES ('$splastName', '$spfirstName', '$spemail', '$sppass', '$spbarangay', '$spcontactno', '$sppet', '$spzcode', '$spservices', '$spusername')";
+                                            $sql = "INSERT INTO service_provider (spLastName, spFirstName, spEmail, spPassword, spAdd, spNum, spPet, spZip, spServices, spUsername, spReqStatus) 
+                                            VALUES ('$splastName', '$spfirstName', '$spemail', '$sppass', '$spbarangay', '$spcontactno', '$sppet', '$spzcode', '$spservices', '$spusername', 'pend')";
                                             if ($petmovetkodb->query($sql) === TRUE) {
-                                                echo "<script> window.location.replace('signup.php'); </script>";
+                                                echo "<meta http-equiv='refresh' content='0'>";
                                             } else {
                                                 echo "Error: " . $sql . "<br>" . $petmovetkodb->error;
                                             }

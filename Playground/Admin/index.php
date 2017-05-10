@@ -206,71 +206,60 @@
 			</div>
 			
 		</div>
-		<div class="container-fluid" id="reviews" style="padding: 30px;">
+		<div class="container" id="reviews" style="padding: 30px;">
 			<div class="row">
-				<h1 class="text-center" style="font-size:60px; font-family: 'Pacifico', cursive;"> Reviews </h2> 
+				<h1 class="text-center" style="font-size:60px; font-family: 'Pacifico', cursive;">
+					<i class="fa fa-paw" style="font-size: 20px;"></i> <i class="fa fa-paw" style="font-size: 40px;"></i> <i class="fa fa-paw"></i> 
+					Reviews 
+					<i class="fa fa-paw"></i> <i class="fa fa-paw" style="font-size: 40px;"></i> <i class="fa fa-paw" style="font-size: 20px;"></i></h2> 
 			</div>
 			<div class="row">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<div class="col-md-12">
-							<img class="img-responsive img-thumbnail" src="images/random1.jpg" width="200px"/>
-							<h4 class="magical"> Magical! </h4>
-							<p > Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
-						</div>
-					</div>
+				<div class="col-md-2 col-md-offset-2">
+					<img class="img-responsive img-thumbnail" src="images/random1.jpg" width="200px"/>
+				</div>
+				<div class="col-md-6">
+					<h4 class="magical"> Magical! </h4>
+					<p> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
 				</div>
 			</div>
-			<br/>
+			<hr>
 			<div class="row">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<div class="col-md-12">
-							<img class="img-responsive img-thumbnail" src="images/random2.png" width="200px"/>
-							<h4> Magical! </h4>
-							<p > Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
-						</div>
-					</div>
+				<div class="col-md-2 col-md-offset-2">
+					<img class="img-responsive img-thumbnail" src="images/random2.png" width="200px"/>
+				</div>
+				<div class="col-md-6">
+					<h4 class="magical"> Magical! </h4>
+					<p> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
 				</div>
 			</div>
-			<br/>
+			<hr/>
 			<div class="row">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<div class="col-md-12">
-							<img class="img-responsive img-thumbnail" src="images/random3.jpg" width="200px"/>
-							<h4> Magical! </h4>
-							<p > Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
-								totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta 
-								sunt explicabo. </p>
-						</div>
-					</div>
+				<div class="col-md-2 col-md-offset-2">
+					<img class="img-responsive img-thumbnail" src="images/random3.jpg" width="200px"/>
+				</div>
+				<div class="col-md-6">
+					<h4 class="magical"> Magical! </h4>
+					<p> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
 				</div>
 			</div>
-			<br/>
+			<hr/>
 			<div class="row">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<div class="col-md-12">
-							<img class="img-responsive img-thumbnail" src="images/random4.jpg" width="200px"/>
-							<h4> Magical! </h4>
-							<p > Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, 
-								eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
-						</div>
-					</div>
+				<div class="col-md-2 col-md-offset-2">
+					<img class="img-responsive img-thumbnail" src="images/random4.jpg" width="200px"/>
+				</div>
+				<div class="col-md-6">
+					<h4 class="magical"> Magical! </h4>
+					<p> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
 				</div>
 			</div>
-			<br/>
+			<hr/>
 			<div class="row">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<div class="col-md-12">
-							<img class="img-responsive img-thumbnail" src="images/random5.jpg" width="200px"/>
-							<h4> Magical! </h4>
-							<p> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, 
-								eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
-						</div>
-					</div>
+				<div class="col-md-2 col-md-offset-2">
+					<img class="img-responsive img-thumbnail" src="images/random5.jpg" width="200px"/>
+				</div>
+				<div class="col-md-6">
+					<h4 class="magical"> Magical! </h4>
+					<p> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
 				</div>
 			</div>
 		</div>
@@ -296,16 +285,18 @@
         </div>
                             <!-- /.modal -->
 
-        <div class = "footer>
+        <footer class="footer-container">
+        <div class="container-fluid">
+        <div class = "footer">
         	<div class="row">
         		<div class="col-md-6">
         			<a href="terms.html" style="padding-left: 200px;">Terms & Conditions</a>
         			<a href="policy.html"  style="padding-left: 50px;" >Privacy Policy</a><br><br><br>
         			<img src="images/fb.png" width="30%" height="auto" style="padding-left: 100px; padding-right: 20px;">
-        			<img src="images/instagram.png" width=15%" height="auto" style="padding-right: 25px;">
-        			<img src="images/twitter.png" width=15%" height="auto" style="padding-right: 5px;">
-        			<img src="images/googleplus.png" width=13%" height="auto" style="padding-right: 5px;">
-        			<img src="images/pinterest.png" width=13%" height="auto" style="padding-right: 5px;">
+        			<img src="images/instagram.png" width="15%" height="auto" style="padding-right: 25px;">
+        			<img src="images/twitter.png" width="15%" height="auto" style="padding-right: 5px;">
+        			<img src="images/googleplus.png" width="13%" height="auto" style="padding-right: 5px;">
+        			<img src="images/pinterest.png" width="13%" height="auto" style="padding-right: 5px;">
 					<p class="text-right" style="padding-top: 150px; padding-right:150px";>Copyright © 2017 Pet Mo, Vet Ko!, Inc. All rights reserved</p>
 				</div>
 					
@@ -314,6 +305,8 @@
 				</div>
 			</div>
         </div>
+    </div>
+    	</footer>
 
         <script src="bootstrap/vendor/jquery/jquery.min.js"></script>
 

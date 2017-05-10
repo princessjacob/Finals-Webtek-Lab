@@ -23,6 +23,7 @@
 
     <!-- Custom CSS -->
     <link href="../bootstrap/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="../bootstrap/dist/css/admin.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="../bootstrap/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -61,6 +62,10 @@
     die("Connection failed: " . $petmovetkodb->connect_error);
   }
 ?>
+
+<div class="backhome">
+    <a href="../index.php"><p class="fa fa-home"> Back</p></a>
+</div>
 
 <div class="container">
     <div class="row">
