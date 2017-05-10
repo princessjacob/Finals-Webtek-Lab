@@ -30,24 +30,21 @@
                                     <div class="panel panel-info">
                                         <div class="panel-heading container-fluid">
                                             <div class="col-xs-9"><p>DATE AND TIME REQUESTED</p></div>
-                                            <div class="col-xs-3"><a href="#" class="btn btn-info btn-xs " data-toggle="modal" data-target="#myModaleditrequest"><span class="glyphicon glyphicon-pencil"></span> EDIT</a>
-                                            {% include "custModule/includes/modaleditrequest.html" %}
-                                            
-                                                
+                                            <div class="col-xs-3"><a href="/editrequest/" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span> EDIT</a>                                                                             
                                             <a href="#"><button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModalsure"><span class="glyphicon glyphicon-remove "></span>CANCEL</button></a>
-                        {% include "custModule/includes/modalsure.html" %}
+                                            {% include "custModule/includes/modalsure.html" %}
                                             </div>
                                         </div>
+                                    </div>
                                         <div class="panel-body">
                                             <p>SP NAME:</p>
                                             <p>SERVICE PROVIDED:</p>
                                         </div>
                                     </div>
+                                    </div>    
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-        </div>
-    </div>         
+                </div>      
 {% endblock %}
