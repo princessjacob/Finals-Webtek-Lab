@@ -30,9 +30,12 @@
                                     <div class="panel panel-info">
                                         <div class="panel-heading container-fluid">
                                             <div class="col-xs-9"><p>DATE AND TIME REQUESTED</p></div>
-                                            <div class="col-xs-3"><a href="#" class="btn btn-info btn-xs " data-toggle="modal" data-target="#myModalnewrequest"><span class="glyphicon glyphicon-pencil"></span> EDIT</a>
-                                            {% include "custModule/includes/modalnewrequest.html" %}
-                                            <a href="#" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-remove"></span> CANCEL</a>
+                                            <div class="col-xs-3"><a href="#" class="btn btn-info btn-xs " data-toggle="modal" data-target="#myModaleditrequest"><span class="glyphicon glyphicon-pencil"></span> EDIT</a>
+                                            {% include "custModule/includes/modaleditrequest.html" %}
+                                            
+                                                
+                                            <a href="#"><button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModalnewrequest"><span class="glyphicon glyphicon-remove "></span>CANCEL</button></a>
+                        {% include "custModule/includes/modalnewrequest.html" %}
                                             </div>
                                         </div>
                                         <div class="panel-body">
