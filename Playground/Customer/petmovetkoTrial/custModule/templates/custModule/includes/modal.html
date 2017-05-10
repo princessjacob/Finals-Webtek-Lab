@@ -2,7 +2,7 @@
 <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-    
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -36,23 +36,17 @@
                     <option>TIME</option>
                   </select>
                 </div>
-                
-            <div class="col-lg-12">
-                <div id="aboutText">
-                    
-                    <div class="form-group">
-                        <label for="about"><h3>Reason</h3></label>
-                        <textarea class="form-control" row="5" id="about"></textarea>
-                    </div>
+                <div class="col-xs-12">
+                  <label for="about"><h4>REASON</h4></label>
+                  <textarea class="form-control" rows="5" id="comment"></textarea>
                 </div>
-            </div>
             </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalreview">CHANGE</button>{% include "custModule/includes/modalreview.html" %}
         </div>
       </div>
-      
+
     </div>
   </div>
-{% endblock %} 
+{% endblock %}
