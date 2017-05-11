@@ -134,12 +134,12 @@ CREATE TABLE `request` (
   `reqID` int(11) NOT NULL AUTO_INCREMENT,
   `reqStatus` varchar(45) NOT NULL,
   `custId` int(11) NOT NULL,
-  `sp_id` int(11) NOT NULL,
+  `serv_id` int(11) NOT NULL,
   PRIMARY KEY (`reqID`),
   KEY `c_fk_idx` (`custId`),
-  KEY `sp_fk_idx` (`sp_id`),
+  KEY `serv_fk_idx` (`serv_id`),
   CONSTRAINT `c_fk` FOREIGN KEY (`custId`) REFERENCES `customer` (`custID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `sp_fk` FOREIGN KEY (`sp_id`) REFERENCES `service_provider` (`spID`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `serv_fk` FOREIGN KEY (`serv_id`) REFERENCES `services` (`servID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -307,4 +307,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-10 17:17:54
+-- Dump completed on 2017-05-11 10:48:46
