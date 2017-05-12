@@ -24,6 +24,6 @@
 
 	<body>
 		<h1>Sign up successful, Thank you!</h1>
-		<a href="index.html">Log in to new account</a>
+		<a href="login.php">Log in to new account</a>
 	</body>
 </html>
