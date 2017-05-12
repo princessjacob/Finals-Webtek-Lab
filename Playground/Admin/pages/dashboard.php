@@ -1,13 +1,3 @@
-<?php
-session_start();
-if ($_SESSION['loggedin'] == false ) {
-    header('Location: login.php');
-} else if (!$_SESSION['username'] == "admin") {
-    echo "<script> alert('Restricted Access! You are not allowed to visit this site.'); </script>";
-    header('Location: ../index.php');
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,10 +34,25 @@ if ($_SESSION['loggedin'] == false ) {
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+        #notif {
+            width: 20px;
+            height: 20px;
+            line-height: 5px;
+            font-size: 10px;
+        }
+    </style>
 
 </head>
 
 <body>
+<?php
+$petmovetkodb = new mysqli("localhost", "root", "", "petmovetko");
+  // Check connection
+if ($petmovetkodb->connect_error) {
+    die("Connection failed: " . $petmovetkodb->connect_error);
+}
+?>
     <div id="wrapper">
     	<nav class="navbar navbar-default navbar-fixed-top hidden-xs hidden-sm">
 			<div class="container-fluid">
@@ -74,6 +79,18 @@ if ($_SESSION['loggedin'] == false ) {
                             <a href="#">Dashboard</a>
                         </li>
                         <li>
+                            <a href="spReq.php"> Registration Requests
+                            <?php
+                                $req = "SELECT * FROM service_provider WHERE spReqStatus = 'pend'";
+                                $result = $petmovetkodb->query($req);
+                                if ($result->num_rows > 0) {
+                                    $row = $result-> num_rows;
+                                    echo "<span id='notif' class='btn btn-circle btn-danger pull-right'> $row </span>";
+                                }
+                            ?>
+                            </a>
+                        </li>
+                        <li>
                             <a href="#">Manage<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -97,9 +114,6 @@ if ($_SESSION['loggedin'] == false ) {
                                 
                             </ul>
                             <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#">Inactive Service Providers</a>
                         </li>
                         <li>
                             <a href="reports.html">Complaints</a>
@@ -398,5 +412,4 @@ if ($_SESSION['loggedin'] == false ) {
     <script src="../bootstrap/dist/js/sb-admin-2.js"></script>
 
 </body>
-
 </html>

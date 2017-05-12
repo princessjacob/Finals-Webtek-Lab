@@ -144,7 +144,7 @@ if ($petmovetkodb->connect_error) {
                                             $sql = "INSERT INTO service_provider (spLastName, spFirstName, spEmail, spPassword, spAdd, spNum, spPet, spZip, spServices, spUsername, spReqStatus) 
                                             VALUES ('$splastName', '$spfirstName', '$spemail', '$sppass', '$spbarangay', '$spcontactno', '$sppet', '$spzcode', '$spservices', '$spusername', 'pend')";
                                             if ($petmovetkodb->query($sql) === TRUE) {
-                                                echo "<meta http-equiv='refresh' content='0'>";
+                                                echo "<script> window.location.replace('signupSP.php'); </script>";
                                             } else {
                                                 echo "Error: " . $sql . "<br>" . $petmovetkodb->error;
                                             }
@@ -230,5 +230,4 @@ if ($petmovetkodb->connect_error) {
     <script src="../bootstrap/dist/js/sb-admin-2.js"></script>
 
 </body>
-
 </html>

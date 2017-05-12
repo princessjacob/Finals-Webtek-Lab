@@ -27,7 +27,7 @@ if ($_SESSION['loggedin'] == false ) {
     <link href="../bootstrap/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-
+    
     <link href="../bootstrap/dist/css/admin.css" rel="stylesheet">
     <link href="../bootstrap/dist/css/sb-admin-2.css" rel="stylesheet">
 
@@ -89,7 +89,7 @@ if ($_SESSION['loggedin'] == false ) {
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="#">Dashboard</a>
+                            <a href="dashboard.php">Dashboard</a>
                         </li>
                         <li>
                             <a href="spReq.php"> Registration Requests
@@ -144,82 +144,66 @@ if ($_SESSION['loggedin'] == false ) {
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Service Providers</h1>
+                        <h1 class="page-header text-center">Registration Requests</h1>
                     </div>
-                    <ul class="nav nav-tabs">
-                        <li class="active"> <a href="#info" data-toggle="tab"> Service Providers Info </a> </li>
-                        <li> <a href="#spInact" data-toggle="tab"> Inactive Service Providers </a> </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane fade in active" id="info">
-                            <?php
-                                $sp="SELECT spID, spUsername, spEmail, spNum, spPet, spAdd, 
-                                    spStatus, spDay, spTime  FROM service_provider WHERE spReqStatus = 'acc'";
-                                if ($result=mysqli_query($petmovetkodb, $sp)) {
-                                    if(mysqli_fetch_row($result) > 0) {
-                                    ?>
-                                        <div class="input-group custom-search-form" style="padding-top: 2em;">
-                                        <input type="text" class="form-control" placeholder="Search...">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                        </span>
-                                        </div>
-                                        <table class="table table-hover" style="margin-top: 1em;">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center" style="width: 5%;">ID</th>
-                                                <th style="width: 15%;">Username</th>
-                                                <th>Email</th>
-                                                <th class="text-center" style="width: 12%;">Contact</th>
-                                                <th class="text-center" style="width: 5%;">Cat/Dog</th>
-                                                <th>Address</th>
-                                                <th class="text-center" style="width: 7%;">Status</th>
-                                                <th class="text-center" style="width: 5%;">Hits</th>
-                                                <th class="text-center" style="width: 5%;">Rating</th>
-                                            </tr>
-                                        </thead>
-                                        <?php
-                                        while ($row=mysqli_fetch_row($result)) {
-                                            if ($row[4] == "cat,dog") {
-                                                $row[4] = "both";
-                                            } 
-                                            echo "<tr>";
-                                            echo "<td class='text-center'> $row[0] </td>";
-                                            echo "<td> $row[1] </td>";
-                                            echo "<td> $row[2] </td>";     
-                                            echo "<td class='text-right'> $row[3] </td>";
-                                            echo "<td class='text-center'> $row[4] </td>";
-                                            echo "<td> $row[5] </td>";
-                                            echo "<td class='text-center'> Null </td>";
-                                            echo "<td class='text-center'> Null </td>";
-                                            echo "<td class='text-center'> Null </td>";
-                                            echo "</tr>";
-                                        }
-                                        echo "</table>";
-
-                                    } else {
-                                        echo "<div style='margin-top:20vh;'>";
-                                        echo "<img src='../images/sadbunny.png' class='img-responsive img-circle' style='width: 200px; margin: 0 auto;'>";
-                                        echo "<h3 class='text-center'> There are no Service Providers yets. </h2>";
-                                        echo "</div>";
-                                    }
+                    <div class="col-lg-12">
+                        <?php
+                            $status = "SELECT spID, spUsername, CONCAT(spFirstName, ' ', spLastName), spEmail, spServices  FROM service_provider WHERE spReqStatus = 'pend'";
+                            $i=0;
+                            if ($result=mysqli_query($petmovetkodb, $status)) {
+                                if(mysqli_num_rows($result) > 0) {
+                        ?>
+                            <table class="table table-hover" style="margin-top: 1em;">
+                            <thead>
+                            <tr>
+                            <th> Username </th>
+                            <th> Name </th>
+                            <th> Email </th>
+                            <th> Service </th>
+                            <th> Accept </th>
+                            <th> Reject </th>
+                            </tr>
+                            </thead>
+                        <?php 
+                                while ($row=mysqli_fetch_row($result)) {
+                                    echo "<tr>";
+                                    echo "<td> $row[1] </td>";
+                                    echo "<td> $row[2] </td>";
+                                    echo "<td> $row[3] </td>";     
+                                    echo "<td> $row[4] </td>";
+                                    echo "<td class='text-center'>
+                                            <form action=". htmlspecialchars($_SERVER["PHP_SELF"]) ." method='POST'>
+                                            <input type='submit' name='accept' class='btn btn-success btn-circle' value='$row[0]'> 
+                                            <i class='fa fa-check'></i></input> </td>";
+                                    echo "<td class='text-center'>
+                                            <form action=". htmlspecialchars($_SERVER["PHP_SELF"]) ." method='POST'>
+                                            <input type='submit' name='reject' class='btn btn-danger btn-circle value='$row[0]'> 
+                                            <i class='fa fa-times'></i> </input> </td>";
+                                    echo "</tr>";
                                 }
-                            ?>
-                        </div>
-                        <div class="tab-pane fade in" id="spInact">
-                        <h2> HI :D </h2>
-                        </div>
-                        <div id="addservice" class="addserv">
+                            echo "</table>";
+                            } else {
+                                echo "<div style='margin-top:20vh;'>";
+                                echo "<img src='../images/sadbunny.png' class='img-responsive img-circle' style='width: 200px; margin: 0 auto;'>";
+                                echo "<h3 class='text-center'> There are no Registration Requests yets. </h2>";
+                                echo "</div>";
+                            }
 
-                          <!-- Modal content -->
-                          <div class="addserv-content">
-                            <span class="close">&times;</span>
-                            <p>Some text in the Modal..</p>
-                          </div>
-
-                        </div>
+                            if (isset($_POST['accept'])) {
+                                $id = $_POST['accept'];
+                                $accept = "UPDATE service_provider SET spReqStatus='acc' WHERE spID='$id'";
+                                $petmovetkodb->query($accept);
+                                echo "<script> location.reload(); </script>";
+                            }
+                            if (isset($_GET['reject'])) {
+                                $id = $_GET['reject'];
+                                $reject = "DELETE FROM service_provider WHERE spID='$id' ";
+                                $petmovetkodb->query($reject);
+                                echo "<script> location.reload(); </script>";
+                            }
+                        }
+                        ?>
+                    </div>
                 </div>
                 <!-- /.row -->
             </div>
