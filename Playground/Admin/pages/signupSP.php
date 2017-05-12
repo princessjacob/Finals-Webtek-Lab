@@ -25,6 +25,6 @@
 	<body>
 		<h1>Registration successful, Thank you!</h1>
 		<p> An email will be sent to your registered email account to notify you if you are accepted or rejected. </p>
-		<a href="index.html">Log in to your account</a>
+		<a href="login.php">Log in to your account</a>
 	</body>
 </html>
