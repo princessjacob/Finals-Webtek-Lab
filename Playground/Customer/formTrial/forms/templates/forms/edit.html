@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>Forms!!!!</title>
+    </head>
+
+    <body>
+        <p>Welcome to Form Trial</p>
+
+        <p>Update Data</p>
+        {% for cust in data %}
+            {{ cust.custlastname }} {{ cust.custfirstname }}
+        {% endfor %}
+        <form action="/edit/" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit" />
+        </form>
+
+
+    </body>
+</html>
