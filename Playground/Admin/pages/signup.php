@@ -24,6 +24,6 @@
 
 	<body>
 		<h1>Registration successful, Thank you!</h1>
-		<a href="index.html">Log in to your account</a>
+		<a href="login.php">Log in to your account</a>
 	</body>
 </html>
