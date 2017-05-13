@@ -39,6 +39,12 @@ if ($_SESSION['loggedin'] == false ) {
 
     <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
 
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=Aladin" rel="stylesheet">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -119,17 +125,17 @@ if ($_SESSION['loggedin'] == false ) {
                             <a href="#">Activity<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="statistics.html">Statistics</a>
+                                    <a href="statistics.php">Statistics</a>
                                 </li>
                                 <li>
-                                    <a href="servstat.html">Service Status</a>
+                                    <a href="servstat.php">Service Status</a>
                                 </li>
                                 
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="reports.html">Complaints</a>
+                            <a href="reports.php">Complaints</a>
                         </li>
                        
                     </ul>
