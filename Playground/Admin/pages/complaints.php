@@ -1,3 +1,13 @@
+<?php
+session_start();
+if ($_SESSION['loggedin'] == false ) {
+    header('Location: login.php');
+} else if (!$_SESSION['username'] == "admin") {
+    echo "<script> alert('Restricted Access! You are not allowed to visit this site.'); </script>";
+    header('Location: ../index.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +31,13 @@
     <link href="../bootstrap/dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="../bootstrap/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+   <link href="../bootstrap/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=Aladin" rel="stylesheet">
 
     <php
 
@@ -50,49 +66,46 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="dashboard.html">HOME</a>
+                            <a href="dashboard.php">HOME</a>
                         </li>
                         <li>
                             <a href="#">MANAGE<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="services.html">SERVICES</a>
+                                    <a href="services.php">SERVICES</a>
                                 </li>
                                 <li>
-                                    <a href="sp.html">SERVICE PROVIDERS</a>
+                                    <a href="sp.php">SERVICE PROVIDERS</a>
                                 </li>
                                 <li>
-                                    <a href="ct.html">CUSTOMERS</a>
+                                    <a href="ct.php">CUSTOMERS</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#">ACTIVITY<span class="fa arrow"></span></a>
+                            <a href="#">Activity<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="statistics.html">STATISTICS</a>
+                                    <a href="statistics.php">Statistics</a>
                                 </li>
                                 <li>
-                                    <a href="servstat.html">SERVICE STATUS</a>
+                                    <a href="servstat.php">Service Status</a>
                                 </li>
                                 
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                                    <a href="#">INACTIVE<span class="fa arrow"></span></a>
-                                    <ul class="nav nav-second-level">
-                                        <li>
-                                            <a href="inactsp.html">SERVICE PROVIDER</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                        <li>
-                            <a href="reports.html">COMPLAINTS</a>
+                            <a href="reports.php">Complaints</a>
                         </li>
+                        
                        
                     </ul>
+                    <br>
+                        <li>
+                            <a href="login.php">Logout</a>
+                        </li>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>

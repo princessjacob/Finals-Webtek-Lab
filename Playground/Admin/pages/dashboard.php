@@ -1,3 +1,12 @@
+<?php
+session_start();
+if ($_SESSION['loggedin'] == false ) {
+    header('Location: login.php');
+} else if (!$_SESSION['username'] == "admin") {
+    echo "<script> alert('Restricted Access! You are not allowed to visit this site.'); </script>";
+    header('Location: ../index.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
