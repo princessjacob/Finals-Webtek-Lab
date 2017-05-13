@@ -19,7 +19,7 @@ if ($_SESSION['loggedin'] == false ) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Manage Customers | Pet Mo Vet Ko!</title>
+    <title>Services</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../bootstrap/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -32,6 +32,14 @@ if ($_SESSION['loggedin'] == false ) {
 
     <!-- Custom Fonts -->
     <link href="../bootstrap/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=Aladin" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -104,10 +112,10 @@ if ($_SESSION['loggedin'] == false ) {
                             <a href="#">Activity<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="statistics.html">Statistics</a>
+                                    <a href="statistics.php">Statistics</a>
                                 </li>
                                 <li>
-                                    <a href="servstat.html">Service Status</a>
+                                    <a href="servstat.php">Service Status</a>
                                 </li>
                                 
                             </ul>
@@ -118,6 +126,10 @@ if ($_SESSION['loggedin'] == false ) {
                         </li>
                        
                     </ul>
+                    <br>
+                        <li>
+                            <a href="login.php">Logout</a>
+                        </li>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
