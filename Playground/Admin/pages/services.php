@@ -33,6 +33,14 @@ if ($_SESSION['loggedin'] == false ) {
     <!-- Custom Fonts -->
     <link href="../bootstrap/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+    <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=Aladin" rel="stylesheet">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -75,17 +83,31 @@ if ($_SESSION['loggedin'] == false ) {
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li> <a href="dashboard.html">HOME</a> </li>
+                        <li> <a href="dashboard.php">HOME</a> </li>
                         <li> <a href="#">MANAGE<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li> <a href="services.html">SERVICES</a> </li>
-                                <li> <a href="sp.html">SERVICE PROVIDERS</a> </li>
-                                <li> <a href="ct.html">CUSTOMERS</a> </li>
+                                <li> <a href="services.php">SERVICES</a> </li>
+                                <li> <a href="sp.php">SERVICE PROVIDERS</a> </li>
+                                <li> <a href="ct.php">CUSTOMERS</a> </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li> <a href="tables.html">ACTIVITY</a> </li>
-                        <li> <a href="forms.html">REPORTS</a> </li>
+                        <li>
+                            <a href="#">Activity<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="statistics.html">Statistics</a>
+                                </li>
+                                <li>
+                                    <a href="servstat.php">Service Status</a>
+                                </li>
+                                
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="reports.php">Complaints</a>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
