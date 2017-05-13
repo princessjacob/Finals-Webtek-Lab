@@ -112,7 +112,7 @@ if ($petmovetkodb->connect_error) {
                             </form>
                         </div>
                         <div class="tab-pane fade" id="servprovider">
-                            <form role="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                            <form role="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data">
                                 <!-- REGISTRATION FOR SP -->    
                                 <?php
                                 if(isset($_POST["spreg"])) {
@@ -155,9 +155,6 @@ if ($petmovetkodb->connect_error) {
                                             <!-- END OF REGISTRATION FOR SP -->
                                         <fieldset id="formset">
                                             <div class="form-group3">
-                                                <?php if(empty($spfirstName) || empty($spLastName)) {
-                                                    echo "<div class='err'> Please enter your last and first name </div>";
-                                                } ?>
                                                 <input class="form-control form-control-inline" placeholder="First Name" name="spfirstName" type="fname" value="" required>
                                             </div>
                                             <div class="form-group2">
@@ -208,6 +205,7 @@ if ($petmovetkodb->connect_error) {
                                                     <input name="pet_type[]" type="checkbox" value="dog">Dog
                                                 </label>
                                             </div>
+
                                             <div id="sched" class="form-group">
                                                 <h5> Set Schedule Available </h5>
                                                 <label> Time Start <input type="time" name="time_start"> </label>
@@ -235,6 +233,7 @@ if ($petmovetkodb->connect_error) {
                                             </div>
                                             <button onclick="addSched()"> Add New Schedule </button>
                                             <div class="form-group">
+                                                <input type="file" 
                                             </div>
                                             <input type="submit" name="spreg" value="Register" class="btn btn-lg btn-success btn-block" style="bottom:0;">  
                                         </fieldset>

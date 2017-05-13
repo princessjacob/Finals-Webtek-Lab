@@ -1,3 +1,13 @@
+<?php
+session_start();
+if ($_SESSION['loggedin'] == false ) {
+    header('Location: login.php');
+} else if (!$_SESSION['username'] == "admin") {
+    echo "<script> alert('Restricted Access! You are not allowed to visit this site.'); </script>";
+    header('Location: ../index.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +19,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Pet Mo, Vet Ko!</title>
+    <title>Manage Customers | Pet Mo Vet Ko!</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../bootstrap/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -20,44 +30,28 @@
     <!-- Custom CSS -->
     <link href="../bootstrap/dist/css/sb-admin-2.css" rel="stylesheet">
 
-    <!-- Morris Charts CSS -->
-    <link href="../bootstrap/vendor/morrisjs/morris.css" rel="stylesheet">
-
     <!-- Custom Fonts -->
     <link href="../bootstrap/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-<link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
-
-<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
-
-<link href="https://fonts.googleapis.com/css?family=Aladin" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <style>
-        #notif {
-            width: 20px;
-            height: 20px;
-            line-height: 5px;
-            font-size: 10px;
-        }
-    </style>
 
 </head>
 
 <body>
 <?php
-$petmovetkodb = new mysqli("localhost", "root", "", "petmovetko");
-  // Check connection
-if ($petmovetkodb->connect_error) {
-    die("Connection failed: " . $petmovetkodb->connect_error);
-}
+    $petmovetkodb = new mysqli("localhost", "root", "", "petmovetko");
+    // Check connection
+    if ($petmovetkodb->connect_error) {
+        die("Connection failed: " . $petmovetkodb->connect_error);
+    }
 ?>
     <div id="wrapper">
+
         <nav class="navbar navbar-default navbar-fixed-top hidden-xs hidden-sm">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -110,17 +104,17 @@ if ($petmovetkodb->connect_error) {
                             <a href="#">Activity<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="statistics.php">Statistics</a>
+                                    <a href="statistics.html">Statistics</a>
                                 </li>
                                 <li>
-                                    <a href="servstat.php">Service Status</a>
+                                    <a href="servstat.html">Service Status</a>
                                 </li>
                                 
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="reports.php">Complaints</a>
+                            <a href="reports.html">Complaints</a>
                         </li>
                        
                     </ul>
@@ -130,55 +124,76 @@ if ($petmovetkodb->connect_error) {
             <!-- /.navbar-static-side -->
         </nav>
 
+
         <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Customers<button class="button">&#128465;</button></h1>
+                        <h1 class="page-header">Customers</h1>
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                    <?php
+                        $customer="SELECT custID, CONCAT(custLastName, ' ', custFirstName), custEmail  FROM customer";
+                        if ($result=mysqli_query($petmovetkodb, $customer)) {
+                            if(mysqli_fetch_row($result) > 0) {
+                            ?>
+                            <div class="input-group custom-search-form" style="padding-top: 2em;">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button"> <i class="fa fa-search"></i> </button>
+                                </span>
+                            </div>
+                            <table class="table table-hover" style="margin-top: 1em;">
+                                <thead>
+                                <tr>
+                                <th class="text-center" style="width: 10%;">ID</th>
+                                <th style="width: 20%;">Name</th>
+                                <th>Email</th>
+                                </tr>
+                                </thead>
+                                <?php
+                                while ($row=mysqli_fetch_row($result)) {
+                                    echo "<tr>";
+                                    echo "<td class='text-center'> $row[0] </td>";
+                                    echo "<td> $row[1] </td>";
+                                    echo "<td> $row[2] </td>";
+                                    echo "</tr>";
+                                }
+                                echo "</table>";
+                            } else {
+                                echo "<div style='margin-top:20vh;'>";
+                                echo "<img src='../images/sadbunny.png' class='img-responsive img-circle' style='width: 200px; margin: 0 auto;'>";
+                                echo "<h3 class='text-center'> There are no Customers yet. </h2>";
+                                echo "</div>";
+                            }
+                        }
+                    ?>
                     </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
 
-                    <table>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th>Email</th>
-                            <th>Rating</th>
-                        </tr>
+    </div>
+    <!-- /#wrapper -->
 
-                        <tr>
-                            <td>C01</td>
-                            <td>Cole Sprouse</td>
-                            <td>La Presa</td>
-                            <td>colesprouse@gmail.com</td>
-                            <td>4.5</td>
-                        </tr>
+    <!-- jQuery -->
+    <script src="../bootstrap/vendor/jquery/jquery.min.js"></script>
 
-                        <tr>
-                            <td>C02</td>
-                            <td>Lili Reinhart</td>
-                            <td>New Lucban</td>
-                            <td>lilireinhart@gmail.com</td>
-                            <td>4.3</td>
-                        </tr>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../bootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-                        <tr>
-                            <td>C03</td>
-                            <td>Camila Mendes</td>
-                            <td>Magsaysay</td>
-                            <td>camilamendes@gmail.com</td>
-                            <td>4.1</td>
-                        </tr>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../bootstrap/vendor/metisMenu/metisMenu.min.js"></script>
 
-                        <tr>
-                            <td>C04</td>
-                            <td>KJ Apa</td>
-                            <td>Cabinet Hill</td>
-                            <td>kjapa@gmail.com</td>
-                            <td>3.5</td>
-                        </tr>
-                    </table>
+    <!-- Custom Theme JavaScript -->
+    <script src="../bootstrap/dist/js/sb-admin-2.js"></script>
+
+</body>
                     
                 </div>
                 <!-- /.row -->
@@ -208,4 +223,4 @@ if ($petmovetkodb->connect_error) {
     <script src="../bootstrap/dist/js/sb-admin-2.js"></script>
 
 </body>
-</html>
+</html>>>>>>>> .r232
