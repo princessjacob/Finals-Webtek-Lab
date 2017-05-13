@@ -63,7 +63,6 @@ if ($petmovetkodb->connect_error) {
                                         $lname = $_POST["lname"];
                                         $email = $_POST["email"];
                                         $password = $_POST["password"];
-                                        $password = md5(password);
                                         $address = $_POST["address"];
                                         $zcode = $_POST["zcode"];
                                         $contactno = $_POST["contactno"];
@@ -122,7 +121,6 @@ if ($petmovetkodb->connect_error) {
                                     $spusername = $_POST["spusername"];
                                     $spemail = $_POST["spemail"];
                                     $sppass = $_POST["sppass"];
-                                    $sppass = md5(sppass);
                                     $spbarangay = $_POST["spbarangay"];
                                     $spzcode = $_POST["spzcode"];
                                     $spcontactno = $_POST["spcontactno"];
@@ -146,7 +144,7 @@ if ($petmovetkodb->connect_error) {
                                             $sql = "INSERT INTO service_provider (spLastName, spFirstName, spEmail, spPassword, spAdd, spNum, spPet, spZip, spServices, spUsername, spReqStatus) 
                                             VALUES ('$splastName', '$spfirstName', '$spemail', '$sppass', '$spbarangay', '$spcontactno', '$sppet', '$spzcode', '$spservices', '$spusername', 'pend')";
                                             if ($petmovetkodb->query($sql) === TRUE) {
-                                                echo "<meta http-equiv='refresh' content='0'>";
+                                                echo "<script> window.location.replace('signupSP.php'); </script>";
                                             } else {
                                                 echo "Error: " . $sql . "<br>" . $petmovetkodb->error;
                                             }
@@ -250,7 +248,6 @@ if ($petmovetkodb->connect_error) {
                 </div>
             </div>
         </div>
-
     <!-- jQuery -->
     <script src="../bootstrap/vendor/jquery/jquery.min.js"></script>
 

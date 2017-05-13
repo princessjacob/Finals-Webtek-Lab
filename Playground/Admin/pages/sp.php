@@ -228,42 +228,54 @@ if ($_SESSION['loggedin'] == false ) {
                                         <thead>
                                             <tr>
                                                 <th class="text-center" style="width: 10%;">ID</th>
-                                                <th style="width: 15%;">Username</th>
+                                                <th style="width: 20%;">Username</th>
                                                 <th>Email</th>
-                                                <th class="text-center" style="width: 15%;">Contact</th>
-                                                <th class="text-center" style="width: 15%;">Last Logged</th>
+                                                <th style="width: 20%;">Last Logged</th>
+                                                <th class="text-center" style="width: 10%;"> Send Waring </th>
+                                                <th class="text-center" style="width: 10%;"> Deactive </th>
                                             </tr>
                                         </thead>
                                         <?php
                                         while ($row=mysqli_fetch_row($result)) {
-                                            if ($row[4] == "cat,dog") {
-                                                $row[4] = "both";
-                                            } 
                                             echo "<tr>";
                                             echo "<td class='text-center'> $row[0] </td>";
                                             echo "<td> $row[1] </td>";
                                             echo "<td> $row[2] </td>";     
-                                            echo "<td class='text-right'> $row[3] </td>";
-                                            echo "<td class='text-center'> $row[4] </td>";
-                                            echo "<td> $row[5] </td>";
-                                            echo "<td class='text-center'> Null </td>";
-                                            echo "<td class='text-center'> Null </td>";
-                                            echo "<td class='text-center'> Null </td>";
+                                            echo "<td> $row[3] </td>";
+                                            echo "<td class='text-center'>
+                                                    <form action=". htmlspecialchars($_SERVER["PHP_SELF"]) ." method='POST'>
+                                                    <button type='submit' name='warn' class='btn btn-warning btn-circle' value='$row[0]'> 
+                                                    <i class='fa fa-check'></i></input> </td>";
+                                            echo "<td class='text-center'>
+                                                    <form action=". htmlspecialchars($_SERVER["PHP_SELF"]) ." method='POST'>
+                                                    <input type='submit' name='deact' class='btn btn-danger btn-circle value='$row[0]'> 
+                                                    <i class='fa fa-times'></i> </input> </td>";
                                             echo "</tr>";
                                         }
                                         echo "</table>";
-
                                     } else {
                                         echo "<div style='margin-top:20vh;'>";
                                         echo "<img src='../images/sadbunny.png' class='img-responsive img-circle' style='width: 200px; margin: 0 auto;'>";
-                                        echo "<h3 class='text-center'> There are no Service Providers yets. </h2>";
+                                        echo "<h3 class='text-center'> There are no Inactive Service Providers yets. </h2>";
                                         echo "</div>";
+                                    }
+
+                                    if (isset($_POST['warn'])) {
+                                        $id = $_POST['warn'];
+                                        $warn = "SELECT * FROM service_provider WHERE spID='$id'";
+                                        $petmovetkodb->query($warn);
+                                        $message = "Dear Mr/Ms. $row[1], <br> this is to inform you that we have noticed your inactivity during the last three months. This is a warning that if you remain to be inactive for the next 7 days, your account will be deactivated and will no longer be seen by the user. Even so, we wish you the best of luck. <br> With regards, <br> Pet Mo Vet Ko Admin.";
+                                        mail($row["spEmail"], "Pet Mo Vet Ko Inactivity", $message);
+                                    }
+                                    if (isset($_POST['reject'])) {
+                                        $id = $_POST['reject'];
+                                        $reject = "DELETE FROM service_provider WHERE spID='$id' ";
+                                        $petmovetkodb->query($reject);
+                                        echo "<script> location.reload(); </script>";
                                     }
                                 }
                             ?>
                         </div>
-                        <div id="addservice" class="addserv">
-
                           <!-- Modal content -->
                           <div class="addserv-content">
                             <span class="close">&times;</span>
