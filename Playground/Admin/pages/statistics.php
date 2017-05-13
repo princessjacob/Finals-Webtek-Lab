@@ -12,16 +12,23 @@
     <title>Services</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../bootstrap/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="../bootstrap/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="../bootstrap/dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../bootstrap/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=Aladin" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -33,12 +40,28 @@
 </head>
 
 <body>
-
+<?php
+$petmovetkodb = new mysqli("localhost", "root", "", "petmovetko");
+  // Check connection
+if ($petmovetkodb->connect_error) {
+    die("Connection failed: " . $petmovetkodb->connect_error);
+}
+?>
     <div id="wrapper">
 
+        <nav class="navbar navbar-default navbar-fixed-top hidden-xs hidden-sm">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#" style="font-family: 'Pacifico', cursive; font-size: 2.5em;"> Pet Mo, Vet Ko! </a>
+                </div>
+            <a href="../index.php" class="btn btn-primary navbar-btn navbar-right" style="margin-right: 2em;"> Go Back to Public Page </a>
+            </div>
+        </nav>
+
+        <!-- Navigation side -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0" >
             <div class="navbar-header">
-                <a class="navbar-brand" href="dashboard.html">Pet Mo, Vet Ko!</a>
+                <a class="navbar-brand" href="dashboard.php">Pet Mo, Vet Ko!</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -48,49 +71,55 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="dashboard.html">HOME</a>
+                            <a href="dashboard.php">Dashboard</a>
                         </li>
                         <li>
-                            <a href="#">MANAGE<span class="fa arrow"></span></a>
+                            <a href="spReq.php"> Registration Requests
+                            <?php
+                                $req = "SELECT * FROM service_provider WHERE spReqStatus = 'pend'";
+                                $result = $petmovetkodb->query($req);
+                                if ($result->num_rows > 0) {
+                                    $row = $result-> num_rows;
+                                    echo "<span id='notif' class='btn btn-circle btn-danger pull-right'> $row </span>";
+                                }
+                            ?>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">Manage<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="services.html">SERVICES</a>
+                                    <a href="sp.php">Service Providers</a>
                                 </li>
                                 <li>
-                                    <a href="sp.html">SERVICE PROVIDERS</a>
-                                </li>
-                                <li>
-                                    <a href="ct.html">CUSTOMERS</a>
+                                    <a href="ct.php">Customers</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#">ACTIVITY<span class="fa arrow"></span></a>
+                            <a href="#">Activity<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="statistics.html">STATISTICS</a>
+                                    <a href="statistics.php">Statistics</a>
                                 </li>
                                 <li>
-                                    <a href="servstat.html">SERVICE STATUS</a>
+                                    <a href="servstat.php">Service Status</a>
                                 </li>
                                 
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                                    <a href="#">INACTIVE<span class="fa arrow"></span></a>
-                                    <ul class="nav nav-second-level">
-                                        <li>
-                                            <a href="inactsp.html">SERVICE PROVIDER</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                        <li>
-                            <a href="reports.html">REPORTS</a>
+                            <a href="reports.php">Complaints</a>
                         </li>
+                        
                        
                     </ul>
+                    <br>
+                        <li>
+                            <a href="login.php">Logout</a>
+                        </li>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
@@ -149,15 +178,7 @@
                         </tr>
                     </table>
                     
-                    <div id="addservice" class="addserv">
-
-                          <!-- Modal content -->
-                          <div class="addserv-content">
-                            <span class="close">&times;</span>
-                            <p>Some text in the Modal..</p>
-                          </div>
-
-                        </div>
+                    
                 </div>
                 <!-- /.row -->
             </div>
