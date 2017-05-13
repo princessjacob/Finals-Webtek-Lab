@@ -209,7 +209,58 @@ if ($_SESSION['loggedin'] == false ) {
                             ?>
                         </div>
                         <div class="tab-pane fade in" id="spInact">
-                        <h2> HI :D </h2>
+                        <h2> Inactive Service Providers </h2>
+                        <?php
+                                $sp="SELECT spID, spUsername, spEmail, spNum, spPet, spAdd, 
+                                    spStatus, spDay, spTime  FROM service_provider WHERE spReqStatus = 'acc'";
+                                if ($result=mysqli_query($petmovetkodb, $sp)) {
+                                    if(mysqli_fetch_row($result) > 0) {
+                                    ?>
+                                        <div class="input-group custom-search-form" style="padding-top: 2em;">
+                                        <input type="text" class="form-control" placeholder="Search...">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                        </span>
+                                        </div>
+                                        <table class="table table-hover" style="margin-top: 1em;">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" style="width: 10%;">ID</th>
+                                                <th style="width: 15%;">Username</th>
+                                                <th>Email</th>
+                                                <th class="text-center" style="width: 15%;">Contact</th>
+                                                <th class="text-center" style="width: 15%;">Last Logged</th>
+                                            </tr>
+                                        </thead>
+                                        <?php
+                                        while ($row=mysqli_fetch_row($result)) {
+                                            if ($row[4] == "cat,dog") {
+                                                $row[4] = "both";
+                                            } 
+                                            echo "<tr>";
+                                            echo "<td class='text-center'> $row[0] </td>";
+                                            echo "<td> $row[1] </td>";
+                                            echo "<td> $row[2] </td>";     
+                                            echo "<td class='text-right'> $row[3] </td>";
+                                            echo "<td class='text-center'> $row[4] </td>";
+                                            echo "<td> $row[5] </td>";
+                                            echo "<td class='text-center'> Null </td>";
+                                            echo "<td class='text-center'> Null </td>";
+                                            echo "<td class='text-center'> Null </td>";
+                                            echo "</tr>";
+                                        }
+                                        echo "</table>";
+
+                                    } else {
+                                        echo "<div style='margin-top:20vh;'>";
+                                        echo "<img src='../images/sadbunny.png' class='img-responsive img-circle' style='width: 200px; margin: 0 auto;'>";
+                                        echo "<h3 class='text-center'> There are no Service Providers yets. </h2>";
+                                        echo "</div>";
+                                    }
+                                }
+                            ?>
                         </div>
                         <div id="addservice" class="addserv">
 

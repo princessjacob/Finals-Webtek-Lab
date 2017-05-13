@@ -155,8 +155,11 @@ if ($petmovetkodb->connect_error) {
                                 }   
                                 ?>
                                             <!-- END OF REGISTRATION FOR SP -->
-                                        <fieldset>
+                                        <fieldset id="formset">
                                             <div class="form-group3">
+                                                <?php if(empty($spfirstName) || empty($spLastName)) {
+                                                    echo "<div class='err'> Please enter your last and first name </div>";
+                                                } ?>
                                                 <input class="form-control form-control-inline" placeholder="First Name" name="spfirstName" type="fname" value="" required>
                                             </div>
                                             <div class="form-group2">
@@ -207,7 +210,35 @@ if ($petmovetkodb->connect_error) {
                                                     <input name="pet_type[]" type="checkbox" value="dog">Dog
                                                 </label>
                                             </div>
-                                            <input type="submit" name="spreg" value="Register" class="btn btn-lg btn-success btn-block">  
+                                            <div id="sched" class="form-group">
+                                                <h5> Set Schedule Available </h5>
+                                                <label> Time Start <input type="time" name="time_start"> </label>
+                                                <label> Time End <input type="time" name="time_end"> </label>
+                                                <h5> For Days: </h5>
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" name="day"> M
+                                                </label>
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" name="day"> T
+                                                </label>
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" name="day"> W
+                                                </label>
+                                                <br>
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" name="day"> Th
+                                                </label>
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" name="day"> F
+                                                </label>
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" name="day"> S
+                                                </label> 
+                                            </div>
+                                            <button onclick="addSched()"> Add New Schedule </button>
+                                            <div class="form-group">
+                                            </div>
+                                            <input type="submit" name="spreg" value="Register" class="btn btn-lg btn-success btn-block" style="bottom:0;">  
                                         </fieldset>
                                     </form>
                                 </div>
@@ -231,6 +262,14 @@ if ($petmovetkodb->connect_error) {
 
     <!-- Custom Theme JavaScript -->
     <script src="../bootstrap/dist/js/sb-admin-2.js"></script>
+
+    <script>
+    function addSched() {
+        var itm = document.getElementById("sched");
+        var cln = itm.cloneNode(true).;
+        itm.parentNode.appendChild(cln);
+    }
+    </script>
 
 </body>
 
