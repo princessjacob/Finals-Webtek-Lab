@@ -122,7 +122,7 @@ if ($_SESSION['loggedin'] == false ) {
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="reports.html">Complaints</a>
+                            <a href="reports.php">Complaints</a>
                         </li>
                        
                     </ul>

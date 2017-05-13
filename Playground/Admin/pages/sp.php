@@ -139,6 +139,10 @@ if ($_SESSION['loggedin'] == false ) {
                         </li>
                        
                     </ul>
+                    <br>
+                        <li>
+                            <a href="login.php">Logout</a>
+                        </li>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>

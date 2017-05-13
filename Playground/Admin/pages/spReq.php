@@ -119,20 +119,24 @@ if ($_SESSION['loggedin'] == false ) {
                             <a href="#">Activity<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="statistics.html">Statistics</a>
+                                    <a href="statistics.php">Statistics</a>
                                 </li>
                                 <li>
-                                    <a href="servstat.html">Service Status</a>
+                                    <a href="servstat.php">Service Status</a>
                                 </li>
                                 
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="reports.html">Complaints</a>
+                            <a href="reports.php">Complaints</a>
                         </li>
                        
                     </ul>
+                    <br>
+                        <li>
+                            <a href="login.php">Logout</a>
+                        </li>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
