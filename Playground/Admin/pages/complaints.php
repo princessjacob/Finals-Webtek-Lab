@@ -121,7 +121,7 @@
                             <td>C01</td>
                             <td>SP01</td>
                             <td>Misbehavior</td>
-                            <td><button type="button" class="btn btn-info btn-group-sm" data-toggle="modal" data-target="#Modal1">View</button> 
+                            <td><button type="button" class="btn btn-info btn-group-sm" data-toggle="modal" data-target="#Modal1">View</button> <button type="button" class="btn btn-info btn-group-sm" data-toggle="modal" data-target="#Modal2">Message</button> <button type="button" class="btn btn-info btn-group-sm" data-toggle="modal" data-target="#Modal3">Ban</button></td>
                         </tr>
 
                         <tr>
@@ -129,7 +129,7 @@
                             <td>SP02</td>
                             <td>C02</td>
                             <td>Service not finished.</td>
-                            <td><button type="button" class="btn btn-info btn-group-sm" data-toggle="modal" data-target="#Modal1">View</button> 
+                            <td><button type="button" class="btn btn-info btn-group-sm" data-toggle="modal" data-target="#Modal1">View</button> <button type="button" class="btn btn-info btn-group-sm" data-toggle="modal" data-target="#Modal2">Message</button> <button type="button" class="btn btn-info btn-group-sm" data-toggle="modal" data-target="#Modal3">Ban</button></td>
                         </tr>
                     </table>
                     
