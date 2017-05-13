@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404,HttpResponseRedirect
 from .models import Customer, Petlist, Petowner, Request, Reviewrating, ServiceProvider, Services, Ssp, Transaction
+from .forms import UpdateForm
 
 
 def dashboard(request):
@@ -27,12 +28,24 @@ def profile(request):
         )
 
 def edit(request):
-    data = Customer.objects.all()
-    return render(
-        request,
-        'custModule/edit.html',
-        context={'data': data},
-        )
+    customer = Customer.objects.get(pk=1)
+    if request.method == 'POST':
+        form = UpdateForm(request.POST, instance=customer)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/thanks/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = Customer.objects.get(pk=1)
+        update_form = UpdateForm(instance=customer)
+
+    return render(request, 'custModule\edit.html', {'form': form, 'customer':customer})
+   
+def thanks(request):
+    return render(request, 'custModule/thanks.html')
+
+
 
 def newrequest(request):
     petType = Petlist.objects.values('type').distinct()
