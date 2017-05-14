@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404,HttpResponseRedirect
-from .models import Customer, Petlist, Petowner, Request, Reviewrating, ServiceProvider, Services, Ssp, Transaction
+from .models import Customer, Complaints, Request, Reviewrating, ServiceProvider, Services, Ssp, Transaction
 from .forms import UpdateForm
 
 
@@ -33,7 +33,7 @@ def edit(request):
         form = UpdateForm(request.POST, instance=customer)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/thanks/')
+            return HttpResponseRedirect('/profile/')
 
     # if a GET (or any other method) we'll create a blank form
     else:
@@ -43,7 +43,7 @@ def edit(request):
     return render(request, 'custModule\edit.html', {'form': form, 'customer':customer})
    
 def thanks(request):
-    return render(request, 'custModule/thanks.html')
+    return render(request, 'custModule/profile.html')
 
 
 

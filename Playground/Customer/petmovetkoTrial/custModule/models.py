@@ -10,6 +10,85 @@ from __future__ import unicode_literals
 from django.db import models
 
 
+class AuthGroup(models.Model):
+    name = models.CharField(unique=True, max_length=80)
+
+    class Meta:
+        managed = False
+        db_table = 'auth_group'
+
+
+class AuthGroupPermissions(models.Model):
+    group_id = models.IntegerField()
+    permission_id = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'auth_group_permissions'
+        unique_together = (('group_id', 'permission_id'),)
+
+
+class AuthPermission(models.Model):
+    name = models.CharField(max_length=255)
+    content_type_id = models.IntegerField()
+    codename = models.CharField(max_length=100)
+
+    class Meta:
+        managed = False
+        db_table = 'auth_permission'
+        unique_together = (('content_type_id', 'codename'),)
+
+
+class AuthUser(models.Model):
+    password = models.CharField(max_length=128)
+    last_login = models.DateTimeField(blank=True, null=True)
+    is_superuser = models.IntegerField()
+    username = models.CharField(unique=True, max_length=150)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    email = models.CharField(max_length=254)
+    is_staff = models.IntegerField()
+    is_active = models.IntegerField()
+    date_joined = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'auth_user'
+
+
+class AuthUserGroups(models.Model):
+    user_id = models.IntegerField()
+    group_id = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'auth_user_groups'
+        unique_together = (('user_id', 'group_id'),)
+
+
+class AuthUserUserPermissions(models.Model):
+    user_id = models.IntegerField()
+    permission_id = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'auth_user_user_permissions'
+        unique_together = (('user_id', 'permission_id'),)
+
+
+class Complaints(models.Model):
+    compid = models.AutoField(db_column='compID', primary_key=True)  # Field name made lowercase.
+    compmessage = models.CharField(db_column='compMessage', max_length=100)  # Field name made lowercase.
+    compdate = models.DateTimeField(db_column='compDate')  # Field name made lowercase.
+    spid = models.ForeignKey('ServiceProvider', models.DO_NOTHING, db_column='spID')  # Field name made lowercase.
+    custid = models.ForeignKey('Customer', models.DO_NOTHING, db_column='custID')  # Field name made lowercase.
+    complainer = models.CharField(max_length=5)
+
+    class Meta:
+        managed = False
+        db_table = 'complaints'
+
+
 class Customer(models.Model):
     custid = models.AutoField(db_column='custID', primary_key=True)  # Field name made lowercase.
     custlastname = models.CharField(db_column='custLastName', max_length=45)  # Field name made lowercase.
@@ -19,23 +98,35 @@ class Customer(models.Model):
     custadd = models.CharField(db_column='custAdd', max_length=45)  # Field name made lowercase.
     custzip = models.CharField(db_column='custZip', max_length=45)  # Field name made lowercase.
     custnum = models.CharField(db_column='custNum', max_length=45)  # Field name made lowercase.
-    custabout = models.CharField(db_column='custAbout', max_length=1000)  # Field name made lowercase.
-    custphoto = models.TextField(db_column='custPhoto', blank=True, null=True)  # Field name made lowercase.
+    custabout = models.CharField(db_column='custAbout', max_length=100, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'customer'
-        
-    def __iter__(self):
-        return [ self.custid,
-                 self.custpassword,
-                 self.custlastname,
-                 self.custfirstname,
-                 self.custemail,
-                 self.custadd,
-                 self.custabout,
-                 self.custphoto,
-                 self.custnum ]
+
+
+class DjangoAdminLog(models.Model):
+    action_time = models.DateTimeField()
+    object_id = models.TextField(blank=True, null=True)
+    object_repr = models.CharField(max_length=200)
+    action_flag = models.SmallIntegerField()
+    change_message = models.TextField()
+    content_type_id = models.IntegerField(blank=True, null=True)
+    user_id = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'django_admin_log'
+
+
+class DjangoContentType(models.Model):
+    app_label = models.CharField(max_length=100)
+    model = models.CharField(max_length=100)
+
+    class Meta:
+        managed = False
+        db_table = 'django_content_type'
+        unique_together = (('app_label', 'model'),)
 
 
 class DjangoMigrations(models.Model):
@@ -48,70 +139,41 @@ class DjangoMigrations(models.Model):
         db_table = 'django_migrations'
 
 
-class Petlist(models.Model):
-    petid = models.IntegerField(db_column='petID', primary_key=True)  # Field name made lowercase.
-    type = models.CharField(max_length=3, blank=True, null=True)
-    breed = models.CharField(max_length=45)
+class DjangoSession(models.Model):
+    session_key = models.CharField(primary_key=True, max_length=40)
+    session_data = models.TextField()
+    expire_date = models.DateTimeField()
 
     class Meta:
         managed = False
-        db_table = 'petlist'
-        
-    def __iter__(self):
-        return [
-            self.type,
-            self.breed
-        ]
-
-
-class Petowner(models.Model):
-    owner = models.IntegerField(primary_key=True)
-    pet = models.IntegerField()
-
-    class Meta:
-        managed = False
-        db_table = 'petowner'
-        unique_together = (('owner', 'pet'),)
-        
-    def __iter__(self):
-        return [
-            self.pet,
-            self.owner
-        ]
+        db_table = 'django_session'
 
 
 class Request(models.Model):
     reqid = models.AutoField(db_column='reqID', primary_key=True)  # Field name made lowercase.
-    reqstatus = models.CharField(db_column='reqStatus', max_length=45)  # Field name made lowercase.
-    custid = models.ForeignKey(Customer, models.DO_NOTHING, db_column='custId')  # Field name made lowercase.
-    sp = models.ForeignKey('ServiceProvider', models.DO_NOTHING)
+    reqstatus = models.CharField(db_column='reqStatus', max_length=8)  # Field name made lowercase.
+    pettype = models.CharField(max_length=3)
+    petbreed = models.CharField(max_length=60)
+    custid = models.ForeignKey(Customer, models.DO_NOTHING, db_column='custID')  # Field name made lowercase.
+    servid = models.ForeignKey('Services', models.DO_NOTHING, db_column='servID')  # Field name made lowercase.
+    spid = models.ForeignKey('ServiceProvider', models.DO_NOTHING, db_column='spID')  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'request'
-        
-    def __iter__(self):
-        return [
-            self.reqstatus,
-            self.reqdets
-        ]
 
 
 class Reviewrating(models.Model):
-    rr = models.ForeignKey('ServiceProvider', models.DO_NOTHING, db_column='rr_ID', primary_key=True)  # Field name made lowercase.
-    revdets = models.CharField(db_column='revDets', max_length=45)  # Field name made lowercase.
+    rr_id = models.IntegerField(db_column='rr_ID')  # Field name made lowercase.
+    revmessage = models.CharField(max_length=10000)
     rating = models.IntegerField()
+    spid = models.ForeignKey('ServiceProvider', models.DO_NOTHING, db_column='spid')
+    custid = models.ForeignKey(Customer, models.DO_NOTHING, db_column='custid')
+    reviewer = models.CharField(max_length=45)
 
     class Meta:
         managed = False
         db_table = 'reviewrating'
-        
-    def __iter__(self):
-        return [
-            self.rr,
-            self.revdets,
-            self.rating
-        ]
 
 
 class ServiceProvider(models.Model):
@@ -128,45 +190,23 @@ class ServiceProvider(models.Model):
     splastlogged = models.DateField(db_column='spLastLogged', blank=True, null=True)  # Field name made lowercase.
     spstatus = models.CharField(db_column='spStatus', max_length=10)  # Field name made lowercase.
     spservices = models.CharField(db_column='spServices', max_length=45)  # Field name made lowercase.
-    spday = models.CharField(db_column='spDay', max_length=10)  # Field name made lowercase.
-    sptime = models.TimeField(db_column='spTime')  # Field name made lowercase.
+    spday = models.CharField(db_column='spDay', max_length=10, blank=True, null=True)  # Field name made lowercase.
+    sptime = models.CharField(db_column='spTime', max_length=45, blank=True, null=True)  # Field name made lowercase.
+    spreqstatus = models.CharField(db_column='spReqStatus', max_length=5)  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'service_provider'
-        
-    def __iter__(self):
-        return [ self.splastname,
-                 self.spfirstname,
-                 self.spemail,
-                 self.sppasword,
-                 self.spadd,
-                 self.spnum,
-                 self.sppet,
-                 self.spzip,
-                 self.splastlogged,
-                 self.spstatus,
-                 self.spservices,
-                 self.spday,
-                 self.sptime ]
 
 
 class Services(models.Model):
     servid = models.AutoField(db_column='servID', primary_key=True)  # Field name made lowercase.
     servname = models.CharField(db_column='servName', max_length=45)  # Field name made lowercase.
     servprice = models.IntegerField(db_column='servPrice')  # Field name made lowercase.
-    servimage = models.TextField(db_column='servImage')  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'services'
-        
-    def __iter__(self):
-        return [
-            self.servid,
-            self.servname,
-            self.servprice
-        ]
 
 
 class Ssp(models.Model):
@@ -177,34 +217,17 @@ class Ssp(models.Model):
         managed = False
         db_table = 'ssp'
         unique_together = (('servid', 'spid'),)
-        
-    def __iter__(self):
-        return [
-            self.servid,
-            self.spid
-        ]
 
 
 class Transaction(models.Model):
     trans = models.ForeignKey(ServiceProvider, models.DO_NOTHING, db_column='trans_ID', primary_key=True)  # Field name made lowercase.
-    transstatus = models.CharField(db_column='transStatus', max_length=45)  # Field name made lowercase.
+    transstatus = models.CharField(db_column='transStatus', max_length=8)  # Field name made lowercase.
     transdate = models.DateField(db_column='transDate')  # Field name made lowercase.
-    timestart = models.CharField(db_column='timeStart', max_length=45)  # Field name made lowercase.
-    timein = models.CharField(db_column='timeIn', max_length=45)  # Field name made lowercase.
+    timein = models.TimeField(db_column='timeIn')  # Field name made lowercase.
+    timeout = models.TimeField(db_column='timeOut')  # Field name made lowercase.
     payment = models.IntegerField()
-    paystatus = models.CharField(db_column='payStatus', max_length=45)  # Field name made lowercase.
+    paystatus = models.CharField(db_column='payStatus', max_length=12)  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'transaction'
-        
-    def __iter__(self):
-        return [
-            self.trans,
-            self.transstatus,
-            self.transdate,
-            self.timestart,
-            self.timein,
-            self.payment,
-            self.paystatus
-        ]
