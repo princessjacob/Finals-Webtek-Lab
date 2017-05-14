@@ -1,17 +1,7 @@
+{% extends "custModule/header.html" %}
 {% block content %}
     {% load staticfiles %}
-<!-- Modal -->
-  <div class="modal fade" id="myModaleditrequest" role="dialog">
-    <div class="modal-dialog vertical-center">
-    
-      <!-- Modal content-->
-      <div class="modal-content pagination-centered">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title text-center">Edit Request</h4>
-        </div>
-          <div class="modal-body">
-                 <div class="row">
+    <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -26,9 +16,7 @@
                                 <div class="col-xs-4">
                                   <select class="form-control" id="sched">
                                     <option value="" selected hidden>Type</option>
-                                    {% for petlist in data %}
-                                        <option>{{ petlist.type }}</option>
-                                    {% endfor %}
+                                        <option></option>
                                   </select>
                                 </div>
                             </div>
@@ -45,9 +33,6 @@
                             <div class="col-xs-4">
                               <select class="form-control" id="sched">
                                 <option value="" selected hidden>Breed</option>
-                                {% for petlist in data %}
-                                    <option>{{ petlist.breed }}</option>
-                                {% endfor %}
                               </select>
                             </div>
                         </div>
@@ -107,7 +92,7 @@
                     <div class="col-xs-12 text-center">
                        <img src="http://placehold.it/100x100" class="img-responsive" width="100px" height="100px">
                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#viewprof">VIEW PROFILE</button>{% include "custModule/includes/modalSp.html" %}
-                        </div>
+                    </div>
                     <hr>
                     <div class="col-xs-4">Choose your Service Provider: </div>
                     <div class="col-xs-8">
@@ -154,20 +139,14 @@
             
              <div class="col-lg-12">
                 <button type="button" id="submit" class="btn btn-default pull-right" data-toggle="modal" data-target="#myModalnewrequest">SUBMIT</button>
-                {% include "custModule/includes/modalnewrequest.html" %}
             </div>
         </div>     
         </div>
-    </div>
-</div>
-          
-          </div>
+
         <div class="modal-footer text-center">
           <button type="button" class="btn btn-primary " data-dismiss="modal">Save Changes</button>
             <button type="button" class="btn btn-primary " data-dismiss="modal">Cancel</button>
         </div>
-      </div>
-      
-    </div>
-  </div>
+        </div>
+        </div>
 {% endblock %} 
