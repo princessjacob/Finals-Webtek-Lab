@@ -171,38 +171,99 @@ if ($petmovetkodb->connect_error) {
                 </div>
                 <hr>
                 <div class ="hits">
-                    <h2>Total Page visits:</h2>
+                    <h2 style="color:gray;">Total Page visits:</h2>
+                    <hr>
                                         
                 </div>
                 <br>
+                <div class ="totalspct">
+                    <h2 style="color:gray;">Total Service Provider and Customer:</h2>
+                </div>
                 <div class="row">
-                <div class="col-lg-6">
-                <div class ="spcount">
-                                       
-                    <?php
-                        $sp = "SELECT * FROM service_provider";
-                        $result = $petmovetkodb->query($sp);
+                    <div class="col-lg-6">
+                        <div class ="spcount">
+                                               
+                            <?php
+                                $sp = "SELECT * FROM service_provider";
+                                $result = $petmovetkodb->query($sp);
 
-                        $spResult=mysqli_num_rows($result);
-                        echo "<h1 style='padding-left: 200px;'>$spResult</h1>";                        
-                    ?>
-                    <p style="font-size: 20px; padding-left: 130px;">Service Providers</p>                                  
-                </div>
-                </div>
-                <div class="col-lg-6">
-                <div class="ctcount">
-                    
-                    <?php
-                        $customer = "SELECT * FROM customer";
-                        $result = $petmovetkodb->query($customer);
+                                $spResult=mysqli_num_rows($result);
+                                echo "<h1 style='padding-left: 250px;'>$spResult</h1>";                        
+                            ?>
+                            <p style="font-size: 20px; padding-left: 180px;">Service Providers</p>                                  
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="ctcount">
+                            
+                            <?php
+                                $customer = "SELECT * FROM customer";
+                                $result = $petmovetkodb->query($customer);
 
-                        $ctResult=mysqli_num_rows($result);
-                        echo "<h1 style='padding-left: 150px'>$ctResult</h1>";
-                    ?>
-                    <p style="font-size: 20px; padding-left: 60px; float: block;">Registered Customers</p>
+                                $ctResult=mysqli_num_rows($result);
+                                echo "<h1 style='padding-left: 230px'>$ctResult</h1>";
+                            ?>
+                            <p style="font-size: 20px; padding-left: 140px; float: block;">Registered Customers</p>
+                        </div>
+                    </div>
                 </div>
+                <hr>
+                <div class ="hits">
+                    <h2 style="color:gray;">Total Number of Services that were rendered:</h2>
                 </div>
+                <div class="row">
+                    <div class="col-lg-3">
+                    <div class="serv1count">
+                        <?php
+                            $petvet = "SELECT * FROM request JOIN services USING (servID) WHERE servName= 'Pet Vetting'";
+                            $result = $petmovetkodb->query($petvet);
+
+                            $pvResult=mysqli_num_rows($result);
+                            echo "<h1 style='padding-left: 100px'>$pvResult</h1>";
+                        ?>
+                        <p style="font-size: 20px; padding-left: 60px; float: block;">Pet Vetting</p>
+                    </div>
                 </div>
+
+                <div class="col-lg-3">
+                    <div class="serv2count">
+                        <?php
+                            $petwalk = "SELECT * FROM request JOIN services USING (servID) WHERE servName= 'Pet Walking'";
+                            $result = $petmovetkodb->query($petwalk);
+
+                            $pwResult=mysqli_num_rows($result);
+                            echo "<h1 style='padding-left: 100px'>$pwResult</h1>";
+                        ?>
+                        <p style="font-size: 20px; padding-left: 60px; float: block;">Pet Walking</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="serv3count">
+                        <?php
+                            $petsit = "SELECT * FROM request JOIN services USING (servID) WHERE servName= 'Pet Sitting'";
+                            $result = $petmovetkodb->query($petsit);
+
+                            $psResult=mysqli_num_rows($result);
+                            echo "<h1 style='padding-left: 100px'>$psResult</h1>";
+                        ?>
+                        <p style="font-size: 20px; padding-left: 60px; float: block;">Pet Sitting</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="serv4count">
+                        <?php
+                            $pettr = "SELECT * FROM request JOIN services USING (servID) WHERE servName= 'Pet Training'";
+                            $result = $petmovetkodb->query($pettr);
+
+                            $ptResult=mysqli_num_rows($result);
+                            echo "<h1 style='padding-left: 100px'>$ptResult</h1>";
+                        ?>
+                        <p style="font-size: 20px; padding-left: 60px; float: block;">Pet Training</p>
+                    </div>
+                </div>
+                
                 </div>
             </div>
             <!-- /.row -->
