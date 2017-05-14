@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.14, for Win64 (x86_64)
 --
--- Host: localhost    Database: petmovetko
+-- Host: 127.0.0.1    Database: petmovetko
 -- ------------------------------------------------------
--- Server version	5.7.11
+-- Server version	5.7.14
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -354,56 +354,6 @@ LOCK TABLES `django_session` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `petlist`
---
-
-DROP TABLE IF EXISTS `petlist`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `petlist` (
-  `petID` int(11) NOT NULL,
-  `type` enum('dog','cat') DEFAULT NULL,
-  `breed` varchar(45) NOT NULL,
-  PRIMARY KEY (`petID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `petlist`
---
-
-LOCK TABLES `petlist` WRITE;
-/*!40000 ALTER TABLE `petlist` DISABLE KEYS */;
-INSERT INTO `petlist` VALUES (1,'dog','Shih Tzu'),(2,'dog','Bulldog'),(3,'dog','Labrador'),(4,'cat','Persian');
-/*!40000 ALTER TABLE `petlist` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `petowner`
---
-
-DROP TABLE IF EXISTS `petowner`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `petowner` (
-  `owner` int(11) NOT NULL,
-  `pet` int(11) NOT NULL,
-  PRIMARY KEY (`owner`,`pet`),
-  KEY `pet_fk_idx` (`pet`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `petowner`
---
-
-LOCK TABLES `petowner` WRITE;
-/*!40000 ALTER TABLE `petowner` DISABLE KEYS */;
-INSERT INTO `petowner` VALUES (1,1),(2,1),(2,3),(3,2);
-/*!40000 ALTER TABLE `petowner` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `request`
 --
 
@@ -413,17 +363,16 @@ DROP TABLE IF EXISTS `request`;
 CREATE TABLE `request` (
   `reqID` int(11) NOT NULL AUTO_INCREMENT,
   `reqStatus` enum('pending','accepted') NOT NULL DEFAULT 'pending',
-  `custId` int(11) NOT NULL,
+  `pettype` enum('dog','cat') NOT NULL,
+  `petbreed` varchar(60) NOT NULL,
+  `custID` int(11) NOT NULL,
   `servID` int(11) NOT NULL,
   `spID` int(11) NOT NULL,
-  `petID` int(11) NOT NULL,
   PRIMARY KEY (`reqID`),
-  KEY `c_fk_idx` (`custId`),
+  KEY `c_fk_idx` (`custID`),
   KEY `serv_fk_idx` (`servID`),
   KEY `sp_fk_idx` (`spID`),
-  KEY `pet_fk` (`petID`),
-  CONSTRAINT `c_fk` FOREIGN KEY (`custId`) REFERENCES `customer` (`custID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `pet_fk` FOREIGN KEY (`petID`) REFERENCES `petlist` (`petID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `c_fk` FOREIGN KEY (`custID`) REFERENCES `customer` (`custID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `serv_fk` FOREIGN KEY (`servID`) REFERENCES `services` (`servID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `sp_fk` FOREIGN KEY (`spID`) REFERENCES `service_provider` (`spID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -528,7 +477,7 @@ CREATE TABLE `services` (
 
 LOCK TABLES `services` WRITE;
 /*!40000 ALTER TABLE `services` DISABLE KEYS */;
-INSERT INTO `services` VALUES (1,'Pet Vetting',100),(2,'Pet Walking',200),(3,'Pet Sitting',300),(4,'Pet Training',400);
+INSERT INTO `services` VALUES (1,'Pet Sitting',100),(2,'Pet Training',300),(3,'Pet Grooming',350),(4,'Veterinarian Services',500);
 /*!40000 ALTER TABLE `services` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -588,6 +537,14 @@ LOCK TABLES `transaction` WRITE;
 /*!40000 ALTER TABLE `transaction` DISABLE KEYS */;
 /*!40000 ALTER TABLE `transaction` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'petmovetko'
+--
+
+--
+-- Dumping routines for database 'petmovetko'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -598,4 +555,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-14 12:39:50
+-- Dump completed on 2017-05-14 12:49:00
