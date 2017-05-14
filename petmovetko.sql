@@ -518,7 +518,7 @@ DROP TABLE IF EXISTS `transaction`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `transaction` (
-  `trans_ID` int(11) NOT NULL,
+  `transID` int(11) NOT NULL,
   `transStatus` enum('ongoing','finished') NOT NULL DEFAULT 'ongoing',
   `transDate` date NOT NULL,
   `timeIn` time NOT NULL,
@@ -526,6 +526,7 @@ CREATE TABLE `transaction` (
   `payment` int(11) NOT NULL,
   `payStatus` enum('not yet paid','paid') NOT NULL DEFAULT 'not yet paid',
   `reqID` int(11) NOT NULL,
+  PRIMARY KEY (`transID`),
   KEY `requestid` (`reqID`),
   CONSTRAINT `request_fk` FOREIGN KEY (`reqID`) REFERENCES `request` (`reqID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -537,6 +538,7 @@ CREATE TABLE `transaction` (
 
 LOCK TABLES `transaction` WRITE;
 /*!40000 ALTER TABLE `transaction` DISABLE KEYS */;
+INSERT INTO `transaction` VALUES (1,'ongoing','2015-05-15','08:00:00','09:00:00',100,'not yet paid',1);
 /*!40000 ALTER TABLE `transaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -557,4 +559,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-14 22:46:38
+-- Dump completed on 2017-05-15  2:22:45
