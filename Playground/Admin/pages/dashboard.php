@@ -14,7 +14,7 @@ if ($_SESSION['loggedin'] == false ) {
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -165,62 +165,67 @@ if ($petmovetkodb->connect_error) {
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12">
-                
-                <div class = "stat" style="margin-top: 3vh;">
-                <h2 class="text-center">TOP 10 SERVICE PROVIDERS</h2>
-                    <table>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Username</th>
-                            <th>Hits</th>
-                        </tr>
-                    </table>
+                <div class="col-lg-8">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h2 class="text-center">TOP 10 SERVICE PROVIDERS</h2>
+                    </div>
+                    <div class="panel-body">
+                    <div class = "stat">                    
                     <?php
-                        $rank="SELECT COUNT(trans_ID), spUsername, COUNT(SUM(transStatus)) FROM service_provider JOIN request USING (spID) JOIN transaction USING (reqID) JOIN reviewrating USING(spid) WHERE reqStatus='done' OR transStatus='finished' DESC 0 LIMIT 10";
+                        $rank="SELECT spUsername, COUNT(trans_ID) FROM service_provider JOIN request USING(spID) JOIN transaction USING(reqID) GROUP BY spID ORDER BY 2 DESC LIMIT 10";
                         if ($result=mysqli_query($petmovetkodb, $rank)) {
-                            if(mysqli_fetch_row($result) > 0) {
-                                $i = 0;
+                            if(mysqli_num_rows($result) > 0) {
+                                $i = 1;
                             ?>
                                 <table class="table table-hover" style="margin-top: 1em;">
                                 <thead>
                                 <tr>
                                 <th class="text-center" style="width: 20%;">Rank</th>
-                                <th>Username</th>
+                                <th class="text-center">Username</th>
                                 <th class="text-center">Hits</th>
-                                <th class="text-center">Ratings</th>
                                 </tr>
                                 </thead>
                                 <?php
+
                                 while ($row=mysqli_fetch_row($result)) {
                                     echo "<tr>";
                                     echo "<td class='text-center'> $i </td>";
                                     echo "<td class='text-center'> $row[0] </td>";
-                                    echo "<td> $row[1] </td>";
-                                    echo "<td> $row[2] </td>";
+                                    echo "<td class='text-center'>$row[1]</td>";
                                     echo "</tr>";
                                     $i++;
                                 }
                                 echo "</table>";
                             } else {
-                                echo "<h3 class='text-center'> There are no Service Providers yet. </h2>";
+                                echo "<h3 class='text-center'> There are no Service Providers yet. </h3>";
                             }
                         }
                     ?>
                     </div>
-                    <hr>
+                    </div>
+                    </div>
+
                 </div>
+                <div class="col-lg-4">
+                <div class="panel panel-default">
+                <div class="panel-heading">
+                <h2 class="text-center" style="color:gray;">Total Page visits:
+                    </h2>
+                </div>
+                <div class="panel-body">
                 <div class ="hits">
-                    <h2 style="color:gray;">Total Page visits:
                     <?php
                         $counter = ("../lib/counter.txt");
                         $hits = file($counter); 
-                        echo "<span style='color: black';>" . $hits[0] . "</span>";
+                        echo "<h2 class='text-center' style='color: black';>" . $hits[0] . " Hits! </h2>";
                     ?>
-                    </h2>
-                    <hr>
-                                        
                 </div>
+                </div>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-lg-12">
                 <br>
                 <div class ="totalspct">
                     <h2 style="color:gray;">Total Service Provider and Customer:</h2>
