@@ -3,10 +3,10 @@ session_start();
 if ($_SESSION['loggedin'] == false ) {
     header('Location: login.php');
 } else if (!$_SESSION['username'] == "admin") {
-    echo "<script> alert('Restricted Access! You are not allowed to visit this site.'); </script>";
-    header('Location: ../index.php');
+    header('Location: restricted.php');
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,10 +30,8 @@ if ($_SESSION['loggedin'] == false ) {
     <link href="../bootstrap/dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="../bootstrap/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
+   <link href="../bootstrap/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
-
 <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
 
 <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
@@ -52,28 +50,12 @@ if ($_SESSION['loggedin'] == false ) {
 </head>
 
 <body>
-<?php
-$petmovetkodb = new mysqli("localhost", "root", "", "petmovetko");
-  // Check connection
-if ($petmovetkodb->connect_error) {
-    die("Connection failed: " . $petmovetkodb->connect_error);
-}
-?>
+
     <div id="wrapper">
 
-       <nav class="navbar navbar-default navbar-fixed-top hidden-xs hidden-sm">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#" style="font-family: 'Pacifico', cursive; font-size: 2.5em;"> Pet Mo, Vet Ko! </a>
-                </div>
-            <a href="../index.php" class="btn btn-primary navbar-btn navbar-right" style="margin-right: 2em;"> Go Back to Public Page </a>
-            </div>
-        </nav>
-
-        <!-- Navigation side -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0" >
             <div class="navbar-header">
-                <a class="navbar-brand" href="dashboard.php">Pet Mo, Vet Ko!</a>
+                <a class="navbar-brand" href="dashboard.html">Pet Mo, Vet Ko!</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -83,28 +65,19 @@ if ($petmovetkodb->connect_error) {
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="dashboard.php">Dashboard</a>
+                            <a href="dashboard.php">HOME</a>
                         </li>
                         <li>
-                            <a href="spReq.php"> Registration Requests
-                            <?php
-                                $req = "SELECT * FROM service_provider WHERE spReqStatus = 'pend'";
-                                $result = $petmovetkodb->query($req);
-                                if ($result->num_rows > 0) {
-                                    $row = $result-> num_rows;
-                                    echo "<span id='notif' class='btn btn-circle btn-danger pull-right'> $row </span>";
-                                }
-                            ?>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">Manage<span class="fa arrow"></span></a>
+                            <a href="#">MANAGE<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="sp.php">Service Providers</a>
+                                    <a href="services.php">SERVICES</a>
                                 </li>
                                 <li>
-                                    <a href="ct.php">Customers</a>
+                                    <a href="sp.php">SERVICE PROVIDERS</a>
+                                </li>
+                                <li>
+                                    <a href="ct.php">CUSTOMERS</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -123,24 +96,15 @@ if ($petmovetkodb->connect_error) {
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="complaints.php">Complaints</a>
+                            <a href="reports.php">Complaints</a>
                         </li>
                         
-                        <li>
-                            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-                            <input type="submit" name="Logout" value="Logout" class="btn btn-default">
-                            </form>
-
-                            <?php
-                                if(isset($_POST['Logout'])) {
-                                    $_SESSION['loggedin'] = false;
-                                    echo "<script> window.location.href='../index.php' </script>";
-                                } 
-                            ?>
-                        </li>
                        
                     </ul>
-                    
+                    <br>
+                        <li>
+                            <a href="login.php">Logout</a>
+                        </li>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
@@ -152,26 +116,32 @@ if ($petmovetkodb->connect_error) {
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">REPORTS</h1>
+                        <h1 class="page-header">COMPLAINTS</h1>
                     </div>
 
                     <table>
                         <tr>
                             <th>CNo</th>
-                            <th>Report</th>
+                            <th>Complainant</th>
+                            <th>Complainee</th>
+                            <th>Complaints</th>
                             <th>Actions</th>
                         </tr>
 
                         <tr>
                             <td>CN01</td>
+                            <td>C01</td>
+                            <td>SP01</td>
                             <td>Misbehavior</td>
-                            <td><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">View</button></td>
+                            <td><button type="button" class="btn btn-info btn-group-sm" data-toggle="modal" data-target="#Modal1">View</button> <button type="button" class="btn btn-info btn-group-sm" data-toggle="modal" data-target="#Modal2">Message</button> <button type="button" class="btn btn-info btn-group-sm" data-toggle="modal" data-target="#Modal3">Ban</button></td>
                         </tr>
 
                         <tr>
                             <td>CN02</td>
+                            <td>SP02</td>
+                            <td>C02</td>
                             <td>Service not finished.</td>
-                            <td><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">View</button></td>
+                            <td><button type="button" class="btn btn-info btn-group-sm" data-toggle="modal" data-target="#Modal1">View</button> <button type="button" class="btn btn-info btn-group-sm" data-toggle="modal" data-target="#Modal2">Message</button> <button type="button" class="btn btn-info btn-group-sm" data-toggle="modal" data-target="#Modal3">Ban</button></td>
                         </tr>
                     </table>
                     
@@ -188,21 +158,72 @@ if ($petmovetkodb->connect_error) {
 
     <div class="container">
 
-  <div class="modal fade" id="myModal" role="dialog">
+  <div class="modal fade" id="Modal1" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">CN01</h4>
         </div>
         <div class="modal-body">
         <form>
-          <p>Reported: <input type="text" name="reported" value="SP01" disabled></p>
-          <p>Reported by: <input type="text" name="repby" value="C01" disabled></p>
-          <p>Report:</p> <textarea rows="4" cols="50" disabled>I am Froot</textarea>
+          <p>Complainant: <input type="text" name="reported" value="SP01" disabled></p>
+          <p>Complainee: <input type="text" name="repby" value="C01" disabled></p>
+          <p>Complaint:</p> <textarea rows="4" cols="50" disabled>I am Froot</textarea>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="container">
+
+  <div class="modal fade" id="Modal2" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">CN01</h4>
+        </div>
+        <div class="modal-body">
+        <form>
+          <p>Recipient: <input type="text" name="recipient" value="" ></p>
+          <p>Message:</p> <textarea rows="4" cols="50"></textarea>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">Send</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="container">
+
+  <div class="modal fade" id="Modal3" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">CN01</h4>
+        </div>
+        <div class="modal-body">
+        <form>
+          <p>Are you sure you want to ban this user?</p>
+           &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; <button type="button" class="btn btn-success" data-dismiss="modal">Yes</button> &nbsp; &nbsp; &nbsp; <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
           </form>
         </div>
         <div class="modal-footer">
@@ -216,16 +237,16 @@ if ($petmovetkodb->connect_error) {
 </div>
 
     <!-- jQuery -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../bootstrap/vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../bootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+    <script src="../bootstrap/vendor/metisMenu/metisMenu.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
+    <script src="../bootstrap/dist/js/sb-admin-2.js"></script>
 
 </body>
 

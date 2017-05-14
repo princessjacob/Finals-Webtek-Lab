@@ -3,9 +3,7 @@ session_start();
 if ($_SESSION['loggedin'] == false ) {
     header('Location: login.php');
 } else if (!$_SESSION['username'] == "admin") {
-    echo "<script> alert('Restricted Access! You are not allowed to visit this site.'); </script>";
-    header('Location: ../index.php');
-}
+    header('Location: restricted.php');}
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +13,7 @@ if ($_SESSION['loggedin'] == false ) {
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -38,13 +36,6 @@ if ($_SESSION['loggedin'] == false ) {
     <link href="../bootstrap/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
-
-    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
-
-<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
-
-<link href="https://fonts.googleapis.com/css?family=Aladin" rel="stylesheet">
-
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -136,24 +127,14 @@ if ($_SESSION['loggedin'] == false ) {
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="complaints.php">Complaints</a>
-                        </li>
-
-                        <li>
-                            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-                            <input type="submit" name="Logout" value="Logout" class="btn btn-default">
-                            </form>
-
-                            <?php
-                                if(isset($_POST['Logout'])) {
-                                    $_SESSION['loggedin'] = false;
-                                    echo "<script> window.location.href='../index.php' </script>";
-                                } 
-                            ?>
+                            <a href="reports.php">Complaints</a>
                         </li>
                        
                     </ul>
-                    
+                    <br>
+                        <li>
+                            <a href="login.php">Logout</a>
+                        </li>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>

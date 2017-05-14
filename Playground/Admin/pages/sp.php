@@ -3,8 +3,7 @@ session_start();
 if ($_SESSION['loggedin'] == false ) {
     header('Location: login.php');
 } else if (!$_SESSION['username'] == "admin") {
-    echo "<script> alert('Restricted Access! You are not allowed to visit this site.'); </script>";
-    header('Location: ../index.php');
+    header('Location: restricted.php');
 }
 ?>
 
@@ -135,21 +134,14 @@ if ($_SESSION['loggedin'] == false ) {
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="complaints.php">Complaints</a>
+                            <a href="reports.php">Complaints</a>
                         </li>
-                       <li>
-                            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-                            <input type="submit" name="Logout" value="Logout" class="btn btn-default">
-                            </form>
-
-                            <?php
-                                if(isset($_POST['Logout'])) {
-                                    $_SESSION['loggedin'] = false;
-                                    echo "<script> window.location.href='../index.php' </script>";
-                                } 
-                            ?>
-                        </li>
+                       
                     </ul>
+                    <br>
+                        <li>
+                            <a href="login.php">Logout</a>
+                        </li>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
@@ -173,7 +165,7 @@ if ($_SESSION['loggedin'] == false ) {
                                 $sp="SELECT spID, spUsername, spEmail, spNum, spPet, spAdd, 
                                     spStatus, spDay, spTime  FROM service_provider WHERE spReqStatus = 'acc'";
                                 if ($result=mysqli_query($petmovetkodb, $sp)) {
-                                    if(mysqli_fetch_row($result) > 0) {
+                                    if(mysqli_num_rows($result) > 0) {
                                     ?>
                                         <div class="input-group custom-search-form" style="padding-top: 2em;">
                                         <input type="text" class="form-control" placeholder="Search...">
@@ -228,54 +220,58 @@ if ($_SESSION['loggedin'] == false ) {
                         <div class="tab-pane fade in" id="spInact">
                         <h2> Inactive Service Providers </h2>
                         <?php
-                                $sp="SELECT spID, spUsername, spEmail, spNum, spPet, spAdd, 
-                                    spStatus, spDay, spTime  FROM service_provider WHERE spReqStatus = 'acc'";
-                                if ($result=mysqli_query($petmovetkodb, $sp)) {
-                                    if(mysqli_fetch_row($result) > 0) {
-                                    ?>
-                                        <div class="input-group custom-search-form" style="padding-top: 2em;">
-                                        <input type="text" class="form-control" placeholder="Search...">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                        </span>
-                                        </div>
-                                        <table class="table table-hover" style="margin-top: 1em;">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center" style="width: 10%;">ID</th>
-                                                <th style="width: 20%;">Username</th>
-                                                <th>Email</th>
-                                                <th style="width: 20%;">Last Logged</th>
-                                                <th class="text-center" style="width: 10%;"> Send Waring </th>
-                                                <th class="text-center" style="width: 10%;"> Deactive </th>
-                                            </tr>
-                                        </thead>
-                                        <?php
-                                        while ($row=mysqli_fetch_row($result)) {
-                                            echo "<tr>";
-                                            echo "<td class='text-center'> $row[0] </td>";
-                                            echo "<td> $row[1] </td>";
-                                            echo "<td> $row[2] </td>";     
-                                            echo "<td> $row[3] </td>";
-                                            echo "<td class='text-center'>
-                                                    <button type='submit' name='warn' class='btn btn-warning btn-circle' data-toggle='modal' data-target='#email'> 
-                                                    <i class='fa fa-envelope'></i></button> </td>";
-                                            echo "<td class='text-center'>
-                                                    <form action=". htmlspecialchars($_SERVER["PHP_SELF"]) ." method='POST'>
-                                                    <input type='submit' name='deact' class='btn btn-danger btn-circle value='$row[0]'> 
-                                                    <i class='fa fa-times'></i> </input> </td> </form>";
-                                            echo "</tr>";
-                                        }
-                                        echo "</table>";
-                                    } else {
-                                        echo "<div style='margin-top:20vh;'>";
-                                        echo "<img src='../images/sadbunny.png' class='img-responsive img-circle' style='width: 200px; margin: 0 auto;'>";
-                                        echo "<h3 class='text-center'> There are no Inactive Service Providers yets. </h2>";
-                                        echo "</div>";
+                            $sp="SELECT spID, spUsername, spEmail, spLastLogged  FROM service_provider";
+
+                            if ($result=mysqli_query($petmovetkodb, $sp)) {
+                                if(mysqli_num_rows($result) > 0) {
+                                ?>
+                                <div class="input-group custom-search-form" style="padding-top: 2em;">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                                </span>
+                                </div>
+                                <table class="table table-hover" style="margin-top: 1em;">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" style="width: 10%;">ID</th>
+                                        <th style="width: 20%;">Username</th>
+                                        <th>Email</th>
+                                        <th style="width: 20%;">Last Logged</th>
+                                        <th class="text-center" style="width: 10%;"> Send Waring </th>
+                                        <th class="text-center" style="width: 10%;"> Deactive </th>
+                                    </tr>
+                                </thead>
+                                <?php
+                                    while ($row=mysqli_fetch_row($result)) {
+                                        $interval = $row[3]->diff('Y-m-d');
+                                        $months = interval->format("Y-m-d");
+                                        $compare = new Date()
+                                        if ($months > )
+                                        echo "<tr>";
+                                        echo "<td class='text-center'> $row[0] </td>";
+                                        echo "<td> $row[1] </td>";
+                                        echo "<td> $row[2] </td>";     
+                                        echo "<td> $row[3] </td>";
+                                        echo "<td class='text-center'>
+                                                <button type='submit' name='warn' class='btn btn-warning btn-circle' data-toggle='modal' data-target='#email'> 
+                                                <i class='fa fa-envelope'></i></button> </td>";
+                                        echo "<td class='text-center'>
+                                                <form action=". htmlspecialchars($_SERVER["PHP_SELF"]) ." method='POST'>
+                                                <input type='submit' name='deact' class='btn btn-danger btn-circle value='$row[0]'> 
+                                                <i class='fa fa-times'></i> </input> </td> </form>";
+                                        echo "</tr>";
                                     }
-                                    if (isset($_POST['reject'])) {
+                                    echo "</table>";
+                                } else {
+                                    echo "<div style='margin-top:20vh;'>";
+                                    echo "<img src='../images/sadbunny.png' class='img-responsive img-circle' style='width: 200px; margin: 0 auto;'>";
+                                    echo "<h3 class='text-center'> There are no Inactive Service Providers yets. </h2>";
+                                    echo "</div>";
+                                }
+                                if (isset($_POST['reject'])) {
                                         $id = $_POST['reject'];
                                         $reject = "DELETE FROM service_provider WHERE spID='$id' ";
                                         $petmovetkodb->query($reject);

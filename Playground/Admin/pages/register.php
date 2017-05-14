@@ -205,36 +205,6 @@ if ($petmovetkodb->connect_error) {
                                                     <input name="pet_type[]" type="checkbox" value="dog">Dog
                                                 </label>
                                             </div>
-
-                                            <div id="sched" class="form-group">
-                                                <h5> Set Schedule Available </h5>
-                                                <label> Time Start <input type="time" name="time_start"> </label>
-                                                <label> Time End <input type="time" name="time_end"> </label>
-                                                <h5> For Days: </h5>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" name="day"> M
-                                                </label>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" name="day"> T
-                                                </label>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" name="day"> W
-                                                </label>
-                                                <br>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" name="day"> Th
-                                                </label>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" name="day"> F
-                                                </label>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" name="day"> S
-                                                </label> 
-                                            </div>
-                                            <button onclick="addSched()"> Add New Schedule </button>
-                                            <div class="form-group">
-                                                <input type="file" 
-                                            </div>
                                             <input type="submit" name="spreg" value="Register" class="btn btn-lg btn-success btn-block" style="bottom:0;">  
                                         </fieldset>
                                     </form>

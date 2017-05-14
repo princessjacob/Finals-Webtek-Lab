@@ -43,8 +43,8 @@
 
     <style>
         .err {
-            font-family: 'Comfortaa', cursive;
-            font-size: 9px;
+            font-family: 'Open Sans', serif;
+            font-size: 11px;
             text-transform: uppercase;
             color: red;
             margin-bottom: 4px;
@@ -83,16 +83,22 @@
                         $password = $_POST["password"];
 
                         $result = mysqli_query($petmovetkodb, "SELECT * FROM customer WHERE custEmail = '$username' AND custPassword = '$password'");
-                        $resultSP = mysqli_query($petmovetkodb, "SELECT * FROM service_provider WHERE spEmail = '$username' AND spPassword = '$password' ");
+                        $resultSP = mysqli_query($petmovetkodb, "SELECT * FROM service_provider WHERE spEmail = '$username' AND spPassword = '$password' AND spReqStatus='acc'");
                             
                         if(mysqli_num_rows($result) > 0) {
                             $_SESSION['loggedin'] = true;
                             $_SESSION['username'] = $email;
                             header("Location: customers.php");
                         } else if (mysqli_num_rows($resultSP) > 0) {
-                            $_SESSION['loggedin'] = true;
-                            $_SESSION['username'] = $email;
-                            header("Location: serviceproviders.php");
+                            $row = mysqli_fetch_row($resultSP);
+                            if($row[15] == "acc") {
+                                $_SESSION['loggedin'] = true;
+                                $_SESSION['username'] = $email;
+                                header("Location: service_provider.php");
+                            } else {
+                                header("Location: unaccepted.php");
+                                mysqli_free_result($resultSP);
+                            }
                         } else if ($username == "admin" && $password == "finalswebteklab") {
                             $_SESSION['loggedin'] = true;
                             $_SESSION['username'] = "admin";
@@ -100,6 +106,7 @@
                         } else {
                             echo "<div class='err'> Incorrect email or password! </div>";
                             mysqli_free_result($result);
+                            mysqli_free_result($resultSP);
                         }
                     }
                     ?>
