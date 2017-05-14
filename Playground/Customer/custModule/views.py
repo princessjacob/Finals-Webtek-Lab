@@ -52,14 +52,12 @@ def newrequest(request):
     return render(request, 'custModule/newrequest.html', {'form': form})
 
 def editrequest(request):
-    petType = Petlist.objects.values('type').distinct()
-    petBreed = Petlist.objects.values('breed').distinct()
     sp_data = ServiceProvider.objects.all()
     serv = Services.objects.all()
     
     return render(request,
                   'custModule/editrequest.html',
-                  context={'petType': petType, 'petBreed' : petBreed, 'sp_data': sp_data, 'serv': serv},
+                  context={'sp_data': sp_data, 'serv': serv},
                  )
 
 def newreview(request):
