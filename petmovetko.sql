@@ -1,29 +1,48 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- phpMyAdmin SQL Dump
+-- version 4.5.5.1
+-- http://www.phpmyadmin.net
 --
--- Host: localhost    Database: petmovetko
--- ------------------------------------------------------
--- Server version	5.7.11
+-- Host: 127.0.0.1
+-- Generation Time: May 14, 2017 at 03:19 AM
+-- Server version: 5.7.11
+-- PHP Version: 5.6.19
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `petmovetko`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `complaints`
+--
+
+CREATE TABLE `complaints` (
+  `compID` int(11) NOT NULL,
+  `compMessage` varchar(100) NOT NULL,
+  `compDate` datetime NOT NULL,
+  `spID` int(11) NOT NULL,
+  `custID` int(11) NOT NULL,
+  `complainer` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `customer`
 --
 
-DROP TABLE IF EXISTS `customer`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer` (
-  `custID` int(11) NOT NULL AUTO_INCREMENT,
+  `custID` int(11) NOT NULL,
   `custLastName` varchar(45) NOT NULL,
   `custFirstName` varchar(45) NOT NULL,
   `custEmail` varchar(45) NOT NULL,
@@ -31,162 +50,124 @@ CREATE TABLE `customer` (
   `custAdd` varchar(45) NOT NULL,
   `custZip` varchar(45) NOT NULL,
   `custNum` varchar(45) NOT NULL,
-  `custAbout` varchar(1000) NOT NULL,
-  `custPhoto` mediumblob,
-  PRIMARY KEY (`custID`),
-  KEY `rr_ID_idx` (`custID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `custAbout` varchar(100) DEFAULT NULL,
+  `custPhoto` mediumblob
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `customer`
 --
 
-LOCK TABLES `customer` WRITE;
-/*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (1,'Caniba','Benj','bc@gmail.com','1234','Aurora Hill, Baguio City','','09123456789','',NULL),(2,'Bully','Big','bb@gmail.com','1234','Loakan, Baguio City','','09121212121','',NULL),(3,'Famorra','Halli','hallifamorra@gmail.com','1234','Ambiong, Baguio City','','09987654321','',NULL);
-/*!40000 ALTER TABLE `customer` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `customer` (`custID`, `custLastName`, `custFirstName`, `custEmail`, `custPassword`, `custAdd`, `custZip`, `custNum`, `custAbout`, `custPhoto`) VALUES
+(1, 'Caniba', 'Benj', 'bc@gmail.com', '1234', 'Aurora Hill, Baguio City', '', '09123456789', '', NULL),
+(2, 'Bully', 'Big', 'bb@gmail.com', '1234', 'Loakan, Baguio City', '', '09121212121', '', NULL),
+(3, 'Famorra', 'Halli', 'hallifamorra@gmail.com', '1234', 'Ambiong, Baguio City', '', '09987654321', '', NULL),
+(4, 'GDL', 'Imo', 'imoimo@gmail.com', 'imo', 'Aurora Hill', '2600', '09123456789', NULL, NULL),
+(5, 'vbhjkl', 'nmll', 'vbjkl@nmnm.com', 'hgrfds', 'ujyhtgrfd', '2600', '6543276543222', NULL, NULL),
+(6, 'sfhsgd', 'htgrf', 'ehrsr@gmail.com', 'grerw', 'rgeragg', '2600', '2132143506', NULL, NULL);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `django_migrations`
 --
 
-DROP TABLE IF EXISTS `django_migrations`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `django_migrations` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `app` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `applied` datetime(6) NOT NULL,
-  PRIMARY KEY (`id`)
+  `applied` datetime(6) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `django_migrations`
---
-
-LOCK TABLES `django_migrations` WRITE;
-/*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
-/*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
-UNLOCK TABLES;
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `petlist`
 --
 
-DROP TABLE IF EXISTS `petlist`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `petlist` (
   `petID` int(11) NOT NULL,
   `type` enum('dog','cat') DEFAULT NULL,
-  `breed` varchar(45) NOT NULL,
-  PRIMARY KEY (`petID`)
+  `breed` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `petlist`
 --
 
-LOCK TABLES `petlist` WRITE;
-/*!40000 ALTER TABLE `petlist` DISABLE KEYS */;
-INSERT INTO `petlist` VALUES (1,'dog','Shih Tzu'),(2,'dog','Bulldog'),(3,'dog','Labrador');
-/*!40000 ALTER TABLE `petlist` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `petlist` (`petID`, `type`, `breed`) VALUES
+(1, 'dog', 'Shih Tzu'),
+(2, 'dog', 'Bulldog'),
+(3, 'dog', 'Labrador');
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `petowner`
 --
 
-DROP TABLE IF EXISTS `petowner`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `petowner` (
   `owner` int(11) NOT NULL,
-  `pet` int(11) NOT NULL,
-  PRIMARY KEY (`owner`,`pet`),
-  KEY `pet_fk_idx` (`pet`)
+  `pet` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `petowner`
 --
 
-LOCK TABLES `petowner` WRITE;
-/*!40000 ALTER TABLE `petowner` DISABLE KEYS */;
-INSERT INTO `petowner` VALUES (1,1),(2,1),(2,3),(3,2);
-/*!40000 ALTER TABLE `petowner` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `petowner` (`owner`, `pet`) VALUES
+(1, 1),
+(2, 1),
+(2, 3),
+(3, 2);
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `request`
 --
 
-DROP TABLE IF EXISTS `request`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `request` (
-  `reqID` int(11) NOT NULL AUTO_INCREMENT,
+  `reqID` int(11) NOT NULL,
   `reqStatus` varchar(45) NOT NULL,
   `custId` int(11) NOT NULL,
-  `serv_id` int(11) NOT NULL,
-  PRIMARY KEY (`reqID`),
-  KEY `c_fk_idx` (`custId`),
-  KEY `serv_fk_idx` (`serv_id`),
-  CONSTRAINT `c_fk` FOREIGN KEY (`custId`) REFERENCES `customer` (`custID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `serv_fk` FOREIGN KEY (`serv_id`) REFERENCES `services` (`servID`) ON DELETE CASCADE ON UPDATE CASCADE
+  `servID` int(11) NOT NULL,
+  `spID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `request`
---
-
-LOCK TABLES `request` WRITE;
-/*!40000 ALTER TABLE `request` DISABLE KEYS */;
-/*!40000 ALTER TABLE `request` ENABLE KEYS */;
-UNLOCK TABLES;
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `reviewrating`
 --
 
-DROP TABLE IF EXISTS `reviewrating`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `reviewrating` (
   `rr_ID` int(11) NOT NULL,
   `revDets` varchar(45) NOT NULL,
-  `rating` int(11) NOT NULL,
-  PRIMARY KEY (`rr_ID`),
-  CONSTRAINT `revrat.custID` FOREIGN KEY (`rr_ID`) REFERENCES `customer` (`custID`) ON UPDATE CASCADE,
-  CONSTRAINT `revrat.spID` FOREIGN KEY (`rr_ID`) REFERENCES `service_provider` (`spID`) ON UPDATE CASCADE
+  `rating` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `reviewrating`
+-- Table structure for table `services`
 --
 
-LOCK TABLES `reviewrating` WRITE;
-/*!40000 ALTER TABLE `reviewrating` DISABLE KEYS */;
-/*!40000 ALTER TABLE `reviewrating` ENABLE KEYS */;
-UNLOCK TABLES;
+CREATE TABLE `services` (
+  `servID` int(11) NOT NULL,
+  `servName` varchar(45) NOT NULL,
+  `servPrice` int(11) NOT NULL,
+  `servImage` mediumblob NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `service_provider`
 --
 
-DROP TABLE IF EXISTS `service_provider`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `service_provider` (
-  `spID` int(11) NOT NULL AUTO_INCREMENT,
+  `spID` int(11) NOT NULL,
   `spUsername` varchar(45) NOT NULL,
   `spLastName` varchar(45) NOT NULL,
   `spFirstName` varchar(45) NOT NULL,
@@ -199,80 +180,40 @@ CREATE TABLE `service_provider` (
   `spLastLogged` date DEFAULT NULL,
   `spStatus` enum('active','not active') NOT NULL,
   `spServices` varchar(45) NOT NULL,
-  `spDay` varchar(10) NOT NULL,
-  `spTime` time NOT NULL,
-  PRIMARY KEY (`spID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `spDay` varchar(10) DEFAULT NULL,
+  `spTime` varchar(45) DEFAULT NULL,
+  `spReqStatus` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `service_provider`
 --
 
-LOCK TABLES `service_provider` WRITE;
-/*!40000 ALTER TABLE `service_provider` DISABLE KEYS */;
-INSERT INTO `service_provider` VALUES (1,'sp101','Kilma','Dona','dk@gmail.com','1234','A. Bonifacio St., Baguio City','09090912345','dog',2600,NULL,'active','grooming','mwf','10:00:00');
-/*!40000 ALTER TABLE `service_provider` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `service_provider` (`spID`, `spUsername`, `spLastName`, `spFirstName`, `spEmail`, `spPassword`, `spAdd`, `spNum`, `spPet`, `spZip`, `spLastLogged`, `spStatus`, `spServices`, `spDay`, `spTime`, `spReqStatus`) VALUES
+(1, 'sp101', 'Kilma', 'Dona', 'dk@gmail.com', '1234', 'A. Bonifacio St., Baguio City', '09090912345', 'dog', 2600, NULL, 'active', 'grooming', 'mwf', '10:00:00', ''),
+(2, 'nerimae', 'Halos', 'Neri ', 'nerimaechalos@gmail.com', 'nerimae', 'New Lucban', '09175855137', 'dog', 2600, NULL, 'active', 'Training,Sitting', NULL, NULL, 'acc'),
+(3, 'asjnas asn', 'asdeubbas', 'kasdjandn', 'asjdie@adnskac.ada', 'asdasidenda', 'aosdamand', '12354664', 'dog', 1234, NULL, 'active', 'Training,Grooming', NULL, NULL, 'acc'),
+(4, 'imogdl', 'GDL', 'Imogen', 'imogdl@gmail.com', 'imogdl', 'Aurora Hill', '09123456789', 'dog', 2600, NULL, 'active', 'Training,Grooming,Vet', NULL, NULL, 'acc'),
+(5, 'rgjfawehi', 'WRYHQRY', 'tenewrh', 'DGNFF@eherg.com', 'asg9feoy', 'ndkjgfhweiyfh', '10927491221', 'dog', 137129, NULL, 'active', 'Training,Vet', NULL, NULL, 'acc'),
+(6, 'qt4wyte', 'lkjhg', 'kjhgfds', 'hnfxgrd@trjyr.rtyr', '66rtwe', 'fjjngfsv', '709843', 'dog', 43645, NULL, 'active', 'Training,Vet', NULL, NULL, 'acc');
 
---
--- Table structure for table `services`
---
-
-DROP TABLE IF EXISTS `services`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `services` (
-  `servID` int(11) NOT NULL AUTO_INCREMENT,
-  `servName` varchar(45) NOT NULL,
-  `servPrice` int(11) NOT NULL,
-  `servImage` mediumblob NOT NULL,
-  PRIMARY KEY (`servID`),
-  UNIQUE KEY `servID_UNIQUE` (`servID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `services`
---
-
-LOCK TABLES `services` WRITE;
-/*!40000 ALTER TABLE `services` DISABLE KEYS */;
-/*!40000 ALTER TABLE `services` ENABLE KEYS */;
-UNLOCK TABLES;
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `ssp`
 --
 
-DROP TABLE IF EXISTS `ssp`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ssp` (
   `servID` int(11) NOT NULL,
-  `spID` int(11) NOT NULL,
-  PRIMARY KEY (`servID`,`spID`),
-  CONSTRAINT `ssp.servID` FOREIGN KEY (`servID`) REFERENCES `services` (`servID`) ON UPDATE CASCADE,
-  CONSTRAINT `ssp.spID` FOREIGN KEY (`servID`) REFERENCES `service_provider` (`spID`) ON UPDATE CASCADE
+  `spID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `ssp`
---
-
-LOCK TABLES `ssp` WRITE;
-/*!40000 ALTER TABLE `ssp` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ssp` ENABLE KEYS */;
-UNLOCK TABLES;
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `transaction`
 --
 
-DROP TABLE IF EXISTS `transaction`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `transaction` (
   `trans_ID` int(11) NOT NULL,
   `transStatus` varchar(45) NOT NULL,
@@ -280,31 +221,164 @@ CREATE TABLE `transaction` (
   `timeStart` varchar(45) NOT NULL,
   `timeIn` varchar(45) NOT NULL,
   `payment` int(11) NOT NULL,
-  `payStatus` varchar(45) NOT NULL,
-  PRIMARY KEY (`trans_ID`),
-  CONSTRAINT `transaction.custID` FOREIGN KEY (`trans_ID`) REFERENCES `customer` (`custID`) ON UPDATE CASCADE,
-  CONSTRAINT `transaction.reqID` FOREIGN KEY (`trans_ID`) REFERENCES `request` (`reqID`) ON UPDATE CASCADE,
-  CONSTRAINT `transaction.servID` FOREIGN KEY (`trans_ID`) REFERENCES `services` (`servID`) ON UPDATE CASCADE,
-  CONSTRAINT `transaction.spID` FOREIGN KEY (`trans_ID`) REFERENCES `service_provider` (`spID`) ON UPDATE CASCADE
+  `payStatus` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `transaction`
+-- Indexes for dumped tables
 --
 
-LOCK TABLES `transaction` WRITE;
-/*!40000 ALTER TABLE `transaction` DISABLE KEYS */;
-/*!40000 ALTER TABLE `transaction` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+--
+-- Indexes for table `complaints`
+--
+ALTER TABLE `complaints`
+  ADD PRIMARY KEY (`compID`),
+  ADD UNIQUE KEY `compID_UNIQUE` (`compID`),
+  ADD KEY `sp_fk_idx` (`spID`),
+  ADD KEY `cust_fk_idx` (`custID`);
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+--
+-- Indexes for table `customer`
+--
+ALTER TABLE `customer`
+  ADD PRIMARY KEY (`custID`),
+  ADD KEY `rr_ID_idx` (`custID`);
+
+--
+-- Indexes for table `django_migrations`
+--
+ALTER TABLE `django_migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `petlist`
+--
+ALTER TABLE `petlist`
+  ADD PRIMARY KEY (`petID`);
+
+--
+-- Indexes for table `petowner`
+--
+ALTER TABLE `petowner`
+  ADD PRIMARY KEY (`owner`,`pet`),
+  ADD KEY `pet_fk_idx` (`pet`);
+
+--
+-- Indexes for table `request`
+--
+ALTER TABLE `request`
+  ADD PRIMARY KEY (`reqID`),
+  ADD KEY `c_fk_idx` (`custId`),
+  ADD KEY `serv_fk_idx` (`servID`),
+  ADD KEY `sp_fk_idx` (`spID`);
+
+--
+-- Indexes for table `reviewrating`
+--
+ALTER TABLE `reviewrating`
+  ADD PRIMARY KEY (`rr_ID`);
+
+--
+-- Indexes for table `services`
+--
+ALTER TABLE `services`
+  ADD PRIMARY KEY (`servID`),
+  ADD UNIQUE KEY `servID_UNIQUE` (`servID`);
+
+--
+-- Indexes for table `service_provider`
+--
+ALTER TABLE `service_provider`
+  ADD PRIMARY KEY (`spID`);
+
+--
+-- Indexes for table `ssp`
+--
+ALTER TABLE `ssp`
+  ADD PRIMARY KEY (`servID`,`spID`);
+
+--
+-- Indexes for table `transaction`
+--
+ALTER TABLE `transaction`
+  ADD PRIMARY KEY (`trans_ID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `complaints`
+--
+ALTER TABLE `complaints`
+  MODIFY `compID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `customer`
+--
+ALTER TABLE `customer`
+  MODIFY `custID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `django_migrations`
+--
+ALTER TABLE `django_migrations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `request`
+--
+ALTER TABLE `request`
+  MODIFY `reqID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `services`
+--
+ALTER TABLE `services`
+  MODIFY `servID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `service_provider`
+--
+ALTER TABLE `service_provider`
+  MODIFY `spID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `complaints`
+--
+ALTER TABLE `complaints`
+  ADD CONSTRAINT `comp_cust_fk` FOREIGN KEY (`custID`) REFERENCES `customer` (`custID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `comp_sp_fk` FOREIGN KEY (`spID`) REFERENCES `service_provider` (`spID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `request`
+--
+ALTER TABLE `request`
+  ADD CONSTRAINT `c_fk` FOREIGN KEY (`custId`) REFERENCES `customer` (`custID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `serv_fk` FOREIGN KEY (`servID`) REFERENCES `services` (`servID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `sp_fk` FOREIGN KEY (`spID`) REFERENCES `service_provider` (`spID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `reviewrating`
+--
+ALTER TABLE `reviewrating`
+  ADD CONSTRAINT `revrat.custID` FOREIGN KEY (`rr_ID`) REFERENCES `customer` (`custID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `revrat.spID` FOREIGN KEY (`rr_ID`) REFERENCES `service_provider` (`spID`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `ssp`
+--
+ALTER TABLE `ssp`
+  ADD CONSTRAINT `ssp.servID` FOREIGN KEY (`servID`) REFERENCES `services` (`servID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `ssp.spID` FOREIGN KEY (`servID`) REFERENCES `service_provider` (`spID`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `transaction`
+--
+ALTER TABLE `transaction`
+  ADD CONSTRAINT `transaction.custID` FOREIGN KEY (`trans_ID`) REFERENCES `customer` (`custID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `transaction.reqID` FOREIGN KEY (`trans_ID`) REFERENCES `request` (`reqID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `transaction.servID` FOREIGN KEY (`trans_ID`) REFERENCES `services` (`servID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `transaction.spID` FOREIGN KEY (`trans_ID`) REFERENCES `service_provider` (`spID`) ON UPDATE CASCADE;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2017-05-11 10:48:46
