@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse, Http404,HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect
 from .models import Customer, Complaints, Request, Reviewrating, ServiceProvider, Services, Ssp, Transaction
-from .forms import UpdateForm
+from .forms import UpdateForm, NewRequestForm
 
 
 def dashboard(request):
@@ -40,23 +40,22 @@ def edit(request):
         form = Customer.objects.get(pk=1)
         update_form = UpdateForm(instance=customer)
 
-    return render(request, 'custModule\edit.html', {'form': form, 'customer':customer})
+    return render(request, 'custModule/edit.html', {'form': form, 'customer':customer})
    
 def thanks(request):
     return render(request, 'custModule/profile.html')
 
+def newrequest(request):   
+    if request.method == 'POST':
+        form = NewRequestForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/request/')       
+    else:
+        form = NewRequestForm()
+        
+    return render(request, 'custModule/newrequest.html', {'form': form})
 
-
-def newrequest(request):
-    petType = Petlist.objects.values('type').distinct()
-    petBreed = Petlist.objects.values('breed').distinct()
-    sp_data = ServiceProvider.objects.all()
-    serv = Services.objects.all()
-    
-    return render(request,
-                  'custModule/newrequest.html',
-                  context={'petType': petType, 'petBreed' : petBreed, 'sp_data': sp_data, 'serv': serv},
-                 )
 def editrequest(request):
     petType = Petlist.objects.values('type').distinct()
     petBreed = Petlist.objects.values('breed').distinct()

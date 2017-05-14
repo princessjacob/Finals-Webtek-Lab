@@ -197,7 +197,9 @@ class ServiceProvider(models.Model):
     class Meta:
         managed = False
         db_table = 'service_provider'
-
+        
+    def __str__(self):
+        return '%s %s' % (self.spfirstname, self.splastname)
 
 class Services(models.Model):
     servid = models.AutoField(db_column='servID', primary_key=True)  # Field name made lowercase.
@@ -207,6 +209,8 @@ class Services(models.Model):
     class Meta:
         managed = False
         db_table = 'services'
+    def __str__(self):
+        return self.servname
 
 
 class Ssp(models.Model):
