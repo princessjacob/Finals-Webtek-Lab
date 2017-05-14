@@ -1,0 +1,62 @@
+{% extends "custModule/header.html" %}
+{% block content %}
+   <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">EDIT PROFILE</h3>
+                </div>
+                
+                <div class="col-lg-12 container">
+                    <div class="panel panel-info ">
+                        <div class="panel-body">
+                          <div class="panel panel-info">
+                            <div class="panel-body ">
+                                <div class="col-lg-12 col-md-12">
+
+                        <div class="col-md-3">
+                             <form action="." name="edit" method="POST" >
+                                    {% csrf_token %}
+                                
+                                    <label for="custlastname">
+                                        Last Name <input type="text" name="custlastname" id="custlastname" value="{{ customer.custlastname }}">
+                                    </label>
+                               
+                                    <label for="custfirstname">
+                                        <div>First Name</div> <input type="text" name="custfirstname" id="custfirstname"  value="{{ customer.custfirstname }}">
+                                    </label>
+                                
+                                    <label for="custadd">
+                                        <div>Address</div> <input type="text" name="custadd" id="custadd" value="{{ customer.custadd }}">
+                                    </label>    
+                               
+                                    <label for="custnum">
+                                        <div>Contact Number</div> <input type="text" name="custnum" id="custnum" value="{{ customer.custnum }}">
+                                    </label>
+                                
+                                   <label for="custemail">
+                                        <div>Email</div> <input type="text" name="custemail" id="custemail" value="{{ customer.custemail }}">
+                                    </label>
+                                
+                                    <label for="custzip">
+                                        <div>Zip Code</div> <input type="text" name="custzip" id="custzip" value="{{ customer.custzip }}">
+                                    </label>
+                               
+                                <label for="custabout">
+                                    <div>About</div> <input type="text" name="custabout" id="custabout" value="{{ customer.custabout }}">
+                                </label>
+                               
+                                <div class="error">{{error}}</div>
+                                <input type="submit" value="Save Changes" role="button" class="btn btn-info">
+                                 <a href="#"><button type="button" class="btn btn-info">Cancel</button></a>
+                                
+                            </form>
+                </div>
+                </div>
+                </div>
+                   
+                    </div>
+                    </div>
+                        
+       </div>
+</div>
+
+{% endblock %}
