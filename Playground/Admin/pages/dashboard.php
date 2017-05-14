@@ -169,18 +169,42 @@ if ($petmovetkodb->connect_error) {
                         </tr>
                     </table>
                 </div>
+                <hr>
                 <div class ="hits">
                     <h2>Total Page visits:</h2>
-                    <hr>                    
+                                        
                 </div>
                 <br>
-                <div class ="spct">
-                    <p style="font-size: 30px; padding-left: 100px;">Service Providers
-                    <span style="padding-left: 200px;">Registered Customers</span></p>
+                <div class="row">
+                <div class="col-lg-6">
+                <div class ="spcount">
+                                       
+                    <?php
+                        $sp = "SELECT * FROM service_provider";
+                        $result = $petmovetkodb->query($sp);
 
+                        $spResult=mysqli_num_rows($result);
+                        echo "<h1 style='padding-left: 200px;'>$spResult</h1>";                        
+                    ?>
+                    <p style="font-size: 20px; padding-left: 130px;">Service Providers</p>                                  
                 </div>
                 </div>
-            </idv>
+                <div class="col-lg-6">
+                <div class="ctcount">
+                    
+                    <?php
+                        $customer = "SELECT * FROM customer";
+                        $result = $petmovetkodb->query($customer);
+
+                        $ctResult=mysqli_num_rows($result);
+                        echo "<h1 style='padding-left: 150px'>$ctResult</h1>";
+                    ?>
+                    <p style="font-size: 20px; padding-left: 60px; float: block;">Registered Customers</p>
+                </div>
+                </div>
+                </div>
+                </div>
+            </div>
             <!-- /.row -->
         </div>
         <!-- /#page-wrapper -->
