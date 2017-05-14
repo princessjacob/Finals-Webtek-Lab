@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import Http404, HttpResponseRedirect
 from .models import Customer, Complaints, Request, Reviewrating, ServiceProvider, Services, Ssp, Transaction
 from .forms import UpdateForm, NewRequestForm, NewReviewForm, NewComplaintForm
+from django.shortcuts import get_object_or_404
+from django.core.urlresolvers import reverse
 
 
 def dashboard(request):
@@ -69,16 +71,35 @@ def editrequest(request):
                  )
 
 def newreview(request):
-    return render(request, 'custModule/newreview.html')
+    if request.method == 'POST':
+        form = NewReviewForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/review/')       
+    else:
+        form = NewReviewForm()
+        
+    return render(request, 'custModule/newreview.html', {'form': form})
 
 def listreview(request):
     return render(request, 'custModule/listreview.html')
 
 def complaint(request):
-    return render(request, 'custModule/complaint.html')
+    if request.method == 'POST':
+        form = NewComplaintForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/request/')       
+    else:
+        form = NewComplaintForm()
+        
+    return render(request, 'custModule/complaint.html', {'form': form})
 
 def listcomplaint(request):
     return render(request, 'custModule/listcomplaint.html')
 
-
-
+def delete(request, custid):
+    instance = Request.objects.get(custid=custid)
+    instance.delete()
+    return HttpResponseRedirect('/appointment/')  
+    return render(request, 'custModule/appointment.html', {{'instance':instance}})

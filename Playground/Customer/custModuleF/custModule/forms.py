@@ -21,11 +21,14 @@ class NewRequestForm(forms.ModelForm):
         fields = '__all__'
         
 class NewReviewForm(forms.ModelForm):
+    revmessage = forms.CharField(max_length=10000,widget=forms.Textarea(attrs={'rows': 5, 'cols': 130}))
+    rating = forms.IntegerField(min_value=1, max_value=10)
     class Meta:
         model = Reviewrating
-        exclude = ['rrid']
+        exclude = ['rr_id', 'reviewer']
         
 class NewComplaintForm(forms.ModelForm):
+    compmessage = forms.CharField(max_length=10000,widget=forms.Textarea(attrs={'rows': 5, 'cols': 130}))
     class Meta:
         model = Complaints
-        exclude = ['compid']
+        exclude = ['compid', 'complainer']

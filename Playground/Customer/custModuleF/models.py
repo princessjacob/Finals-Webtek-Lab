@@ -71,6 +71,7 @@ class AuthUserUserPermissions(models.Model):
 class Complaints(models.Model):
     compid = models.AutoField(db_column='compID', primary_key=True)  # Field name made lowercase.
     compmessage = models.CharField(db_column='compMessage', max_length=100)  # Field name made lowercase.
+    compdate = models.DateTimeField(db_column='compDate')  # Field name made lowercase.
     spid = models.ForeignKey('ServiceProvider', models.DO_NOTHING, db_column='spID')  # Field name made lowercase.
     custid = models.ForeignKey('Customer', models.DO_NOTHING, db_column='custID')  # Field name made lowercase.
     complainer = models.CharField(max_length=5)
@@ -171,18 +172,17 @@ class Request(models.Model):
 
 
 class Reviewrating(models.Model):
-    rr_id = models.AutoField(db_column='rr_ID', primary_key=True)  # Field name made lowercase.
+    rr_id = models.IntegerField(db_column='rr_ID')  # Field name made lowercase.
     revmessage = models.CharField(max_length=10000)
     rating = models.IntegerField()
     spid = models.ForeignKey('ServiceProvider', models.DO_NOTHING, db_column='spid')
     custid = models.ForeignKey(Customer, models.DO_NOTHING, db_column='custid')
     reviewer = models.CharField(max_length=45)
-    
+
     class Meta:
         managed = False
         db_table = 'reviewrating'
-        
-        
+
 
 class ServiceProvider(models.Model):
     spid = models.AutoField(db_column='spID', primary_key=True)  # Field name made lowercase.
@@ -232,14 +232,14 @@ class Ssp(models.Model):
 
 
 class Transaction(models.Model):
-    trans_id = models.ForeignKey(ServiceProvider, models.DO_NOTHING, db_column='transID', primary_key=True)  # Field name made lowercase.
+    trans = models.ForeignKey(ServiceProvider, models.DO_NOTHING, db_column='trans_ID', primary_key=True)  # Field name made lowercase.
     transstatus = models.CharField(db_column='transStatus', max_length=8)  # Field name made lowercase.
     transdate = models.DateField(db_column='transDate')  # Field name made lowercase.
     timein = models.TimeField(db_column='timeIn')  # Field name made lowercase.
     timeout = models.TimeField(db_column='timeOut')  # Field name made lowercase.
     payment = models.IntegerField()
     paystatus = models.CharField(db_column='payStatus', max_length=12)  # Field name made lowercase.
-    reqid = models.ForeignKey(Request, models.DO_NOTHING, db_column='reqID')  # Field name made lowercase.
+
     class Meta:
         managed = False
         db_table = 'transaction'

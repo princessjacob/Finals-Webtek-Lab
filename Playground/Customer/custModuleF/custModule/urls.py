@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^listreview/$', views.listreview, name="listreview"),
     url(r'^complaint/$', views.complaint, name="complaint"),
     url(r'^listcomplaint/$', views.listcomplaint, name="listcomplaint"),
+    url(r'^delete/(?P<id>\d+)/$', views.delete),
 ]

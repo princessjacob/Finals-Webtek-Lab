@@ -16,6 +16,8 @@ class UpdateForm(forms.ModelForm):
         
 class NewRequestForm(forms.ModelForm):
     reqstatus = forms.CharField(required=False, widget=forms.HiddenInput(), initial='pending')
+    
+    
     class Meta:
         model = Request
         fields = '__all__'
