@@ -94,7 +94,7 @@ class Customer(models.Model):
     class Meta:
         managed = False
         db_table = 'customer'
-        
+
     def __str__(self):
         return '%s %s' % (self.custfirstname, self.custlastname)
 
@@ -158,7 +158,7 @@ class Request(models.Model):
     class Meta:
         managed = False
         db_table = 'request'
-        
+
     def __iter__(self):
         return [
             self.spid,
@@ -177,12 +177,12 @@ class Reviewrating(models.Model):
     spid = models.ForeignKey('ServiceProvider', models.DO_NOTHING, db_column='spid')
     custid = models.ForeignKey(Customer, models.DO_NOTHING, db_column='custid')
     reviewer = models.CharField(max_length=45)
-    
+
     class Meta:
         managed = False
         db_table = 'reviewrating'
-        
-        
+
+
 
 class ServiceProvider(models.Model):
     spid = models.AutoField(db_column='spID', primary_key=True)  # Field name made lowercase.
@@ -205,7 +205,7 @@ class ServiceProvider(models.Model):
     class Meta:
         managed = False
         db_table = 'service_provider'
-        
+
     def __str__(self):
         return '%s %s' % (self.spfirstname, self.splastname)
 
@@ -243,8 +243,8 @@ class Transaction(models.Model):
     class Meta:
         managed = False
         db_table = 'transaction'
-        
-    def __iter__(self): 
+
+    def __iter__(self):
         return [
             self.trans,
             self.transstatus,

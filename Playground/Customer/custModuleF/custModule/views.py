@@ -9,12 +9,14 @@ from django.core.urlresolvers import reverse
 def dashboard(request):
     tran = Transaction.objects.all()
     req = Request.objects.all()
-    return render(request, 
+    return render(request,
                   'custModule/dashboard.html',
                  {'tran':tran, 'req':req},)
 
 def appointment(request):
-    return render(request, 'custModule/appointment.html')
+    tran = Transaction.objects.all()
+    req = Request.objects.all()
+    return render(request, 'custModule/appointment.html', {'tran':tran, 'req':req})
 
 def request(request):
     req = Request.objects.all()
@@ -22,7 +24,8 @@ def request(request):
                  {'req':req})
 
 def review(request):
-    return render(request, 'custModule/review.html')
+    rev = Reviewrating.objects.all()
+    return render(request, 'custModule/review.html', {'rev':rev})
 
 def transaction(request):
     tran = Transaction.objects.all()
@@ -50,21 +53,21 @@ def edit(request):
 
     return render(request, 'custModule/edit.html', {'form': form, 'customer':customer})
 
-def newrequest(request):   
+def newrequest(request):
     if request.method == 'POST':
         form = NewRequestForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/request/')       
+            return HttpResponseRedirect('/request/')
     else:
         form = NewRequestForm()
-        
+
     return render(request, 'custModule/newrequest.html', {'form': form})
 
 def editrequest(request):
     sp_data = ServiceProvider.objects.all()
     serv = Services.objects.all()
-    
+
     return render(request,
                   'custModule/editrequest.html',
                   context={'sp_data': sp_data, 'serv': serv},
@@ -75,31 +78,33 @@ def newreview(request):
         form = NewReviewForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/review/')       
+            return HttpResponseRedirect('/review/')
     else:
         form = NewReviewForm()
-        
+
     return render(request, 'custModule/newreview.html', {'form': form})
 
 def listreview(request):
-    return render(request, 'custModule/listreview.html')
+    rev = Reviewrating.objects.all()
+    return render(request, 'custModule/listreview.html', {'rev':rev})
 
 def complaint(request):
     if request.method == 'POST':
         form = NewComplaintForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/request/')       
+            return HttpResponseRedirect('/request/')
     else:
         form = NewComplaintForm()
-        
+
     return render(request, 'custModule/complaint.html', {'form': form})
 
 def listcomplaint(request):
-    return render(request, 'custModule/listcomplaint.html')
+    com = Complaints.objects.all()
+    return render(request, 'custModule/listcomplaint.html', {'com':com})
 
 def delete(request, custid):
     instance = Request.objects.get(custid=custid)
     instance.delete()
-    return HttpResponseRedirect('/appointment/')  
+    return HttpResponseRedirect('/appointment/')
     return render(request, 'custModule/appointment.html', {{'instance':instance}})
