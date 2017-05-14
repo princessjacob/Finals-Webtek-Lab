@@ -134,12 +134,21 @@ if ($petmovetkodb->connect_error) {
                             <a href="reports.php">Complaints</a>
                         </li>
                         
+                        <li>
+                            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                            <input type="submit" name="Logout" value="Logout" class="btn btn-default">
+                            </form>
+
+                            <?php
+                                if(isset($_POST['Logout'])) {
+                                    $_SESSION['loggedin'] = false;
+                                    echo "<script> window.location.href='../index.php' </script>";
+                                } 
+                            ?>
+                        </li>
                        
                     </ul>
                     <br>
-                        <li>
-                            <a href="login.php">Logout</a>
-                        </li>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
@@ -149,7 +158,7 @@ if ($petmovetkodb->connect_error) {
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header" style="font-family: 'Slabo 27px', serif;">PET SERVICE APPLICATION<p>Welcome back, Admin!</p></h1>
+                    <h1 class="page-header" style="padding-top:15px; padding-left: 10px; background-color: #003399; font-family: 'Slabo 27px', serif; color:white;">PET SERVICE APPLICATION<p>Welcome back, Admin!</p></h1>
                     <?php 
                         echo "<h3> Date Today: " . date("F d, Y l") . "<br>";
                         ?>
@@ -159,19 +168,56 @@ if ($petmovetkodb->connect_error) {
                 <div class="col-lg-12">
                 
                 <div class = "stat" style="margin-top: 3vh;">
-                <h2>Statistics</h2>
+                <h2 class="text-center">TOP 10 SERVICE PROVIDERS</h2>
                     <table>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Rating</th>
+                            <th>Rank</th>
+                            <th>Username</th>
                             <th>Hits</th>
                         </tr>
                     </table>
+                    <?php
+                        $rank="SELECT COUNT(trans_ID), spUsername, COUNT(SUM(transStatus)) FROM service_provider JOIN request USING (spID) JOIN transaction USING (reqID) JOIN reviewrating USING(spid) WHERE reqStatus='done' OR transStatus='finished' DESC 0 LIMIT 10";
+                        if ($result=mysqli_query($petmovetkodb, $rank)) {
+                            if(mysqli_fetch_row($result) > 0) {
+                                $i = 0;
+                            ?>
+                                <table class="table table-hover" style="margin-top: 1em;">
+                                <thead>
+                                <tr>
+                                <th class="text-center" style="width: 20%;">Rank</th>
+                                <th>Username</th>
+                                <th class="text-center">Hits</th>
+                                <th class="text-center">Ratings</th>
+                                </tr>
+                                </thead>
+                                <?php
+                                while ($row=mysqli_fetch_row($result)) {
+                                    echo "<tr>";
+                                    echo "<td class='text-center'> $i </td>";
+                                    echo "<td class='text-center'> $row[0] </td>";
+                                    echo "<td> $row[1] </td>";
+                                    echo "<td> $row[2] </td>";
+                                    echo "</tr>";
+                                    $i++;
+                                }
+                                echo "</table>";
+                            } else {
+                                echo "<h3 class='text-center'> There are no Service Providers yet. </h2>";
+                            }
+                        }
+                    ?>
+                    </div>
+                    <hr>
                 </div>
-                <hr>
                 <div class ="hits">
-                    <h2 style="color:gray;">Total Page visits:</h2>
+                    <h2 style="color:gray;">Total Page visits:
+                    <?php
+                        $counter = ("../lib/counter.txt");
+                        $hits = file($counter); 
+                        echo "<span style='color: black';>" . $hits[0] . "</span>";
+                    ?>
+                    </h2>
                     <hr>
                                         
                 </div>
