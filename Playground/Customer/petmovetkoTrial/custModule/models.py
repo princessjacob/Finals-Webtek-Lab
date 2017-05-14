@@ -103,6 +103,9 @@ class Customer(models.Model):
     class Meta:
         managed = False
         db_table = 'customer'
+        
+    def __str__(self):
+        return '%s %s' % (self.custfirstname, self.custlastname)
 
 
 class DjangoAdminLog(models.Model):
