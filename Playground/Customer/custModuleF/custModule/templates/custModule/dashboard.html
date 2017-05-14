@@ -1,0 +1,92 @@
+{% extends "custModule/header.html" %}
+{% block content %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-header">Dashboard</h2>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">APPOINTMENTS</h3>
+                </div>
+                <div class="col-lg-12">
+                    <div class="panel panel-info">
+                    {% for transaction in tran %}
+                        {% if transaction.transstatus == null %}
+                    <div class="panel-heading container-fluid">
+                        <div class="col-xs-9"><p>DATE AND TIME SET</p></div>
+                        <div class="col-xs-3"><button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-pencil"></span> EDIT SCHED</button>
+                        {% include "custModule/includes/modal.html" %} 
+                        <a href="#" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModalsure"><span class="glyphicon glyphicon-remove" ></span> CANCEL</a>
+                            {% include "custModule/includes/modalsure.html" %} 
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>STARTING IN: {{ transaction.timein }}</p>
+                        {% for request in req %}
+                            <p>SP NAME: {{ request.spid }}</p>
+                            <p>PET AND BREED: {{ request.pettype}} and {{ request.petbreed }}</p>
+                            <p>SERVICE PROVIDED: {{ request.servid }}</p>
+                        {% endfor %}
+                    </div>
+                            {% else %}<p>No appointments for the day.</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+             <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">REQUESTS</h3>
+                </div>
+                 
+                  <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                   <i class="fa fa-thumbs-o-up fa-5x" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"></div>
+                                    <div>ACCEPTED</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left"><a href="/request/">View Details</a></span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                 <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-spinner fa-5x" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"></div>
+                                    <div>PENDING</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left"><a href="/request/">View Details</a></span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+    
+{% endblock %} 
