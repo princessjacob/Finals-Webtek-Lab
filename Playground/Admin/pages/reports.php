@@ -123,7 +123,7 @@ if ($petmovetkodb->connect_error) {
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="reports.php">Complaints</a>
+                            <a href="complaints.php">Complaints</a>
                         </li>
                         
                         <li>

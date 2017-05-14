@@ -135,7 +135,7 @@ if ($_SESSION['loggedin'] == false ) {
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="reports.php">Complaints</a>
+                            <a href="complaints.php">Complaints</a>
                         </li>
                        <li>
                             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
