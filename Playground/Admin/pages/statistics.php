@@ -14,7 +14,7 @@ if ($_SESSION['loggedin'] == false ) {
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -135,6 +135,57 @@ if ($petmovetkodb->connect_error) {
         <!-- /.navbar-static-side -->
     </nav>
 
+<<<<<<< .mine
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="panel-body">
+                    <div class = col-lg-8>                    
+                    <h2 class="text-center" style="font-family: Comfortaa; font-weight: bold; font-size: 35px;">Service Providers</h2>
+                    <?php
+                        $rank="SELECT spID, CONCAT(spFirstName, ' ', spLastName), spLastLogged, spStatus, spServices FROM service_provider";
+                        if ($result=mysqli_query($petmovetkodb, $rank)) {
+                            if(mysqli_num_rows($result) > 0) {
+                            ?>
+                                <table class="table table-hover" style="margin-top: 1em;">
+                                <thead>
+                                <tr>
+                                <th class="text-center" style="width: 20%;">ID</th>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">Last Log</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Services</th>
+                                </tr>
+                                </thead>
+                                <?php
+
+                                while ($row=mysqli_fetch_row($result)) {
+                                    echo "<tr>";
+                                    echo "<td class='text-center'> $row[0] </td>";
+                                    echo "<td class='text-center'> $row[1] </td>";
+                                    echo "<td class='text-center'>$row[2]</td>";
+                                    echo "<td class='text-center'>$row[3]</td>";
+                                    echo "<td class='text-center'>$row[4]</td>";
+                                    echo "</tr>";
+                                }
+                                echo "</table>";
+                            } else {
+                                echo "<h3 class='text-center'> There are no Service Providers yet. </h3>";
+                            }
+                        }
+                    ?>
+                    </div>
+||||||| .r283
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Statistics</h1>
+                        <h2>Service Provider</h2>
+                    </div>
+=======
     <!-- Page Content -->
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -143,14 +194,114 @@ if ($petmovetkodb->connect_error) {
                     <h1 class="page-header">Statistics</h1>
                     <h2>Service Provider</h2>
                 </div>
+>>>>>>> .r292
+                    </div>
+                    
+                    
+                </div>
 
+<<<<<<< .mine
+                <div class="row">
+                    <div class="panel-body">
+                    <div class = col-lg-8> 
+                    <h2 class="text-center" style="font-family: Comfortaa; font-weight: bold; font-size: 35px;">Customers</h2>
+                    <?php
+                        $rank="SELECT custID, CONCAT(custFirstName, ' ' , custLastName), custEmail, custAdd, custZip, custNum, custAbout FROM customer";
+                        if ($result=mysqli_query($petmovetkodb, $rank)) {
+                            if(mysqli_num_rows($result) > 0) {
+                                
+                            ?>
+                                <table class="table table-hover" style="margin-top: 1em;">
+                                <thead>
+                                <tr>
+                                <th class="text-center" style="width: 20%;">ID</th>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">Email</th>
+                                <th class="text-center">Address</th>
+                                <th class="text-center">ZipCode</th>
+                                </tr>
+                                </thead>
+                                <?php
+||||||| .r283
+                    <table>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Rank</th>
+                        </tr>
+=======
                 <table>
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
                         <th>Rank</th>
                     </tr>
+>>>>>>> .r292
 
+<<<<<<< .mine
+                                while ($row=mysqli_fetch_row($result)) {
+                                    echo "<tr>";
+                                    echo "<td class='text-center'> $row[0] </td>";
+                                    echo "<td class='text-center'> $row[1] </td>";
+                                    echo "<td class='text-center'>$row[2]</td>";
+                                    echo "<td class='text-center'>$row[3]</td>";
+                                    echo "<td class='text-center'>$row[4]</td>";
+                                    echo "</tr>";
+                                    
+                                }
+                                echo "</table>";
+                            } else {
+                                echo "<h3 class='text-center'> There are no Customers yet. </h3>";
+                            }
+                        }
+                    ?>
+                    </div>
+                    </div>
+                    
+                    
+                </div>
+                <!-- /.row -->
+||||||| .r283
+                        <tr>
+                            <td>SP01</td>
+                            <td>Clark Kent</td>
+                            <td>1</td>
+                        </tr>
+
+                        <tr>
+                            <td>SP02</td>
+                            <td>Bella Swan</td>
+                            <td>2</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="col-lg-12">
+                        <h2>Customer</h2>
+                    </div>
+                    <table>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Rank</th>
+                        </tr>
+
+                        <tr>
+                            <td>C01</td>
+                            <td>Cole Sprouse</td>
+                            <td>1</td>
+                        </tr>
+
+                        <tr>
+                            <td>C02</td>
+                            <td>Lili Reinhart</td>
+                            <td>2</td>
+                        </tr>
+                    </table>
+                    
+                    
+                </div>
+                <!-- /.row -->
+=======
                     <tr>
                         <td>SP01</td>
                         <td>Clark Kent</td>
@@ -188,6 +339,7 @@ if ($petmovetkodb->connect_error) {
                 </table>
                 
                 
+>>>>>>> .r292
             </div>
             <!-- /.row -->
         </div>
