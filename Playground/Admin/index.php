@@ -290,8 +290,8 @@
         <div class = "footer">
         	<div class="row">
         		<div class="col-md-6">
-        			<a href="terms.html" style="padding-left: 200px;">Terms & Conditions</a>
-        			<a href="policy.html"  style="padding-left: 50px;" >Privacy Policy</a><br><br><br>
+        			<a href="pages/terms.html" style="padding-left: 200px;">Terms & Conditions</a>
+        			<a href="pages/policy.html"  style="padding-left: 50px;" >Privacy Policy</a><br><br><br>
         			<img src="images/fb.png" width="30%" height="auto" style="padding-left: 100px; padding-right: 20px;">
         			<img src="images/instagram.png" width="15%" height="auto" style="padding-right: 25px;">
         			<img src="images/twitter.png" width="15%" height="auto" style="padding-right: 5px;">
