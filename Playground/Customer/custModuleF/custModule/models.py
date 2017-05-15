@@ -94,7 +94,7 @@ class Customer(models.Model):
     class Meta:
         managed = False
         db_table = 'customer'
-
+        
     def __str__(self):
         return '%s %s' % (self.custfirstname, self.custlastname)
 
@@ -158,7 +158,7 @@ class Request(models.Model):
     class Meta:
         managed = False
         db_table = 'request'
-
+        
     def __iter__(self):
         return [
             self.spid,
@@ -166,12 +166,13 @@ class Request(models.Model):
             self.rtimeend,
             self.pettype,
             self.petbreed,
-            self.rdate
+            self.rdate,
+            self.reqid
         ]
 
 
 class Reviewrating(models.Model):
-    rr_id = models.AutoField(db_column='rr_ID', primary_key=True)  # Field name made lowercase.
+    rr_id = models.AutoField(db_column='rr_ID', primary_key=True)
     revmessage = models.CharField(max_length=10000)
     rating = models.IntegerField()
     spid = models.ForeignKey('ServiceProvider', models.DO_NOTHING, db_column='spid')
@@ -181,7 +182,16 @@ class Reviewrating(models.Model):
     class Meta:
         managed = False
         db_table = 'reviewrating'
-
+        
+    def __iter__(self):
+        return [
+            self.rr_id,
+            self.revmessage,
+            self.rating,
+            self.spid,
+            self.custid,
+            self.reviewer
+        ]
 
 
 class ServiceProvider(models.Model):
@@ -205,7 +215,7 @@ class ServiceProvider(models.Model):
     class Meta:
         managed = False
         db_table = 'service_provider'
-
+        
     def __str__(self):
         return '%s %s' % (self.spfirstname, self.splastname)
 
@@ -217,6 +227,7 @@ class Services(models.Model):
     class Meta:
         managed = False
         db_table = 'services'
+        
     def __str__(self):
         return self.servname
 
@@ -232,25 +243,27 @@ class Ssp(models.Model):
 
 
 class Transaction(models.Model):
-    trans_id = models.ForeignKey(ServiceProvider, models.DO_NOTHING, db_column='transID', primary_key=True)  # Field name made lowercase.
+    transid = models.IntegerField(db_column='transID', primary_key=True)
     transstatus = models.CharField(db_column='transStatus', max_length=8)  # Field name made lowercase.
     transdate = models.DateField(db_column='transDate')  # Field name made lowercase.
     timein = models.TimeField(db_column='timeIn')  # Field name made lowercase.
     timeout = models.TimeField(db_column='timeOut')  # Field name made lowercase.
     payment = models.IntegerField()
     paystatus = models.CharField(db_column='payStatus', max_length=12)  # Field name made lowercase.
-    reqid = models.ForeignKey(Request, models.DO_NOTHING, db_column='reqID')  # Field name made lowercase.
+    reqid = models.ForeignKey(Request, models.DO_NOTHING, db_column='reqID') 
+
     class Meta:
         managed = False
         db_table = 'transaction'
-
-    def __iter__(self):
+        
+    def __iter__(self): 
         return [
-            self.trans,
+            self.transid,
             self.transstatus,
             self.transdate,
             self.timein,
             self.timeout,
             self.payment,
-            self.paystatus
+            self.paystatus,
+            self.reqid
         ]
