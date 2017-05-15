@@ -200,7 +200,7 @@ if ($petmovetkodb->connect_error) {
                             } else {
                                 echo "<div style='margin-top:5vh;'>";
                                 echo "<img src='../images/sadbunny.png' class='img-responsive img-circle' style='width: 200px; margin: 0 auto;'>";
-                                echo "<h3 class='text-center'> There are no Inactive Service Providers yets. </h2>";
+                                echo "<h3 class='text-center'> There are Service Providers yets. </h2>";
                                 echo "</div>";
                             }
                         }
