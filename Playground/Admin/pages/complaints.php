@@ -78,15 +78,6 @@ if ($_SESSION['loggedin'] == false ) {
             </div>
         </nav>
 
-        <nav class="navbar navbar-default navbar-fixed-top hidden-xs hidden-sm">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#" style="font-family: 'Pacifico', cursive; font-size: 2.5em;"> Pet Mo, Vet Ko! </a>
-                </div>
-            <a href="../index.php" class="btn btn-primary navbar-btn navbar-right" style="margin-right: 2em;"> Go Back to Public Page </a>
-            </div>
-        </nav>
-
         <!-- Navigation side -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0" >
             <div class="navbar-header">
