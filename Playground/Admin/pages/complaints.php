@@ -219,7 +219,7 @@ if ($_SESSION['loggedin'] == false ) {
                                             <input type='hidden' name='banType' value='$row[5]'/>
                                             <input type='hidden' name='banStat' value='$row[0]'/>
                                             <input type='hidden' name='banID' value='$complainee'/>
-                                            <input type='submit' name='ban' class='btn btn-danger btn-circle' value='-'/> 
+                                            <input type='submit' name='ban' class='btn btn-danger btn-circle' style='font-weight: bold;' value='-'/> 
                                             </form> </td>";
                                     echo "</tr>";
                                 }
@@ -255,7 +255,6 @@ if ($_SESSION['loggedin'] == false ) {
                             mysqli_query($petmovetkodb, $banStatus);
                         }
                     ?>
-                    
                 </div>
                 <!-- /.row -->
             </div>
