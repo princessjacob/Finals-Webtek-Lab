@@ -219,7 +219,7 @@ if ($_SESSION['loggedin'] == false ) {
 
                             } else {
                                 echo "<div style='margin-top:20vh;'>";
-                                echo "<img src='../images/happycat.png' class='img-responsive img-circle' style='width: 200px; margin: 0 auto;'>";
+                                echo "<img src='../images/happycat.png' class='img-responsive' style='width: 200px; margin: 0 auto;'>";
                                 echo "<h3 class='text-center'> There are no Complaints yets. </h2>";
                                 echo "</div>";
                             }
@@ -236,7 +236,7 @@ if ($_SESSION['loggedin'] == false ) {
                             $type = $_POST['banType'];
                             $stat = $_POST['banStat'];
                             $id = $_POST['banID'];
-                            if ($type="sp") {
+                            if ($type=="sp") {
                                 $ban = "UPDATE service_provider SET spStatus='ban' WHERE spID='$id'";
                                 $petmovetkodb->query($ban);
                             } else {
@@ -256,87 +256,6 @@ if ($_SESSION['loggedin'] == false ) {
 
     </div>
     <!-- /#wrapper -->
-
-    <div class="container">
-
-  <div class="modal fade" id="Modal1" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">CN01</h4>
-        </div>
-        <div class="modal-body">
-        <form>
-          <p>Complainant: <input type="text" name="reported" value="SP01" disabled></p>
-          <p>Complainee: <input type="text" name="repby" value="C01" disabled></p>
-          <p>Complaint:</p> <textarea rows="4" cols="50" disabled>I am Froot</textarea>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-  
-</div>
-
-<div class="container">
-
-  <div class="modal fade" id="Modal2" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">CN01</h4>
-        </div>
-        <div class="modal-body">
-        <form>
-          <p>Recipient: <input type="text" name="recipient" value="" ></p>
-          <p>Message:</p> <textarea rows="4" cols="50"></textarea>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success" data-dismiss="modal">Send</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-  
-</div>
-
-<div class="container">
-
-  <div class="modal fade" id="Modal3" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">CN01</h4>
-        </div>
-        <div class="modal-body">
-        <form>
-          <p>Are you sure you want to ban this user?</p>
-           &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; <button type="button" class="btn btn-success" data-dismiss="modal">Yes</button> &nbsp; &nbsp; &nbsp; <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-  
-</div>
-
     <!-- jQuery -->
     <script src="../bootstrap/vendor/jquery/jquery.min.js"></script>
 

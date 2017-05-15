@@ -276,12 +276,11 @@ if ($_SESSION['loggedin'] == false ) {
                                     echo "<h3 class='text-center'> There are no Inactive Service Providers yets. </h2>";
                                     echo "</div>";
                                 }
-                                if (isset($_POST['reject'])) {
-                                        $id = $_POST['reject'];
-                                        $reject = "DELETE FROM service_provider WHERE spID='$id' ";
-                                        $petmovetkodb->query($reject);
-                                        echo "<script> location.reload(); </script>";
-                                    }
+                                
+                                if (isset($_POST['deact'])) {
+                                    $id = $_POST['deactID'];
+                                    $deact = "UPDATE service_provider SET spStatus='inactive' WHERE spID='$id' ";
+                                    mysqli_query($petmovetkodb, $deact);
                                 }
                             ?>
                         </div>

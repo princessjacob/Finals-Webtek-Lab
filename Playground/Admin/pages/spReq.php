@@ -191,12 +191,16 @@ if ($_SESSION['loggedin'] == false ) {
                                     echo "<td> $row[4] </td>";
                                     echo "<td class='text-center'>
                                             <form action=". htmlspecialchars($_SERVER["PHP_SELF"]) ." method='POST'>
-                                            <input type='submit' name='accept' class='btn btn-success btn-circle' value='$row[0]'> 
-                                            <i class='fa fa-check'></i></input> </td>";
+                                            <input type='hidden' name='accID' value='$row[0]'>
+                                            <input type='submit' name='accept' class='btn btn-success btn-circle' value='&#10004;'> 
+                                            </form>
+                                            </td>";
                                     echo "<td class='text-center'>
                                             <form action=". htmlspecialchars($_SERVER["PHP_SELF"]) ." method='POST'>
-                                            <input type='submit' name='reject' class='btn btn-danger btn-circle value='$row[0]'> 
-                                            <i class='fa fa-times'></i> </input> </td>";
+                                            <input type='hidden' name='rejID' value='$row[0]'>
+                                            <input type='submit' name='reject' class='btn btn-danger btn-circle' value='&#10006;'> 
+                                            </form>
+                                            </td>";
                                     echo "</tr>";
                                 }
                             echo "</table>";
@@ -208,13 +212,13 @@ if ($_SESSION['loggedin'] == false ) {
                             }
 
                             if (isset($_POST['accept'])) {
-                                $id = $_POST['accept'];
+                                $id = $_POST['accID'];
                                 $accept = "UPDATE service_provider SET spReqStatus='acc' WHERE spID='$id'";
                                 $petmovetkodb->query($accept);
                                 echo "<script> location.reload(); </script>";
                             }
                             if (isset($_POST['reject'])) {
-                                $id = $_POST['reject'];
+                                $id = $_POST['rejID'];
                                 $reject = "DELETE FROM service_provider WHERE spID='$id' ";
                                 $petmovetkodb->query($reject);
                                 echo "<script> location.reload(); </script>";
