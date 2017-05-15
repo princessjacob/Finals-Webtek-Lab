@@ -136,7 +136,7 @@ if ($_SESSION['loggedin'] == false ) {
                             <a href="complaints.php">Complaints</a>
                         </li>
                        
-                    </ul>
+                    
                     <li>
                             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                             <i class="fa fa-sign-out" style="margin-left: 1em;"> </i>
@@ -150,6 +150,7 @@ if ($_SESSION['loggedin'] == false ) {
                                 } 
                             ?>
                         </li>
+                    </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>

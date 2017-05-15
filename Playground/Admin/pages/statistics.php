@@ -123,7 +123,7 @@ if ($petmovetkodb->connect_error) {
                     </li>
                     
                    
-                </ul>
+                
                 <li>
                             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                             <i class="fa fa-sign-out" style="margin-left: 1em;"> </i>
@@ -137,6 +137,7 @@ if ($petmovetkodb->connect_error) {
                                 } 
                             ?>
                         </li>
+                    </ul>
             </div>
             <!-- /.sidebar-collapse -->
         </div>
