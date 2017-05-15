@@ -106,10 +106,7 @@ if ($_SESSION['loggedin'] == false ) {
                         <li>
                             <a href="complaints.php">Complaints</a>
                         </li>
-                        
-                       
-                    </ul>
-                    <li>
+                        <li>
                             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                             <i class="fa fa-sign-out" style="margin-left: 1em;"> </i>
                             <input type="submit" name="Logout" value="Logout" class="btn btn-link" style="text-decoration: none;">
@@ -122,6 +119,9 @@ if ($_SESSION['loggedin'] == false ) {
                                 } 
                             ?>
                         </li>
+                        
+                       
+                    </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
@@ -133,7 +133,7 @@ if ($_SESSION['loggedin'] == false ) {
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">COMPLAINTS</h1>
+                        <h1 class="page-header text-center">COMPLAINTS</h1>
                     </div>
 
                     <?php
@@ -186,33 +186,43 @@ if ($_SESSION['loggedin'] == false ) {
                                             <input type='submit' name='ignore' class='btn btn-default btn-circle' value='x'> 
                                             </form> </td>";
                                     echo "<td class='text-center'>
-                                            <button type='submit' name='ban' class='btn btn-danger btn-circle' data-toggle='modal' data-target='#ignore'> 
-                                            <i class='fa fa-minus'></i></button> </td>";
+                                            <form action=". htmlspecialchars($_SERVER["PHP_SELF"]) ." method='POST'>
+                                            <input type='hidden' name='banType' value='$row[5]'/>
+                                            <input type='hidden' name='banStat' value='$row[0]'/>
+                                            <input type='hidden' name='banID' value='$complainee'/>
+                                            <input type='submit' name='ban' class='btn btn-danger btn-circle' value='-'/> 
+                                            </form> </td>";
                                     echo "</tr>";
                                 }
                                 echo "</table>";
 
                             } else {
                                 echo "<div style='margin-top:20vh;'>";
-                                echo "<img src='../images/sadbunny.png' class='img-responsive img-circle' style='width: 200px; margin: 0 auto;'>";
-                                echo "<h3 class='text-center'> There are no Service Providers yets. </h2>";
+                                echo "<img src='../images/happycat.png' class='img-responsive img-circle' style='width: 200px; margin: 0 auto;'>";
+                                echo "<h3 class='text-center'> There are no Complaints yets. </h2>";
                                 echo "</div>";
                             }
                         }
 
                         if (isset($_POST['ignore'])) {
                             $id = $_POST['ignoreID'];
-                            $ignore = "DELETE FROM complaints WHERE compID='$id' ";
+                            $ignore = "UPDATE complaints SET compStatus='resolved' WHERE compID='$id' ";
                             mysqli_query($petmovetkodb, $ignore);
                             
                         }
 
-                        if (isset($_POST['deact'])) {
-                            $id = $_POST['deact'];
-                            mysqli_query($petmovetkodb, $deact);
-                            $deact = "UPDATE service_provider SET spStatus='inactive' WHERE spID='$id' ";
-                            mysqli_query($petmovetkodb, $deact);
-                            echo "<script> window.location.href='complaints.php'; </script>";
+                        if (isset($_POST['ban'])) {
+                            $type = $_POST['banType'];
+                            $stat = $_POST['banStat'];
+                            $id = $_POST['banID'];
+                            if ($type = "sp") {
+                                $ban = "UPDATE service_provider SET spStatus='ban' WHERE spID='$id' ";
+                            } else {
+                                $ban = "UPDATE customer SET custStatus='ban' WHERE custID='$id' ";
+                            }
+                            $banStatus = "UPDATE complaints SET compStatus='resolved' WHERE compID ='$stat' ";
+                            mysqli_query($petmovetkodb, $ban);
+                            mysqli_query($petmovetkodb, $banStatus);
                         }
                     ?>
                     
