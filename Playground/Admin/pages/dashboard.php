@@ -136,7 +136,8 @@ if ($petmovetkodb->connect_error) {
                         
                         <li>
                             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-                            <input type="submit" name="Logout" value="Logout" class="btn btn-default">
+                            <i class="fa fa-sign-out" style="margin-left: 1em;"> </i>
+                            <input type="submit" name="Logout" value="Logout" class="btn btn-link" style="text-decoration: none;">
                             </form>
 
                             <?php
@@ -198,7 +199,10 @@ if ($petmovetkodb->connect_error) {
                                 }
                                 echo "</table>";
                             } else {
-                                echo "<h3 class='text-center'> There are no Service Providers yet. </h3>";
+                                echo "<div style='margin-top:5vh;'>";
+                                echo "<img src='../images/sadbunny.png' class='img-responsive img-circle' style='width: 200px; margin: 0 auto;'>";
+                                echo "<h3 class='text-center'> There are no Inactive Service Providers yets. </h2>";
+                                echo "</div>";
                             }
                         }
                     ?>
