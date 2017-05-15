@@ -126,7 +126,8 @@ if ($petmovetkodb->connect_error) {
                 </ul>
                 <li>
                             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-                            <input type="submit" name="Logout" value="Logout" class="btn btn-default">
+                            <i class="fa fa-sign-out" style="margin-left: 1em;"> </i>
+                            <input type="submit" name="Logout" value="Logout" class="btn btn-link" style="text-decoration: none;">
                             </form>
 
                             <?php
