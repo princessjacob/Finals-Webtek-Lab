@@ -1,0 +1,42 @@
+{% extends "custModule/header.html" %}
+{% block content %}
+    
+    <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">PROFILE</h3>
+                    <div id="edit"><a href="/edit/"><button type="button" class="btn btn-primary btn-xs">Edit Profile</button></a></div>
+                </div>
+                <div class="col-lg-12 container">
+                    <div class="panel panel-info row">
+                        <div class="panel-body">
+                          <div class="panel panel-info">
+                            <div class="panel-body ">
+                            <div class="col-lg-9 col-md-6">
+                                        <ul id="info">
+                                            {% for customer in data %}
+                                                <li>Lastname: {{ customer.custlastname }}</li>
+                                                <li>Firstname: {{ customer.custfirstname }}</li>
+                                                <li>Address: {{ customer.custadd }}</li>
+                                                <li>Contact #: {{ customer.custnum }}</li>
+                                                <li>Email: {{ customer.custemail }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-info" >
+                        <div class="panel-heading ">
+                          <label for="about"><h4>Things about Me</h4></label>
+                        </div>
+                         <div class="panel-body ">
+                             {% for customer in data %}
+                            <p id="aboutMe">{{ customer.custabout }}</p>
+                             {% endfor %}
+                              </div>
+                    </div>
+                </div>
+
+         </div>
+        </div>
+    </div>
+{% endblock %}

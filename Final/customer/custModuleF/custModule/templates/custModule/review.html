@@ -1,0 +1,52 @@
+{% extends "custModule/header.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-header">Review</h2>
+        </div>
+        <div class="col-lg-12"> 
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Customers are king! So, we highly value your opinions! </h3>
+                    <a href="/complaint/" class="btn btn-default " role="button">COMPLAINT<span class="glyphicon glyphicon-chevron-right"></span></a>
+                    <a href="/newreview/" class="btn btn-default " role="button">REVIEW<span class="glyphicon glyphicon-chevron-right"></span></a>
+                </div>
+            </div>
+        </div>
+         <div class="col-lg-12">
+                    <div class="panel panel-primary" id="RecentRev">
+                            <div class="panel-heading">
+                                <h3 class="panel-title text-left">My Recent Comments and Reviews</h3>
+                            </div>
+
+                            <div class="panel-body">
+                                 {% for t in rev %}
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                      <div class= "col-lg-2"> 
+                                           
+                                            <h3>{{ t.spid }}</h3>    
+                                        </div>
+                                    <div class="col-lg-10">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <div class="row">
+                                                    <h1 class="panel-title col-lg-9">{{ t.rating }} out of 10!</h1>`` 
+                                                </div>
+
+                                            </div>
+                                            <div class="panel-body">{{ t.revmessage }}</div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                            
+                                        </div>{% endfor %}
+                                    </div>
+                                </div>
+                                <a href="/listreview/" class="btn btn-default pull-right" role="button">SEE MORE<span class="glyphicon glyphicon-chevron-right"></span>
+                                </a>
+                        </div>
+             </div>
+                        
+{% endblock %}

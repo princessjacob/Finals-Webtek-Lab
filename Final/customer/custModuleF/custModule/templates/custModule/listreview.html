@@ -1,0 +1,37 @@
+{% extends "custModule/header.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="/review/" class="btn btn-default" role="button">REVIEWS</a>
+            <h2 class="page-heading">Reviews and Complaints</h2>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <ul class="nav  nav-tabs ">
+                      <li class="active"><a href="/listreview/" >New Review</a></li>
+                      <li ><a href="/listcomplaint/">Complaint</a></li>
+
+                    </ul>
+                </div>
+                 {% for e in rev %} 
+                <div class="panel-body ">
+                    <div class= "row ">
+                        <div class= "col-lg-2">
+                             
+                                <h3>{{ e.spid }} </h3>
+                            </div>
+                        <div class="col-lg-10">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <h1 class="panel-title col-lg-9">{{e.rating}} out of 10!</h1>
+                                    </div>
+                                </div>
+                                <div class="panel-body">{{ e.revmessage }}</div>
+                            </div>
+                            
+                        </div>
+                    </div>
+        </div>{% endfor %}
+    </div>
+{% endblock %}

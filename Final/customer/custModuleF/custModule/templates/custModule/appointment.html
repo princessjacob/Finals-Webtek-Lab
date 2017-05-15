@@ -1,0 +1,32 @@
+{% extends "custModule/header.html" %}
+{% block content %}
+{% load staticfiles %}
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-header">Appointment</h2>
+            {% for tr in tran %}
+            
+                {% if tr.paystatus == "not yet paid" %}
+            <div class="panel panel-info">
+                <div class="panel-heading container-fluid">
+                    <div class="col-xs-9"><p>DATE AND TIME SET</p></div>
+                    <a href="#" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModalsure"><span class="glyphicon glyphicon-remove"></span> CANCEL</a>
+                           {% include "custModule/includes/modalsure.html" %} 
+                    </div>
+                </div>
+                <div class="panel-body">
+                    {% for r in req %}
+                    <p>SP NAME: {{ r.spid }}</p>
+                    <p>PET AND BREED: {{ r.pettype }} , {{ r.petbreed }}</p>
+                    <p>SERVICE PROVIDED: {{ r.servid }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+                {% else %}
+                <h3>No appointments.</h3>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+{% endblock %}
