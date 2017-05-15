@@ -150,49 +150,110 @@ if ($_SESSION['loggedin'] == false ) {
                     <div class="col-lg-12">
                         <h1 class="page-header">Service Status</h1>
                     </div>
-                </div>
-                <div class="row">
-                    <div clas="col-lg-12">
-                    <table>
-                        <tr>
-                            <th>SP ID</th>
-                            <th>CT ID</th>
-                            <th>Service ID</th>
-                            <th>Service Start</th>
-                            <th>Service End</th>
-                            <th>Amount Paid</th>
-                            <th>Feedback</th>
-                            <th>Rating</th>
-                        </tr>
+                    <ul class="nav nav-tabs">
+                        <li class="active"> <a href="#pending" data-toggle="tab"> Pending </a> </li>
+                        <li> <a href="#ongoing" data-toggle="tab"> Ongoing </a> </li>
+                        <li> <a href="#finished" data-toggle="tab"> Finished </a> </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="pending">
+                            <?php
+                                $pending="SELECT  spUsername, CONCAT(custFirstName,' ', custLastName), transDate, servName FROM transaction JOIN request USING(reqID) JOIN service_provider USING(spID) JOIN services USING(servID) JOIN customer USING(custID) WHERE transStatus='pending' ORDER BY transDate DESC";
+                                if ($result=mysqli_query($petmovetkodb, $pending)) {
+                                    if(mysqli_num_rows($result) > 0) {
+                                    ?>
+                                        <table class="table table-hover" style="margin-top: 1em;">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">SP Name</th>
+                                                <th class="text-center">Customer Name</th>
+                                                <th class="text-center">Transaction Date</th>
+                                                <th class="text-center">Service Name</th>
+                                            </tr>
+                                        </thead>
+                                        <?php
+                                        while ($row=mysqli_fetch_row($result)) {
+                                            echo "<tr>";
+                                            echo "<td class='text-center'> $row[0] </td>";
+                                            echo "<td> $row[1] </td>";
+                                            echo "<td> $row[2] </td>";     
+                                            echo "<td class='text-right'> $row[3] </td>";
+                                            echo "</tr>";
+                                        }
+                                        echo "</table>";
 
-                        <tr>
-                            <td>SP01</td>
-                            <td>C01</td>
-                            <td>S01</td>
-                            <td>Pending</td>
-                            <td>January 1, 2016 8:00AM</td>
-                            <td>January 1, 2016 5:00PM</td>
-                            <td>Php 300.00</td>
-                            <td>Nice work!</td>
-                            <td>4</td>
-                        </tr>
+                                    } else {
+                                        echo "<h3 class='text-center'> There are no transactions yet. </h2>";
+                                    }
+                                }
+                            ?>
+                        </div>
 
-                        <tr>
-                            <td>SP02</td>
-                            <td>C02</td>
-                            <td>S03</td>
-                            <td>On-going</td>
-                            <td>December 25, 2015 7:00AM</td>
-                            <td>December 25, 2015 9:00PM</td>
-                            <td>Php 290.00</td>
-                            <td>Not bad.</td>
-                            <td>3</td>
-                        </tr>
-                    </table>
-                    
-                    
-                </div>
-                <!-- /.row -->
+                        <div class="tab-pane fade in" id="ongoing">
+                            <?php
+                                $ongoing="SELECT  spUsername, CONCAT(custFirstName,' ', custLastName), transDate, servName FROM transaction JOIN request USING(reqID) JOIN service_provider USING(spID) JOIN services USING(servID) JOIN customer USING(custID) WHERE transStatus='ongoing' ORDER BY transDate DESC";
+                                if ($result=mysqli_query($petmovetkodb, $ongoing)) {
+                                    if(mysqli_num_rows($result) > 0) {
+                                    ?>
+                                        <table class="table table-hover" style="margin-top: 1em;">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">SP Name</th>
+                                                <th class="text-center">Customer Name</th>
+                                                <th class="text-center">Transaction Date</th>
+                                                <th class="text-center">Service Name</th>
+                                            </tr>
+                                        </thead>
+                                        <?php
+                                        while ($row=mysqli_fetch_row($result)) {
+                                            echo "<tr>";
+                                            echo "<td class='text-center'> $row[0] </td>";
+                                            echo "<td> $row[1] </td>";
+                                            echo "<td> $row[2] </td>";     
+                                            echo "<td class='text-right'> $row[3] </td>";
+                                            echo "</tr>";
+                                        }
+                                        echo "</table>";
+
+                                    } else {
+                                        echo "<h3 class='text-center'> There are no transactions yet. </h2>";
+                                    }
+                                }
+                            ?>
+                        </div>
+
+                        <div class="tab-pane fade in" id="finished">
+                            <?php
+                                $finished="SELECT  spUsername, CONCAT(custFirstName,' ', custLastName), transDate, servName FROM transaction JOIN request USING(reqID) JOIN service_provider USING(spID) JOIN services USING(servID) JOIN customer USING(custID) WHERE transStatus='finished' ORDER BY transDate DESC";
+                                if ($result=mysqli_query($petmovetkodb, $finished)) {
+                                    if(mysqli_num_rows($result) > 0) {
+                                    ?>
+                                        <table class="table table-hover" style="margin-top: 1em;">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">SP Name</th>
+                                                <th class="text-center">Customer Name</th>
+                                                <th class="text-center">Transaction Date</th>
+                                                <th class="text-center">Service Name</th>
+                                            </tr>
+                                        </thead>
+                                        <?php
+                                        while ($row=mysqli_fetch_row($result)) {
+                                            echo "<tr>";
+                                            echo "<td class='text-center'> $row[0] </td>";
+                                            echo "<td> $row[1] </td>";
+                                            echo "<td> $row[2] </td>";     
+                                            echo "<td class='text-right'> $row[3] </td>";
+                                            echo "</tr>";
+                                        }
+                                        echo "</table>";
+
+                                    } else {
+                                        echo "<h3 class='text-center'> There are no transactions yet. </h2>";
+                                    }
+                                }
+                            ?>
+                        </div>
             </div>
             <!-- /.container-fluid -->
         </div>
@@ -202,16 +263,16 @@ if ($_SESSION['loggedin'] == false ) {
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../bootstrap/vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../bootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+    <script src="../bootstrap/vendor/metisMenu/metisMenu.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
+    <script src="../bootstrap/dist/js/sb-admin-2.js"></script>
 
 </body>
 
