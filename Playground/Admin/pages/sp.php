@@ -12,33 +12,33 @@ if ($_SESSION['loggedin'] == false ) {
 
 <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
 
-    <title>Service Providers | Pet Mo Vet Ko!</title>
+<title>Service Providers | Pet Mo Vet Ko!</title>
 
-    <link href="../bootstrap/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="../bootstrap/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- MetisMenu CSS -->
-    <link href="../bootstrap/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+<!-- MetisMenu CSS -->
+<link href="../bootstrap/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
+<!-- Custom CSS -->
 
-    <link href="../bootstrap/dist/css/admin.css" rel="stylesheet">
-    <link href="../bootstrap/dist/css/sb-admin-2.css" rel="stylesheet">
+<link href="../bootstrap/dist/css/admin.css" rel="stylesheet">
+<link href="../bootstrap/dist/css/sb-admin-2.css" rel="stylesheet">
 
-    <!-- Morris Charts CSS -->
-    <link href="../bootstrap/vendor/morrisjs/morris.css" rel="stylesheet">
+<!-- Morris Charts CSS -->
+<link href="../bootstrap/vendor/morrisjs/morris.css" rel="stylesheet">
 
-    <!-- Custom Fonts -->
-    <link href="../bootstrap/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<!-- Custom Fonts -->
+<link href="../bootstrap/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
 
 <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
 
@@ -72,14 +72,6 @@ if ($_SESSION['loggedin'] == false ) {
 ?>
     <div id="wrapper">
 
-        <nav class="navbar navbar-default navbar-fixed-top hidden-xs hidden-sm">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#" style="font-family: 'Pacifico', cursive; font-size: 2.5em;"> Pet Mo, Vet Ko! </a>
-                </div>
-            </div>
-        </nav>
-
         <!-- Navigation side -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0" >
             <div class="navbar-header">
@@ -93,7 +85,7 @@ if ($_SESSION['loggedin'] == false ) {
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="#">Dashboard</a>
+                            <a href="dashboard.php">Dashboard</a>
                         </li>
                         <li>
                             <a href="spReq.php"> Registration Requests
@@ -135,9 +127,7 @@ if ($_SESSION['loggedin'] == false ) {
                         <li>
                             <a href="complaints.php">Complaints</a>
                         </li>
-                       
-                    
-                    <li>
+                        <li>
                             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                             <i class="fa fa-sign-out" style="margin-left: 1em;"> </i>
                             <input type="submit" name="Logout" value="Logout" class="btn btn-link" style="text-decoration: none;">
@@ -165,14 +155,14 @@ if ($_SESSION['loggedin'] == false ) {
                         <h1 class="page-header">Service Providers</h1>
                     </div>
                     <ul class="nav nav-tabs">
-                        <li class="active"> <a href="#info" data-toggle="tab"> Service Providers Info </a> </li>
+                        <li class="active"> <a href="#info" data-toggle="tab"> Active Service Providers Info </a> </li>
                         <li> <a href="#spInact" data-toggle="tab"> Inactive Service Providers </a> </li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane fade in active" id="info">
                             <?php
-                                $sp="SELECT spID, spUsername, spEmail, spNum, spPet, spAdd, 
-                                    spStatus, spDay, spTime  FROM service_provider WHERE spReqStatus = 'acc'";
+                                $sp="SELECT spID, spUsername, spEmail, spNum, spPet, spAdd
+                                    FROM service_provider WHERE spReqStatus = 'acc' AND spStatus='active'";
                                 if ($result=mysqli_query($petmovetkodb, $sp)) {
                                     if(mysqli_num_rows($result) > 0) {
                                     ?>
@@ -193,7 +183,6 @@ if ($_SESSION['loggedin'] == false ) {
                                                 <th class="text-center" style="width: 12%;">Contact</th>
                                                 <th class="text-center" style="width: 5%;">Cat/Dog</th>
                                                 <th>Address</th>
-                                                <th class="text-center" style="width: 7%;">Status</th>
                                                 <th class="text-center" style="width: 5%;">Hits</th>
                                                 <th class="text-center" style="width: 5%;">Rating</th>
                                             </tr>
@@ -212,7 +201,6 @@ if ($_SESSION['loggedin'] == false ) {
                                             echo "<td> $row[5] </td>";
                                             echo "<td class='text-center'> Null </td>";
                                             echo "<td class='text-center'> Null </td>";
-                                            echo "<td class='text-center'> Null </td>";
                                             echo "</tr>";
                                         }
                                         echo "</table>";
@@ -227,14 +215,14 @@ if ($_SESSION['loggedin'] == false ) {
                             ?>
                         </div>
                         <div class="tab-pane fade in" id="spInact">
-                        
                         <?php
-                            $sp="SELECT spID, spUsername, spEmail, spLastLogged  FROM service_provider";
+                            $sp="SELECT spID, spUsername, spEmail, spLastLogged FROM service_provider WHERE spStatus='active' AND (DATEDIFF( Now(), spLastLogged) > 100) ORDER BY spLastLogged";
+
 
                             if ($result=mysqli_query($petmovetkodb, $sp)) {
                                 if(mysqli_num_rows($result) > 0) {
                                 ?>
-                                <div class="input-group custom-search-form" style="padding-top: 2em;">
+                                <div class="input-group custom-search-form" style="padding-top: 1em;">
                                 <input type="text" class="form-control" placeholder="Search...">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="button">
@@ -250,7 +238,7 @@ if ($_SESSION['loggedin'] == false ) {
                                         <th>Email</th>
                                         <th style="width: 20%;">Last Logged</th>
                                         <th class="text-center" style="width: 10%;"> Send Waring </th>
-                                        <th class="text-center" style="width: 10%;"> Deactive </th>
+                                        <th class="text-center" style="width: 10%;"> Deactivate </th>
                                     </tr>
                                 </thead>
                                 <?php
@@ -264,25 +252,26 @@ if ($_SESSION['loggedin'] == false ) {
                                                 <button type='submit' name='warn' class='btn btn-warning btn-circle' data-toggle='modal' data-target='#email'> 
                                                 <i class='fa fa-envelope'></i></button> </td>";
                                         echo "<td class='text-center'>
-                                                <form action=". htmlspecialchars($_SERVER["PHP_SELF"]) ." method='POST'>
-                                                <input type='submit' name='deact' class='btn btn-danger btn-circle value='$row[0]'> 
-                                                <i class='fa fa-times'></i> </input> </td> </form>";
+                                                <form action=". htmlspecialchars($_SERVER["PHP_SELF"]) ." method='POST' enctype='multipart/form-data'>
+                                                <input type='hidden' name='deactID' value='$row[0]'>
+                                                <input type='submit' name='deact' class='btn btn-danger btn-circle' value='&#10006;'> 
+                                                </td> </form>";
                                         echo "</tr>";
                                     }
                                     echo "</table>";
                                 } else {
-                                    echo "<div style='margin-top:20vh;'>";
-                                    echo "<img src='../images/sadbunny.png' class='img-responsive img-circle' style='width: 200px; margin: 0 auto;'>";
+                                    echo "<div style='margin-top:10vh;'>";
+                                    echo "<img src='../images/happycat.png' class='img-responsive' style='width: 200px; margin: 0 auto;'>";
                                     echo "<h3 class='text-center'> There are no Inactive Service Providers yets. </h2>";
                                     echo "</div>";
                                 }
-                                
                                 if (isset($_POST['deact'])) {
                                     $id = $_POST['deactID'];
                                     $deact = "UPDATE service_provider SET spStatus='inactive' WHERE spID='$id' ";
                                     mysqli_query($petmovetkodb, $deact);
                                 }
-                            ?>
+                            }
+                        ?>
                         </div>
                         
 <!-- Modal Add -->
@@ -309,28 +298,28 @@ if ($_SESSION['loggedin'] == false ) {
 </div>
 <!-- /.modal -->
 
-                    </div>
                 </div>
-                <!-- /.row -->
             </div>
-            <!-- /.container-fluid -->
+            <!-- /.row -->
         </div>
-        <!-- /#page-wrapper -->
-
+        <!-- /.container-fluid -->
     </div>
-    <!-- /#wrapper -->
+    <!-- /#page-wrapper -->
 
-    <!-- jQuery -->
-    <script src="../bootstrap/vendor/jquery/jquery.min.js"></script>
+</div>
+<!-- /#wrapper -->
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../bootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!-- jQuery -->
+<script src="../bootstrap/vendor/jquery/jquery.min.js"></script>
 
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../bootstrap/vendor/metisMenu/metisMenu.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="../bootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-    <!-- Custom Theme JavaScript -->
-    <script src="../bootstrap/dist/js/sb-admin-2.js"></script>
+<!-- Metis Menu Plugin JavaScript -->
+<script src="../bootstrap/vendor/metisMenu/metisMenu.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="../bootstrap/dist/js/sb-admin-2.js"></script>
 
 </body>
 
