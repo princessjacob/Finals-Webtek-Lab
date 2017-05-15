@@ -109,9 +109,17 @@ if ($_SESSION['loggedin'] == false ) {
                             <a href="reports.php">Complaints</a>
                         </li>
                     </ul>
-                    <br>
-                        <li>
-                            <a href="login.php">Logout</a>
+                    <li>
+                            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                            <input type="submit" name="Logout" value="Logout" class="btn btn-default">
+                            </form>
+
+                            <?php
+                                if(isset($_POST['Logout'])) {
+                                    $_SESSION['loggedin'] = false;
+                                    echo "<script> window.location.href='../index.php' </script>";
+                                } 
+                            ?>
                         </li>
                 </div>
                 <!-- /.sidebar-collapse -->
