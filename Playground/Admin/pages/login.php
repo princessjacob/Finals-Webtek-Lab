@@ -98,7 +98,7 @@
                                     $_SESSION['loggedin'] = true;
                                     $_SESSION['username'] = $row[0];
                                     echo mysqli_affected_rows($petmovetkodb);
-                                    header("Location: http://localhost:8080/petmovetko/pages/index.jsp");
+                                    header("Location: http://localhost:8080/petmovetko/pages/index.jsp?id=".$id);
                                 } else {
                                     var_dump(mysqli_query($petmovetkodb, $query));
                                 }
