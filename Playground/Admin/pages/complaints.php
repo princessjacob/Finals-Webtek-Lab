@@ -46,7 +46,6 @@ if ($_SESSION['loggedin'] == false ) {
 
 <link href="https://fonts.googleapis.com/css?family=Aladin" rel="stylesheet">
 
-    <php
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -55,12 +54,32 @@ if ($_SESSION['loggedin'] == false ) {
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+     <style>
+        #notif {
+            width: 20px;
+            height: 20px;
+            line-height: 5px;
+            font-size: 10px;
+        }
+    </style>
+
 </head>
 
 <body>
 
     <div id="wrapper">
 
+        
+        <nav class="navbar navbar-default navbar-fixed-top hidden-xs hidden-sm">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#" style="font-family: 'Pacifico', cursive; font-size: 2.5em;"> Pet Mo, Vet Ko! </a>
+                </div>
+            <a href="../index.php" class="btn btn-primary navbar-btn navbar-right" style="margin-right: 2em;"> Go Back to Public Page </a>
+            </div>
+        </nav>
+
+        <!-- Navigation side -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0" >
             <div class="navbar-header">
                 <a class="navbar-brand" href="dashboard.html">Pet Mo, Vet Ko!</a>
@@ -73,19 +92,28 @@ if ($_SESSION['loggedin'] == false ) {
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="dashboard.php">HOME</a>
+                            <a href="dashboard.php">Dashboard</a>
                         </li>
                         <li>
-                            <a href="#">MANAGE<span class="fa arrow"></span></a>
+                            <a href="spReq.php"> Registration Requests
+                            <?php
+                                $req = "SELECT * FROM service_provider WHERE spReqStatus = 'pend'";
+                                $result = $petmovetkodb->query($req);
+                                if ($result->num_rows > 0) {
+                                    $row = $result->num_rows;
+                                    echo "<span id='notif' class='btn btn-circle btn-danger pull-right'> $row </span>";
+                                }
+                            ?>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">Manage<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="services.php">SERVICES</a>
+                                    <a href="sp.php">Service Providers</a>
                                 </li>
                                 <li>
-                                    <a href="sp.php">SERVICE PROVIDERS</a>
-                                </li>
-                                <li>
-                                    <a href="ct.php">CUSTOMERS</a>
+                                    <a href="ct.php">Customers</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -108,8 +136,7 @@ if ($_SESSION['loggedin'] == false ) {
                         </li>
                         <li>
                             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-                            <i class="fa fa-sign-out" style="margin-left: 1em;"> </i>
-                            <input type="submit" name="Logout" value="Logout" class="btn btn-link" style="text-decoration: none;">
+                            <input type="submit" name="Logout" value="Logout" class="btn btn-default">
                             </form>
 
                             <?php
@@ -119,15 +146,12 @@ if ($_SESSION['loggedin'] == false ) {
                                 } 
                             ?>
                         </li>
-                        
-                       
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
             <!-- /.navbar-static-side -->
         </nav>
-
         <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
@@ -215,13 +239,14 @@ if ($_SESSION['loggedin'] == false ) {
                             $type = $_POST['banType'];
                             $stat = $_POST['banStat'];
                             $id = $_POST['banID'];
-                            if ($type = "sp") {
-                                $ban = "UPDATE service_provider SET spStatus='ban' WHERE spID='$id' ";
+                            if ($type="sp") {
+                                $ban = "UPDATE service_provider SET spStatus='ban' WHERE spID='$id'";
+                                $petmovetkodb->query($ban);
                             } else {
                                 $ban = "UPDATE customer SET custStatus='ban' WHERE custID='$id' ";
+                                $petmovetkodb->query($ban);
                             }
                             $banStatus = "UPDATE complaints SET compStatus='resolved' WHERE compID ='$stat' ";
-                            mysqli_query($petmovetkodb, $ban);
                             mysqli_query($petmovetkodb, $banStatus);
                         }
                     ?>
