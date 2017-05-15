@@ -227,7 +227,7 @@ if ($_SESSION['loggedin'] == false ) {
                             ?>
                         </div>
                         <div class="tab-pane fade in" id="spInact">
-                        <h2> Inactive Service Providers </h2>
+                        
                         <?php
                             $sp="SELECT spID, spUsername, spEmail, spLastLogged  FROM service_provider";
 
