@@ -137,7 +137,7 @@ if ($_SESSION['loggedin'] == false ) {
                     </div>
 
                     <?php
-                        $complaints="SELECT compID, compMessage, compDate, spUsername, CONCAT(custFirstName, ' ', custLastName), complainer
+                        $complaints="SELECT compID, compMessage, compDate, spUsername, CONCAT(custFirstName, ' ', custLastName), complainer, spID, custID
                             FROM complaints JOIN service_provider USING(spID) JOIN customer USING(custID) WHERE compStatus = 'unresolved'";
                         if ($result=mysqli_query($petmovetkodb, $complaints)) {
                             if(mysqli_num_rows($result) > 0) {
@@ -167,9 +167,12 @@ if ($_SESSION['loggedin'] == false ) {
                                     if ($row[5] == "sp") {
                                         $complainer = $row[3];
                                         $complainant = $row[4];
+                                        $complainee = $row[7];
+
                                     } else {
                                         $complainer = $row[4];
-                                        $complainant = $row[3];
+                                        $complainant = $row[3];                                   
+                                        $complainee = $row[6];
                                     }
                                     echo "<tr>";
                                     echo "<td class='text-center'> $row[0] </td>";
@@ -178,12 +181,14 @@ if ($_SESSION['loggedin'] == false ) {
                                     echo "<td> $row[1] </td>";
                                     echo "<td class='text-center'> $row[2] </td>";
                                     echo "<td class='text-center'>
-                                                <button type='submit' name='ignore' class='btn btn-default btn-circle' data-toggle='modal' data-target='#ignore'> 
-                                                <i class='fa fa-times'></i></button> </td>";
-                                        echo "<td class='text-center'>
-                                                <button type='submit' name='ban' class='btn btn-danger btn-circle' data-toggle='modal' data-target='#ignore'> 
-                                                <i class='fa fa-minus'></i></button> </td>";
-                                        echo "</tr>";
+                                            <form action=". htmlspecialchars($_SERVER["PHP_SELF"]) ." method='POST'>
+                                            <input type='hidden' name='ignoreID' value='$row[0]'>
+                                            <input type='submit' name='ignore' class='btn btn-default btn-circle' value='x'> 
+                                            </form> </td>";
+                                    echo "<td class='text-center'>
+                                            <button type='submit' name='ban' class='btn btn-danger btn-circle' data-toggle='modal' data-target='#ignore'> 
+                                            <i class='fa fa-minus'></i></button> </td>";
+                                    echo "</tr>";
                                 }
                                 echo "</table>";
 
@@ -193,6 +198,21 @@ if ($_SESSION['loggedin'] == false ) {
                                 echo "<h3 class='text-center'> There are no Service Providers yets. </h2>";
                                 echo "</div>";
                             }
+                        }
+
+                        if (isset($_POST['ignore'])) {
+                            $id = $_POST['ignoreID'];
+                            $ignore = "DELETE FROM complaints WHERE compID='$id' ";
+                            mysqli_query($petmovetkodb, $ignore);
+                            
+                        }
+
+                        if (isset($_POST['deact'])) {
+                            $id = $_POST['deact'];
+                            mysqli_query($petmovetkodb, $deact);
+                            $deact = "UPDATE service_provider SET spStatus='inactive' WHERE spID='$id' ";
+                            mysqli_query($petmovetkodb, $deact);
+                            echo "<script> window.location.href='complaints.php'; </script>";
                         }
                     ?>
                     
