@@ -94,7 +94,7 @@ if ($_SESSION['loggedin'] == false ) {
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="#">Dashboard</a>
+                            <a href="dashboard.php">Dashboard</a>
                         </li>
                         <li>
                             <a href="spReq.php"> Registration Requests
@@ -136,9 +136,7 @@ if ($_SESSION['loggedin'] == false ) {
                         <li>
                             <a href="reports.php">Complaints</a>
                         </li>
-                       
-                    </ul>
-                    <li>
+                        <li>
                             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                             <input type="submit" name="Logout" value="Logout" class="btn btn-default">
                             </form>
@@ -150,6 +148,7 @@ if ($_SESSION['loggedin'] == false ) {
                                 } 
                             ?>
                         </li>
+                    </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
@@ -228,7 +227,7 @@ if ($_SESSION['loggedin'] == false ) {
                         <div class="tab-pane fade in" id="spInact">
                         <h2> Inactive Service Providers </h2>
                         <?php
-                            $sp="SELECT spID, spUsername, spEmail, spLastLogged  FROM service_provider";
+                            $sp="SELECT spID, spUsername, spEmail, spLastLogged  FROM service_provider WHERE spStatus='active'";
 
                             if ($result=mysqli_query($petmovetkodb, $sp)) {
                                 if(mysqli_num_rows($result) > 0) {
@@ -254,10 +253,9 @@ if ($_SESSION['loggedin'] == false ) {
                                 </thead>
                                 <?php
                                     while ($row=mysqli_fetch_row($result)) {
-                                        $interval = $row[3]->diff('Y-m-d');
-                                        $months = interval->format("Y-m-d");
-                                        $compare = new Date()
-                                        if ($months > )
+                                        /**$interval = $row[3]->diff('Y-m-d');
+                                        $months = $interval->format("Y-m-d");
+                                        $compare = new Date()**/
                                         echo "<tr>";
                                         echo "<td class='text-center'> $row[0] </td>";
                                         echo "<td> $row[1] </td>";
@@ -268,7 +266,7 @@ if ($_SESSION['loggedin'] == false ) {
                                                 <i class='fa fa-envelope'></i></button> </td>";
                                         echo "<td class='text-center'>
                                                 <form action=". htmlspecialchars($_SERVER["PHP_SELF"]) ." method='POST'>
-                                                <input type='submit' name='deact' class='btn btn-danger btn-circle value='$row[0]'> 
+                                                <input type='submit' name='deact' class='btn btn-danger btn-circle' value='$row[0]'> 
                                                 <i class='fa fa-times'></i> </input> </td> </form>";
                                         echo "</tr>";
                                     }
@@ -281,9 +279,9 @@ if ($_SESSION['loggedin'] == false ) {
                                 }
                                 if (isset($_POST['reject'])) {
                                         $id = $_POST['reject'];
-                                        $reject = "DELETE FROM service_provider WHERE spID='$id' ";
+                                        $reject = "UPDATE service_provider SET spStatus='inactive' WHERE spID='$id' ";
                                         $petmovetkodb->query($reject);
-                                        echo "<script> location.reload(); </script>";
+                                        echo "<script> window.location.href='sp.php'; </script>";
                                     }
                                 }
                             ?>
