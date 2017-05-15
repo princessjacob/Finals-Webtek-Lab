@@ -18,7 +18,7 @@ def appointment(request):
     return render(request, 'custModule/appointment.html', {'tran':tran, 'req':req})
 
 def request(request):
-    req = Request.objects.all()
+    req = Request.objects.all()[:1]
     return render(request, 'custModule/request.html',
                  {'req':req})
 
@@ -96,7 +96,7 @@ def complaint(request):
         form = NewComplaintForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/request/')
+            return HttpResponseRedirect('/review/')
     else:
         form = NewComplaintForm()
 
