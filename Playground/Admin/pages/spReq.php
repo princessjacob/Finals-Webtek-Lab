@@ -70,7 +70,6 @@ if ($_SESSION['loggedin'] == false ) {
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#" style="font-family: 'Pacifico', cursive; font-size: 2.5em;"> Pet Mo, Vet Ko! </a>
                 </div>
-            <a href="../index.php" class="btn btn-primary navbar-btn navbar-right" style="margin-right: 2em;"> Go Back to Public Page </a>
             </div>
         </nav>
 
@@ -205,8 +204,8 @@ if ($_SESSION['loggedin'] == false ) {
                                 $petmovetkodb->query($accept);
                                 echo "<script> location.reload(); </script>";
                             }
-                            if (isset($_GET['reject'])) {
-                                $id = $_GET['reject'];
+                            if (isset($_POST['reject'])) {
+                                $id = $_POST['reject'];
                                 $reject = "DELETE FROM service_provider WHERE spID='$id' ";
                                 $petmovetkodb->query($reject);
                                 echo "<script> location.reload(); </script>";

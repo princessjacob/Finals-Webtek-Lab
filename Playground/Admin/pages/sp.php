@@ -77,7 +77,6 @@ if ($_SESSION['loggedin'] == false ) {
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#" style="font-family: 'Pacifico', cursive; font-size: 2.5em;"> Pet Mo, Vet Ko! </a>
                 </div>
-            <a href="../index.php" class="btn btn-primary navbar-btn navbar-right" style="margin-right: 2em;"> Go Back to Public Page </a>
             </div>
         </nav>
 
@@ -94,7 +93,7 @@ if ($_SESSION['loggedin'] == false ) {
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="dashboard.php">Dashboard</a>
+                            <a href="#">Dashboard</a>
                         </li>
                         <li>
                             <a href="spReq.php"> Registration Requests
@@ -136,7 +135,9 @@ if ($_SESSION['loggedin'] == false ) {
                         <li>
                             <a href="complaints.php">Complaints</a>
                         </li>
-                        <li>
+                       
+                    </ul>
+                    <li>
                             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                             <input type="submit" name="Logout" value="Logout" class="btn btn-default">
                             </form>
@@ -148,7 +149,6 @@ if ($_SESSION['loggedin'] == false ) {
                                 } 
                             ?>
                         </li>
-                    </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
@@ -163,7 +163,7 @@ if ($_SESSION['loggedin'] == false ) {
                         <h1 class="page-header">Service Providers</h1>
                     </div>
                     <ul class="nav nav-tabs">
-                        <li class="active"> <a href="#info" data-toggle="tab"> Active Service Providers Info </a> </li>
+                        <li class="active"> <a href="#info" data-toggle="tab"> Service Providers Info </a> </li>
                         <li> <a href="#spInact" data-toggle="tab"> Inactive Service Providers </a> </li>
                     </ul>
                     <div class="tab-content">
@@ -225,15 +225,14 @@ if ($_SESSION['loggedin'] == false ) {
                             ?>
                         </div>
                         <div class="tab-pane fade in" id="spInact">
-                        <h3 class="text-center"> Inactive Service Providers </h3>
+                        <h2> Inactive Service Providers </h2>
                         <?php
-                            $sp="SELECT spID, spUsername, spEmail, spLastLogged  FROM service_provider WHERE spStatus='active'";
-
+                            $sp="SELECT spID, spUsername, spEmail, spLastLogged  FROM service_provider";
 
                             if ($result=mysqli_query($petmovetkodb, $sp)) {
                                 if(mysqli_num_rows($result) > 0) {
                                 ?>
-                                <div class="input-group custom-search-form" style="padding-top: 1em;">
+                                <div class="input-group custom-search-form" style="padding-top: 2em;">
                                 <input type="text" class="form-control" placeholder="Search...">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="button">
@@ -264,7 +263,7 @@ if ($_SESSION['loggedin'] == false ) {
                                                 <i class='fa fa-envelope'></i></button> </td>";
                                         echo "<td class='text-center'>
                                                 <form action=". htmlspecialchars($_SERVER["PHP_SELF"]) ." method='POST'>
-                                                <input type='submit' name='deact' class='btn btn-danger btn-circle' value='$row[0]'> 
+                                                <input type='submit' name='deact' class='btn btn-danger btn-circle value='$row[0]'> 
                                                 <i class='fa fa-times'></i> </input> </td> </form>";
                                         echo "</tr>";
                                     }
@@ -275,15 +274,14 @@ if ($_SESSION['loggedin'] == false ) {
                                     echo "<h3 class='text-center'> There are no Inactive Service Providers yets. </h2>";
                                     echo "</div>";
                                 }
-                                if (isset($_POST['deact'])) {
-                                        $id = $_POST['deact'];
-                                        mysqli_query($petmovetkodb, $deact);
-                                        $deact = "UPDATE service_provider SET spStatus='inactive' WHERE spID='$id' ";
-                                        mysqli_query($petmovetkodb, $deact);
-                                        echo "<script> window.location.href='sp.php'; </script>";
+                                if (isset($_POST['reject'])) {
+                                        $id = $_POST['reject'];
+                                        $reject = "DELETE FROM service_provider WHERE spID='$id' ";
+                                        $petmovetkodb->query($reject);
+                                        echo "<script> location.reload(); </script>";
+                                    }
                                 }
-                            }
-                        ?>
+                            ?>
                         </div>
                         
 <!-- Modal Add -->
