@@ -78,12 +78,12 @@
                     <?php
                     $err = '';
 
-                    if(isset($_POST["login"]) && !empty($_POST["username"]) && !empty($_POST['password'])) {
+                    if(isset($_POST["login"]) && !empty($_POST["username"]) && !empty($_POST["password"])) {
                         $username = $_POST["username"];
                         $password = $_POST["password"];
 
                         $result = mysqli_query($petmovetkodb, "SELECT * FROM customer WHERE custEmail = '$username' AND custPassword = '$password'");
-                        $resultSP = mysqli_query($petmovetkodb, "SELECT * FROM service_provider WHERE spEmail = '$username' AND spPassword = '$password' AND spReqStatus='acc'");
+                        $resultSP = mysqli_query($petmovetkodb, "SELECT * FROM service_provider WHERE spEmail = '$username' AND spPassword = '$password'");
                             
                         if(mysqli_num_rows($result) > 0) {
                             $_SESSION['loggedin'] = true;
@@ -91,10 +91,17 @@
                             header("Location: customers.php");
                         } else if (mysqli_num_rows($resultSP) > 0) {
                             $row = mysqli_fetch_row($resultSP);
+                            $id = $row[0];
                             if($row[15] == "acc") {
-                                $_SESSION['loggedin'] = true;
-                                $_SESSION['username'] = $email;
-                                header("Location: service_provider.php");
+                                $query = "UPDATE service_provider SET spLoggedIn='active' WHERE spID='".$id."'";
+                                if (mysqli_query($petmovetkodb, $query)) {
+                                    $_SESSION['loggedin'] = true;
+                                    $_SESSION['username'] = $row[0];
+                                    echo mysqli_affected_rows($petmovetkodb);
+                                    header("Location: http://localhost:8080/petmovetko/pages/index.jsp");
+                                } else {
+                                    var_dump(mysqli_query($petmovetkodb, $query));
+                                }
                             } else {
                                 header("Location: unaccepted.php");
                                 mysqli_free_result($resultSP);
