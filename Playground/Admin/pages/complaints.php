@@ -36,6 +36,8 @@ if ($_SESSION['loggedin'] == false ) {
 
     <!-- Custom CSS -->
     <link href="../bootstrap/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="../bootstrap/vendor/morrisjs/morris.css" rel="stylesheet">
+    <link href="../bootstrap/dist/css/admin.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
    <link href="../bootstrap/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -68,8 +70,14 @@ if ($_SESSION['loggedin'] == false ) {
 <body>
 
     <div id="wrapper">
+       <nav class="navbar navbar-default navbar-fixed-top hidden-xs hidden-sm">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#" style="font-family: 'Pacifico', cursive; font-size: 2.5em;"> Pet Mo, Vet Ko! </a>
+                </div>
+            </div>
+        </nav>
 
-        
         <nav class="navbar navbar-default navbar-fixed-top hidden-xs hidden-sm">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -84,9 +92,6 @@ if ($_SESSION['loggedin'] == false ) {
             <div class="navbar-header">
                 <a class="navbar-brand" href="dashboard.html">Pet Mo, Vet Ko!</a>
             </div>
-            <!-- /.navbar-header -->
-
-    
 
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
