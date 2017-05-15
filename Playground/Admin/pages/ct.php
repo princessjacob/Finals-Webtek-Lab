@@ -3,8 +3,7 @@ session_start();
 if ($_SESSION['loggedin'] == false ) {
     header('Location: login.php');
 } else if (!$_SESSION['username'] == "admin") {
-    echo "<script> alert('Restricted Access! You are not allowed to visit this site.'); </script>";
-    header('Location: ../index.php');
+    header('Location: restricted.php');
 }
 ?>
 
@@ -122,10 +121,7 @@ if ($_SESSION['loggedin'] == false ) {
                         <li>
                             <a href="reports.php">Complaints</a>
                         </li>
-                       
-                    </ul>
-                    
-                    <li>
+                        <li>
                             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                             <input type="submit" name="Logout" value="Logout" class="btn btn-default">
                             </form>
@@ -137,6 +133,8 @@ if ($_SESSION['loggedin'] == false ) {
                                 } 
                             ?>
                         </li>
+                    </ul>
+                    <br>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
