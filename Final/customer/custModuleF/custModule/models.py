@@ -69,10 +69,11 @@ class AuthUserUserPermissions(models.Model):
 
 
 class Complaints(models.Model):
-    compid = models.AutoField(db_column='compID', primary_key=True)  
-    compmessage = models.CharField(db_column='compMessage', max_length=100)  
-    spid = models.ForeignKey('ServiceProvider', models.DO_NOTHING, db_column='spID')  
-    custid = models.ForeignKey('Customer', models.DO_NOTHING, db_column='custID') 
+    compid = models.AutoField(db_column='compID', primary_key=True)  # Field name made lowercase.
+    compmessage = models.CharField(db_column='compMessage', max_length=100)  # Field name made lowercase.
+    compdate = models.DateTimeField(db_column='compDate')  # Field name made lowercase.
+    spid = models.ForeignKey('ServiceProvider', models.DO_NOTHING, db_column='spID')  # Field name made lowercase.
+    custid = models.ForeignKey('Customer', models.DO_NOTHING, db_column='custID')  # Field name made lowercase.
     complainer = models.CharField(max_length=5)
 
     class Meta:
@@ -81,15 +82,15 @@ class Complaints(models.Model):
 
 
 class Customer(models.Model):
-    custid = models.AutoField(db_column='custID', primary_key=True)  
-    custlastname = models.CharField(db_column='custLastName', max_length=45)  
-    custfirstname = models.CharField(db_column='custFirstName', max_length=45)  
-    custemail = models.CharField(db_column='custEmail', max_length=45)  
-    custpassword = models.CharField(db_column='custPassword', max_length=16)  
-    custadd = models.CharField(db_column='custAdd', max_length=45)  
-    custzip = models.CharField(db_column='custZip', max_length=45)  
-    custnum = models.CharField(db_column='custNum', max_length=45)  
-    custabout = models.CharField(db_column='custAbout', max_length=100, blank=True, null=True) 
+    custid = models.AutoField(db_column='custID', primary_key=True)  # Field name made lowercase.
+    custlastname = models.CharField(db_column='custLastName', max_length=45)  # Field name made lowercase.
+    custfirstname = models.CharField(db_column='custFirstName', max_length=45)  # Field name made lowercase.
+    custemail = models.CharField(db_column='custEmail', max_length=45)  # Field name made lowercase.
+    custpassword = models.CharField(db_column='custPassword', max_length=16)  # Field name made lowercase.
+    custadd = models.CharField(db_column='custAdd', max_length=45)  # Field name made lowercase.
+    custzip = models.CharField(db_column='custZip', max_length=45)  # Field name made lowercase.
+    custnum = models.CharField(db_column='custNum', max_length=45)  # Field name made lowercase.
+    custabout = models.CharField(db_column='custAbout', max_length=100, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -97,7 +98,6 @@ class Customer(models.Model):
         
     def __str__(self):
         return '%s %s' % (self.custfirstname, self.custlastname)
-
 
 class DjangoAdminLog(models.Model):
     action_time = models.DateTimeField()
@@ -158,21 +158,9 @@ class Request(models.Model):
     class Meta:
         managed = False
         db_table = 'request'
-        
-    def __iter__(self):
-        return [
-            self.spid,
-            self.rtimestart,
-            self.rtimeend,
-            self.pettype,
-            self.petbreed,
-            self.rdate,
-            self.reqid
-        ]
-
 
 class Reviewrating(models.Model):
-    rr_id = models.AutoField(db_column='rr_ID', primary_key=True)
+    rr_id = models.IntegerField(db_column='rr_ID')  # Field name made lowercase.
     revmessage = models.CharField(max_length=10000)
     rating = models.IntegerField()
     spid = models.ForeignKey('ServiceProvider', models.DO_NOTHING, db_column='spid')
@@ -182,35 +170,25 @@ class Reviewrating(models.Model):
     class Meta:
         managed = False
         db_table = 'reviewrating'
-        
-    def __iter__(self):
-        return [
-            self.rr_id,
-            self.revmessage,
-            self.rating,
-            self.spid,
-            self.custid,
-            self.reviewer
-        ]
 
 
 class ServiceProvider(models.Model):
-    spid = models.AutoField(db_column='spID', primary_key=True)  
-    spusername = models.CharField(db_column='spUsername', max_length=45)  
-    splastname = models.CharField(db_column='spLastName', max_length=45)  
-    spfirstname = models.CharField(db_column='spFirstName', max_length=45)  
-    spemail = models.CharField(db_column='spEmail', max_length=45)  
-    sppassword = models.CharField(db_column='spPassword', max_length=16)  
-    spadd = models.CharField(db_column='spAdd', max_length=45)  
-    spnum = models.CharField(db_column='spNum', max_length=45)  
-    sppet = models.CharField(db_column='spPet', max_length=4)  
-    spzip = models.IntegerField(db_column='spZip')  
-    splastlogged = models.DateField(db_column='spLastLogged', blank=True, null=True)  
-    spstatus = models.CharField(db_column='spStatus', max_length=10)  
-    spservices = models.CharField(db_column='spServices', max_length=45)  
-    spday = models.CharField(db_column='spDay', max_length=10, blank=True, null=True) 
-    sptime = models.CharField(db_column='spTime', max_length=45, blank=True, null=True)  
-    spreqstatus = models.CharField(db_column='spReqStatus', max_length=5)  
+    spid = models.AutoField(db_column='spID', primary_key=True)  # Field name made lowercase.
+    spusername = models.CharField(db_column='spUsername', max_length=45)  # Field name made lowercase.
+    splastname = models.CharField(db_column='spLastName', max_length=45)  # Field name made lowercase.
+    spfirstname = models.CharField(db_column='spFirstName', max_length=45)  # Field name made lowercase.
+    spemail = models.CharField(db_column='spEmail', max_length=45)  # Field name made lowercase.
+    sppassword = models.CharField(db_column='spPassword', max_length=16)  # Field name made lowercase.
+    spadd = models.CharField(db_column='spAdd', max_length=45)  # Field name made lowercase.
+    spnum = models.CharField(db_column='spNum', max_length=45)  # Field name made lowercase.
+    sppet = models.CharField(db_column='spPet', max_length=4)  # Field name made lowercase.
+    spzip = models.IntegerField(db_column='spZip')  # Field name made lowercase.
+    splastlogged = models.DateField(db_column='spLastLogged', blank=True, null=True)  # Field name made lowercase.
+    spstatus = models.CharField(db_column='spStatus', max_length=10)  # Field name made lowercase.
+    spservices = models.CharField(db_column='spServices', max_length=45)  # Field name made lowercase.
+    spday = models.CharField(db_column='spDay', max_length=10, blank=True, null=True)  # Field name made lowercase.
+    sptime = models.CharField(db_column='spTime', max_length=45, blank=True, null=True)  # Field name made lowercase.
+    spreqstatus = models.CharField(db_column='spReqStatus', max_length=5)  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -218,6 +196,7 @@ class ServiceProvider(models.Model):
         
     def __str__(self):
         return '%s %s' % (self.spfirstname, self.splastname)
+
 
 class Services(models.Model):
     servid = models.AutoField(db_column='servID', primary_key=True)  # Field name made lowercase.
@@ -243,27 +222,15 @@ class Ssp(models.Model):
 
 
 class Transaction(models.Model):
-    transid = models.IntegerField(db_column='transID', primary_key=True)
+    trans_id = models.IntegerField(db_column='trans_ID')  # Field name made lowercase.
     transstatus = models.CharField(db_column='transStatus', max_length=8)  # Field name made lowercase.
     transdate = models.DateField(db_column='transDate')  # Field name made lowercase.
     timein = models.TimeField(db_column='timeIn')  # Field name made lowercase.
     timeout = models.TimeField(db_column='timeOut')  # Field name made lowercase.
     payment = models.IntegerField()
     paystatus = models.CharField(db_column='payStatus', max_length=12)  # Field name made lowercase.
-    reqid = models.ForeignKey(Request, models.DO_NOTHING, db_column='reqID') 
+    reqid = models.ForeignKey(Request, models.DO_NOTHING, db_column='reqID')  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'transaction'
-        
-    def __iter__(self): 
-        return [
-            self.transid,
-            self.transstatus,
-            self.transdate,
-            self.timein,
-            self.timeout,
-            self.payment,
-            self.paystatus,
-            self.reqid
-        ]
