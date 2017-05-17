@@ -56,7 +56,7 @@
 
 <?php
 
-  $petmovetkodb = new mysqli("localhost", "root", "", "petmovetko");
+  $petmovetkodb = new mysqli("192.168.1.2", "petmovetko", "petmovetko1234", "petmovetko");
       // Check connection
   if ($petmovetkodb->connect_error) {
     die("Connection failed: " . $petmovetkodb->connect_error);
@@ -88,7 +88,7 @@
                         if(mysqli_num_rows($result) > 0) {
                             $_SESSION['loggedin'] = true;
                             $_SESSION['username'] = $email;
-                            header("Location: customers.php");
+                            header("Location: http://localhost:8000");
                         } else if (mysqli_num_rows($resultSP) > 0) {
                             $row = mysqli_fetch_row($resultSP);
                             $id = $row[0];
