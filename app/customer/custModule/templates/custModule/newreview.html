@@ -1,0 +1,62 @@
+{% extends "custModule/header.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <form action="/newreview/" method="post">
+                {% csrf_token %}
+            <a href="/review/" class="btn btn-default" role="button">REVIEWS</a>
+            <h2 class="page-header">New Review</h2>
+            <div class="panel panel-info" >
+            <div class="panel-body ">
+                <div class="panel panel-info" >
+                    <div class="panel-heading ">
+                             
+                    </div>
+                    <div class="panel-body">
+                         <label for="sel1">SELECT Service Provider:</label>
+                         <p>{{ form.spid }}</p>
+                        <label for="sel1">SELECT Customer:</label>
+                         <p>{{ form.custid }}</p>
+                    </div>
+                </div>
+                    <div class="form-group ">
+                    <form class="form-inline">
+                        <div class="panel panel-info" >
+                            <div class="panel-heading ">
+                                  <label class="mr-sm-2" for="inlineFormCustomSelect">RATING:</label>
+                               
+                            </div>
+                            <div class="panel-body">
+                                   <p>Please select from 1 to 10:</p>
+                                   <p>{{ form.rating }}</p>
+                            </div>
+                        </div>
+                        </form>
+
+                </div>
+
+                <div class="form-group">
+                    <div class="panel panel-info" >
+                        <div class="panel-heading ">
+                          <label for="Reviews">REVIEW:</label>
+                        </div>
+                        <div class="panel-body ">
+                           <p>{{ form.revmessage }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                          <!-- Confirmation Modals : Are you sure? Needed her -->
+                    <div class="col-lg-12 text-center">
+                        <input type="submit" value="Save Changes" role="button" class="btn btn-info">
+                        <a href="review.html" data-toggle="modal" data-target="#myModalsure">
+                            <button type="button" class="btn btn-info">Cancel</button></a>
+                    </div>
+                </div>
+                  
+                </div>
+            </form>
+        </div>
+</div>
+
+{% endblock %}

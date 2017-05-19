@@ -1,0 +1,173 @@
+{% block content %}
+    {% load staticfiles %}
+<!-- Modal -->
+  <div class="modal fade" id="myModaleditrequest" role="dialog">
+    <div class="modal-dialog vertical-center">
+    
+      <!-- Modal content-->
+      <div class="modal-content pagination-centered">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title text-center">Edit Request</h4>
+        </div>
+          <div class="modal-body">
+                 <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="panel panel-info">
+                <div class="panel-heading">WHAT KIND OF PET DO YOU HAVE?</div>
+                <div class="panel-body">
+                    <div class="row">
+                    <div class="col-xs-12">
+                        <form>
+                            <div class="form-group row">
+                              <label for="sched" class="col-xs-12 col-form-label">Please identify your pet's type:</label>
+                                <div class="col-xs-4">
+                                  <select class="form-control" id="sched">
+                                    <option value="" selected hidden>Type</option>
+                                    {% for petlist in data %}
+                                        <option>{{ petlist.type }}</option>
+                                    {% endfor %}
+                                  </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <form>
+                        <div class="form-group row">
+                          <label for="sched" class="col-xs-12 col-form-label">Please identify your pet's breed:</label>
+                            <div class="col-xs-4">
+                              <select class="form-control" id="sched">
+                                <option value="" selected hidden>Breed</option>
+                                {% for petlist in data %}
+                                    <option>{{ petlist.breed }}</option>
+                                {% endfor %}
+                              </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">PLEASE CHOOSE A SERVICE.</div>
+                <div class="panel-body">
+                    <div class="row">
+                    <div class="col-xs-3 text-center">
+                       <img src="{% static 'img/service1.jpg' %}" class="img-responsive" width="100px" height="100px">
+                    </div>
+                    <div class="col-xs-3 text-center">
+                       <img src="{% static 'img/service3.png' %}" class="img-responsive" width="100px" height="100px">
+                    </div>
+                    <div class="col-xs-3 text-center">
+                       <img src="{% static 'img/service1.png' %}" class="img-responsive" width="100px" height="100px">
+                    </div>
+                    <div class="col-xs-3 text-center">
+                       <img src="{% static 'img/service2.png' %}" class="img-responsive" width="100px" height="100px">
+                    </div>
+                    <div class="col-xs-12">
+                        <form>
+                            <div class="form-group row">
+                            <hr>
+                              <label for="sched" class="col-xs-4 col-form-label">Please select your service:</label>
+                                <div class="col-xs-8">
+                                  <select class="form-control" id="sched">
+                                    <option value="" selected hidden>Services</option>
+                                    {% for service in serv %}
+                                        <option>{{ service.servname }}</option>
+                                    {% endfor %}
+                                  </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">HELP US FIND SPs NEAR YOU:</div>
+                <div class="panel-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="zipcode">Enter Address Zipcode: </label>
+                            <input type="text" class="form-control" id="zipcode">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">SPs NEAR YOU</div>
+                <div class="panel-body">
+                    <div class="row">
+                    <div class="col-xs-12 text-center">
+                       <img src="http://placehold.it/100x100" class="img-responsive" width="100px" height="100px">
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#viewprof">VIEW PROFILE</button>{% include "custModule/includes/modalSp.html" %}
+                        </div>
+                    <hr>
+                    <div class="col-xs-4">Choose your Service Provider: </div>
+                    <div class="col-xs-8">
+                        <select class="form-control" id="sched">
+                            <option value="" selected hidden>Service Providers</option>
+                            {% for sp in sp_data %}
+                                <option>{{ sp.spfirstname }} {{ sp.splastname }}</option>
+                            {% endfor %}
+                          </select>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">PICK DATE AND SP AVAILABILITY</div>
+                    <div class="panel-body">
+                        <div class="form-group row">
+                          <label for="date-input" class="col-xs-12 col-form-label">Date</label>
+                          <div class="col-xs-4">
+                            <input class="form-control" type="date" id="date-input">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="sched" class="col-xs-12 col-form-label">Select schedule availability:</label>
+                            <div class="col-xs-4">
+                              <select class="form-control" id="sched">
+                                <option value="" selected hidden>Select Day</option>
+                                {% for sp in sp_data %}
+                                  <option>{{ sp.spday }}</option>
+                                {% endfor %}
+                              </select>
+                            </div>
+                            <div class="col-xs-4">
+                              <select class="form-control" id="sched">
+                                <option value="" selected hidden>Select Time Availability</option>
+                                {% for sp in sp_data %}
+                                  <option>{{ sp.sptime }}</option>
+                                {% endfor %}
+                              </select>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            
+             <div class="col-lg-12">
+                <button type="button" id="submit" class="btn btn-default pull-right" data-toggle="modal" data-target="#myModalnewrequest">SUBMIT</button>
+                {% include "custModule/includes/modalnewrequest.html" %}
+            </div>
+        </div>     
+        </div>
+    </div>
+</div>
+          
+          </div>
+        <div class="modal-footer text-center">
+          <button type="button" class="btn btn-primary " data-dismiss="modal">Save Changes</button>
+            <button type="button" class="btn btn-primary " data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+{% endblock %} 

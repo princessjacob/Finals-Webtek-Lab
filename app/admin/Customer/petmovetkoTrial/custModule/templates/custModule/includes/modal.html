@@ -1,0 +1,52 @@
+{% block content %}
+<!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">SCHEDULE</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group row">
+              <label for="date-input" class="col-xs-12 col-form-label">Date</label>
+              <div class="col-xs-4">
+                <input class="form-control" type="date" id="date-input">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="sched" class="col-xs-12 col-form-label">Select schedule availability:</label>
+                <div class="col-xs-4">
+                  <select class="form-control" id="sched">
+                    <option value="" selected hidden>Select Day</option>
+                    <option>DAY</option>
+                    <option>DAY</option>
+                    <option>DAY</option>
+                    <option>DAY</option>
+                  </select>
+                </div>
+                <div class="col-xs-4">
+                  <select class="form-control" id="sched">
+                    <option value="" selected hidden>Select Time Availability</option>
+                    <option>TIME</option>
+                    <option>TIME</option>
+                    <option>TIME</option>
+                    <option>TIME</option>
+                  </select>
+                </div>
+                <div class="col-xs-12">
+                  <label for="about"><h4>REASON</h4></label>
+                  <textarea class="form-control" rows="5" id="comment"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalreview">CHANGE</button>{% include "custModule/includes/modalreview.html" %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+{% endblock %}

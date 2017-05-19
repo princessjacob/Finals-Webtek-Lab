@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>Forms!!!!</title>
+    </head>
+
+    <body>
+        <p>Welcome to Form Trial</p>
+
+        <p>Insert Data -- New Profile</p>
+        <form action="/" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit" />
+        </form>
+        <a href="/edit/">Edit Profile</a>
+    </body>
+</html>
